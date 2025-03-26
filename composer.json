@@ -1,0 +1,14 @@
+{
+    "name": "icb/ips-online",
+    "description": "ICB Point System for Twitch",
+    "type": "project",
+    "require": {
+        "monolog/monolog": "^3.8",
+        "php-di/php-di": "^7.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "IPS\\": "src/"
+        }
+    }
+}

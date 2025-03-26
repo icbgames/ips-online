@@ -1,0 +1,19 @@
+<?php
+
+/**
+ *
+ */
+return [
+    'twitch' => [
+        'api' => [
+            'oauth2token' => 'https://id.twitch.tv/oauth2/token',
+            'users' => 'https://api.twitch.tv/helix/users',
+        ],
+        'irc' => [
+            'host' => 'irc.chat.twitch.tv',
+            'port' => 6667,
+            'nick' => 'icb_games',
+            'timeout' => 60,
+        ],
+    ],
+];
