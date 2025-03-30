@@ -60,12 +60,12 @@ class Twitch
     
     public function sendChat($channel, $message)
     {
-        if($this->accessToken->isExpired()) {
-            $this->accessToken->refresh();
+        $token = Oauth\Factory::create();
+        if($token->isExpired()) {
+            $this->accessToken->refresh($token);
         }
-        
-        $oauthToken = $this->accessToken->get();
-        
+        $accessToken = $token->getAccess();
+
         // Twitch IRCサーバー情報
         $server = Config::get('twitch', 'irc', 'host');
         $port = Config::get('twitch', 'irc', 'port');
@@ -81,7 +81,7 @@ class Twitch
         }
         
         // IRCサーバーにログイン
-        fwrite($socket, "PASS oauth:{$oauthToken}\r\n");
+        fwrite($socket, "PASS oauth:{$accessToken}\r\n");
         fwrite($socket, "NICK {$nickname}\r\n");
         fwrite($socket, "JOIN {$channel}\r\n");
 

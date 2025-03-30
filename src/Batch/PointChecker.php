@@ -52,7 +52,7 @@ class PointChecker
         $unit = $settings['unit'] ?? 'point';
         $rank = $result['rank'];
 
-        $message = "{$userName}さんの{$pointName}: {$point} {$unit} (#{$rank})";
+        $message = "!{$userName}さんの{$pointName}: {$point} {$unit} (#{$rank})";
         Log::debug(">>> " . $message);
         $this->twitch->sendChat($channel, $message);
 

@@ -24,7 +24,7 @@ class PointUpdater
 
     public function execute()
     {
-        $targetList = [ 'mayuko7s', 'kirukiru_21' ];
+        $targetList = [ 'mayuko7s', 'kirukiru_21', 'mira_kiryu' ];
         $add = 10;
 
         foreach($targetList as $target) {

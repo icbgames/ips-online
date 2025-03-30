@@ -14,8 +14,9 @@ $container = $containerBuilder->build();
 $chat = $container->get('ipsBatchChatMonitor');
 
 
-$target = 'kirukiru_21';
 $target = 'mayuko7s';
+$target = 'kirukiru_21';
+$target = 'mira_kiryu';
 $chat->setChannel($target);
 $chat->execute();
 
