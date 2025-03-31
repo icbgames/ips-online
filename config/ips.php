@@ -16,4 +16,7 @@ return [
             'timeout' => 60,
         ],
     ],
+    'ips' => [
+        'url' => 'https://ips-online.link/',
+    ],
 ];

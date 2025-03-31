@@ -16,7 +16,8 @@ class Settings
     public function get($channel)
     {
         $query = "select "
-               . "  channel, period, addition, command, name, unit "
+               . "  channel, period, addition, command, name, unit, "
+               . "  refresh_token, access_token, access_token_expire "
                . "from "
                . "  SETTINGS "
                . "where "

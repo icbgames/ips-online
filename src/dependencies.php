@@ -3,6 +3,7 @@
 use function DI\factory;
 use IPS\Batch as Batch;
 use IPS\Model as Model;
+use IPS\Controller as Controller;
 
 return [
     'ipsBatchChatMonitor' => DI\factory(function(DI\Container $c) {
@@ -51,5 +52,12 @@ return [
         return new Model\User(
             $c->get('ipsModelTwitch')
         );
+    }),
+    // for Web
+    'www/top' => DI\factory(function(DI\Container $c) {
+        return new Controller\Top();
+    }),
+    'www/error' => DI\factory(function(DI\Container $c) {
+        return new Controller\Error();
     }),
 ];

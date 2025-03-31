@@ -58,6 +58,12 @@ class Twitch
         return $response->data[0];
     }
     
+    /**
+     * 対象のチャンネルにメッセージを送信する
+     *
+     * @param string $channel 送信するチャンネル
+     * @param string $message 送信するチャットメッセージ
+     */
     public function sendChat($channel, $message)
     {
         $token = Oauth\Factory::create();
@@ -89,5 +95,38 @@ class Twitch
         fwrite($socket, "PRIVMSG {$channel} :{$message}\r\n");
         
         fclose($socket);
+    }
+
+    /**
+     * アクセスコードから所有者のloginを特定し、エンティティにセットのうえ返す
+     *
+     * @param Oauth\Token $token
+     * @param string
+     */
+    public function specifyLogin(Oauth\Token $token)
+    {
+        $accessToken = $token->getAccess();
+        $clientId = Config::get('client_id');
+        
+        $url = Config::get('twitch', 'api', 'users');
+
+        $headers = [
+            "Authorization: Bearer {$accessToken}",
+            "Client-ID: {$clientId}",
+        ];
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+        $response = curl_exec($ch);
+        curl_close($ch);
+
+        $data = json_decode($response, true);
+        $login = isset($data['data'][0]['login']) ? $data['data'][0]['login'] : null;
+
+        $token->setLogin($login);
+        return $login;
     }
 }
