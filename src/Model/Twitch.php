@@ -122,6 +122,7 @@ class Twitch
 
         $response = curl_exec($ch);
         curl_close($ch);
+        Log::debug($response);
 
         $data = json_decode($response, true);
         $login = isset($data['data'][0]['login']) ? $data['data'][0]['login'] : null;
