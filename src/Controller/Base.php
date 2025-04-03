@@ -65,7 +65,9 @@ abstract class Base
     public function render()
     {
         echo '<!DOCTYPE><html><head><title>IPS Online</title></head><body>';
-        echo '<h1>Welcom to IPS Online.</h1><hr>';
+        echo '<h1>Welcom to IPS Online.</h1>';
+        echo '<a href="https://id.twitch.tv/oauth2/authorize?client_id=htukebwn7imooessy0j06vhjqyfc2v&redirect_uri=https://ips-online.link/&response_type=code&scope=channel:read:subscriptions chat:read chat:edit channel:read:redemptions&state=ips-online">利用登録はこちらから</a>';
+        echo '<hr>';
         echo '<pre>';
         var_dump($this->assignVars);
         echo '</pre><hr></body></html>';
