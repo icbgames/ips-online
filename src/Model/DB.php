@@ -2,6 +2,8 @@
 
 namespace IPS\Model;
 
+use IPS\Model\Log as Log;
+
 class DB
 {
     protected static $instance = null;
@@ -25,8 +27,14 @@ class DB
     
     public function execute($query, $params = [])
     {
-        $this->stmt = $this->pdo->prepare($query);
-        $this->stmt->execute($params);
+        try {
+            $this->stmt = $this->pdo->prepare($query);
+            $this->stmt->execute($params);
+        } catch(\Exception $e) {
+            Log::warn($e->getMessage());
+            Log::debug($query);
+            Log::debug(var_export($params,true));
+        }
     }
 
     public function fetch()
