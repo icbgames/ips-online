@@ -42,6 +42,10 @@ class Top extends Base
 
             // 取得したアクセストークンとリフレッシュトークンをDBに保存
             $this->accessToken->saveTokens($token);
+
+            $this->assign('twitch', 'login', $token->getLogin());
+            $this->assign('twitch', 'access_token', $token->getAccess());
+            $this->assign('twitch', 'refresh_token', $token->getRefresh());
         }
 
     }

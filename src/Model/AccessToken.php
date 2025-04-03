@@ -130,7 +130,6 @@ class AccessToken
             ':access_token' => $accessToken,
             ':access_token_expire' => $expire,
         ];
-        Log::debug(var_export($params,true));
 
         $db = DB::instance();
         $db->execute($query, $params);
