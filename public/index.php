@@ -17,7 +17,8 @@ if(is_file(__DIR__ . '/../src/dependencies.php')) {
 }
 
 $requestUri = $_SERVER['REQUEST_URI'];
-$requestUri = trim(trim($requestUri), '/');
+$parts = explode('?', $requestUri);
+$requestUri = trim(trim($parts[0]), '/');
 
 $uriParts = explode('/', $requestUri);
 $controller = '';

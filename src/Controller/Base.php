@@ -10,7 +10,9 @@ namespace IPS\Controller;
 abstract class Base
 {
     protected $status = 200;
+    protected $assignVars = [];
     protected $template = null;
+
 
     /**
      * 指定されたリクエストパラメータを返す
@@ -29,11 +31,43 @@ abstract class Base
         return null;
     }
 
-    protected function action()
+    /**
+     * 画面テンプレートへ埋め込む変数の値をセットする
+     *
+     * 引数が2つの場合は1次元目に第2引数の値を
+     * 3つの場合は2次元目に第3引数の値を格納する
+     *
+     * @param string $key1 1次元目のキー
+     * @param string $key2 2次元目のキー、または格納する値
+     * @param string $var 格納する値
+     */
+    protected function assign($key1, $key2, $var = null)
+    {
+        if(is_null($var)) {
+            $this->assignVars[$key1] = $key2;
+        } else {
+            $this->assignVars[$key1][$key2] = $var;
+        }
+    }
+
+    protected function assignErrors($error)
+    {
+        if(!isset($this->assignVars['errors'])) {
+            $this->assignVars['errors'] = [];
+        }
+        $this->assignVars['errors'][] = $error;
+    }
+
+    public function action()
     {
     }
 
-    protected function render()
+    public function render()
     {
+        echo '<!DOCTYPE><html><head><title>IPS Online</title></head><body>';
+        echo '<h1>Welcom to IPS Online.</h1><hr>';
+        echo '<pre>';
+        var_dump($this->assignVars);
+        echo '</pre><hr></body></html>';
     }
 }

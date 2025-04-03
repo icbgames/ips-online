@@ -55,7 +55,10 @@ return [
     }),
     // for Web
     'www/top' => DI\factory(function(DI\Container $c) {
-        return new Controller\Top();
+        return new Controller\Top(
+            $c->get('ipsModelAccessToken'),
+            $c->get('ipsModelTwitch')
+        );
     }),
     'www/error' => DI\factory(function(DI\Container $c) {
         return new Controller\Error();

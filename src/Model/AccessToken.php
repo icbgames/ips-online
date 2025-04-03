@@ -72,7 +72,7 @@ class AccessToken
             'client_secret' => $clientSecret,
             'code'          => $code,
             'grant_type'    => 'authorization_code',
-            'redirect_uri'  => $redirectUri,
+            'redirect_uri'  => $redirectUrl,
         ];
 
         $ch = curl_init();
@@ -87,7 +87,7 @@ class AccessToken
         $data = json_decode($response, true);
 
         $accessToken = isset($data['access_token']) ? $data['access_token'] : null;
-        $refreshToekn = isset($data['refresh_token']) ? $data['refresh_token'] : null;
+        $refreshToken = isset($data['refresh_token']) ? $data['refresh_token'] : null;
 
         $token = Oauth\Factory::create($accessToken, $refreshToken);
         return $token;
