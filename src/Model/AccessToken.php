@@ -83,6 +83,7 @@ class AccessToken
 
         $response = curl_exec($ch);
         curl_close($ch);
+        Log::debug($response);
 
         $data = json_decode($response, true);
 
