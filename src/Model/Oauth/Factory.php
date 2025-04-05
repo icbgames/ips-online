@@ -6,7 +6,7 @@ use IPS\Model\Config as Config;
 
 class Factory
 {
-    public static function create($access = null, $refresh = null)
+    public static function create($access = null, $refresh = null, $expire = null)
     {
         $token = new Token();
 
@@ -18,6 +18,10 @@ class Factory
             $token->setRefresh($refresh);
         } else {
             $token->setRefresh(Config::get('refresh_token'));
+        }
+
+        if(!is_null($expire)) {
+            $token->setExpire($expire);
         }
 
         return $token;

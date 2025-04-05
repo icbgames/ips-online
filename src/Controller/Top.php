@@ -46,7 +46,12 @@ class Top extends Base
             $this->assign('twitch', 'login', $token->getLogin());
             $this->assign('twitch', 'access_token', $token->getAccess());
             $this->assign('twitch', 'refresh_token', $token->getRefresh());
+            $this->assign('twitch', 'expire', $token->getExpire());
+
         }
+
+        $this->assign('page_name', 'IPS Online Top Page');
+        $this->template = 'top.twig';
 
     }
 }

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="description" content="ICB Point System Online for Twitch">
+<meta name="author" content="ICB">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>IPS Online -ICB Point System Online for Twitch-</title>
+<link href="/css/ips.css" rel="stylesheet">
+{% block head %}
+{% endblock %}
+</head>
+<body>
+<div class="ips__content">
+  <div class="ips__content-header">
+    <h1>{{ page_name }}</h1>
+  </div>
+  <div class="ips__content-body">
+    <div class="ips__side">
+      <ul class="ips__menu">
+        <li class="ips__menu-item"><a href="/">トップページ</a></li>
+        <li class="ips__menu-item"><a href="/setting">設定</a></li>
+      </ul>
+      <p>
+      問い合わせはDiscordかTwitterまで
+      </p>
+    </div>
+    <div class="ips__main">
+{% if errors is not empty %}
+<ul class="ips__error">
+{% for err in errors %}
+<li class="ips__error-message">{{ err }}</li>
+{% endfor %}
+</ul>
+{% endif %}
+      <div class="ips__main-inner">
+{% block inner %}{% endblock %}
+      </div>
+    </div>
+  </div>
+  <div class="ips__content-footer">
+    <div class="ips__copyright-wrapper">
+      <p class="ips__copyright">&copy; 2025 ICB</p>
+    </div>
+  </div>
+</div>
+</body>
+</html>

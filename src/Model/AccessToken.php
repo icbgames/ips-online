@@ -90,7 +90,15 @@ class AccessToken
         $accessToken = isset($data['access_token']) ? $data['access_token'] : null;
         $refreshToken = isset($data['refresh_token']) ? $data['refresh_token'] : null;
 
-        $token = Oauth\Factory::create($accessToken, $refreshToken);
+        $expiresIn = isset($data['expires_in']) ? $data['expires_in'] : null;
+        if(is_null($expiresIn)) {
+            $expire = null;
+        } else {
+            // 1分前を設定
+            $expire = time() + (int)$expiresIn - 60;
+        }
+
+        $token = Oauth\Factory::create($accessToken, $refreshToken, $expire);
         return $token;
     }
 
