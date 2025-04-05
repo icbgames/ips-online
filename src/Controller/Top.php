@@ -18,6 +18,7 @@ class Top extends Base
 
     public function action()
     {
+        $this->template = 'top.twig';
         $code = $this->param('code');
 
         // codeがある = Twitchの同意を踏んで飛んできた場合
@@ -53,7 +54,6 @@ class Top extends Base
         }
 
         $this->assign('page_name', 'IPS Online Top Page');
-        $this->template = 'top.twig';
 
     }
 }
