@@ -142,4 +142,43 @@ class AccessToken
         $db = DB::instance();
         $db->execute($query, $params);
     }
+
+    /**
+     * 受け取ったOauthトークンを元にシグネチャを生成して返す
+     *
+     * @param Oauth\Token $token
+     * @return string signature
+     */
+    public function sign(Oauth\Token $token)
+    {
+        $login = $token->getLogin();
+        $refreshToken = $token->getRefresh();
+        $accessToken = $token->getAccess();
+        $expire = $token->getExpire();
+
+        if(is_null($login) || is_null($refreshToken) || is_null($accessToken) || is_null($expire)) {
+            return false;
+        }
+
+        $origin = "{$login}--{$refreshToken}--{$accessToken}--{$expire}";
+        $signature = password_hash($origin, PASSWORD_ARGON2I);
+        return $signature;
+    }
+
+    /**
+     * 受け取ったシグネチャが正しいかどうかチェックし、結果を返す
+     *
+     * @param string $signature
+     * @param string $accessToken
+     * @param string $refreshToken
+     * @param string $login
+     * @param int $expire
+     * @return bool
+     */
+    public function verifySign($signature, $accessToken, $refreshToken, $login, $expire)
+    {
+        $origin = "{$login}--{$refreshToken}--{$accessToken}--{$expire}";
+        $result = password_verify($origin, $signature);
+        return $result;
+    }
 }

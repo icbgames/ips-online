@@ -48,6 +48,8 @@ class Top extends Base
             $this->assign('twitch', 'refresh_token', $token->getRefresh());
             $this->assign('twitch', 'expire', $token->getExpire());
 
+            $signature = $this->accessToken->sign($token);
+            $this->assign('twitch', 'signature', $signature);
         }
 
         $this->assign('page_name', 'IPS Online Top Page');
