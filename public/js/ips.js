@@ -1,21 +1,21 @@
 window.IPS = window.IPS || {};
 
 (function(ips){
-  if(!accessToken || !refreshToken || !login || !expire || !signature) {
+  if(!authResult.accessToken || !authResult.refreshToken || !authResult.login || !authResult.expire || !authResult.signature) {
     return;
   }
-  console.log('Access Token: ' + accessToken);
-  console.log('Refresh Token: ' + refreshToken);
-  console.log('login: ' + login);
-  consolo.log('expire: ' + expire);
-  console.log('signature: ' + signature);
+  console.log('Access Token: ' + authResult.accessToken);
+  console.log('Refresh Token: ' + authResult.refreshToken);
+  console.log('login: ' + authResult.login);
+  consolo.log('expire: ' + authResult.expire);
+  console.log('signature: ' + authResult.signature);
 
   var data = {
-    a: accessToken,
-    r: refreshToken,
-    l: login,
-    e: expire,
-    s: signature
+    a: authResult.accessToken,
+    r: authResult.refreshToken,
+    l: authResult.login,
+    e: authResult.expire,
+    s: authResult.signature
   };
   console.log(data);
 
