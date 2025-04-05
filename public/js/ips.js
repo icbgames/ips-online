@@ -7,7 +7,7 @@ window.IPS = window.IPS || {};
   console.log('Access Token: ' + authResult.accessToken);
   console.log('Refresh Token: ' + authResult.refreshToken);
   console.log('login: ' + authResult.login);
-  consolo.log('expire: ' + authResult.expire);
+  console.log('expire: ' + authResult.expire);
   console.log('signature: ' + authResult.signature);
 
   var data = {
