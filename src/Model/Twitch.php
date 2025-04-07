@@ -121,7 +121,7 @@ class Twitch
      */
     public function sendChat($channel, $message)
     {
-        $token = Oauth\Factory::create();
+        $token = $this->accessToken->getUserToken('ips_online');
         if($token->isExpired()) {
             $this->accessToken->refresh($token);
         }
