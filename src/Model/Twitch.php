@@ -2,6 +2,10 @@
 
 namespace IPS\Model;
 
+/**
+ * Twitch関連情報をTwitch APIを通じて操作するクラス
+ *
+ */
 class Twitch
 {
     protected $accessToken;
@@ -57,7 +61,58 @@ class Twitch
         
         return $response->data[0];
     }
-    
+
+    /**
+     * 指定したユーザーのサブスク状況を返す
+     *
+     * @param string $login
+     * @param string $channel
+     * @return array
+     */
+    public function getSubscriptionInfo($login, $channel)
+    {
+        // channnelからチャンネルIDを取得する
+        $user = new User($this);
+        $userInfo = $user->getUserInfo($channel);
+        $channelId = $userInfo['user_id'];
+
+        // loginからユーザーIDを取得する
+        $loginUserInfo = $user->getUserInfo($login);
+        $userId = $loginUserInfo['user_id'];
+
+        // TwitchのクライアントIDとOAuthトークンを設定
+        $clientId = Config::get('client_id');
+        $token = $this->accessToken->getUserToken($channel);
+        $accessToken = $token->getAccess();
+
+        // ヘッダー設定
+        $headers = [
+            "Client-ID: {$clientId}",
+            "Authorization: Bearer {$accessToken}",
+        ];
+
+        // サブスクライバー情報を取得するためのAPIエンドポイント
+        $url = Config::get('twitch', 'api', 'subscriptions');
+        $url = "{$url}?broadcaster_id={$channelId}&user_id={$userId}";
+
+        // cURLを使用してAPIリクエスト
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        $response = curl_exec($ch);
+        curl_close($ch);
+
+        // レスポンスをデコード
+        $data = json_decode($response, true);
+
+        // サブスクライバーかどうかを判定
+        if (isset($data['data']) && count($data['data']) > 0) {
+            return $data['data'][0];
+        }
+        return null;
+    }
+
     /**
      * 対象のチャンネルにメッセージを送信する
      *

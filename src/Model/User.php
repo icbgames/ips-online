@@ -153,5 +153,28 @@ class User
         $db = DB::instance();
         $db->execute($query, $params);
     }
+
+    /**
+     *
+     *
+     */
+    public function updateSubscriptionTier($channel, $login, $tier)
+    {
+        $query = "update LATEST_CHAT_TIME "
+               . "set "
+               . "  tier = :tier "
+               . "where "
+               . "  target = :channel and "
+               . "  login = :login ";
+
+        $params = [
+            ':tier' => $tier,
+            ':channel' => $channel,
+            ':login' => $login,
+        ];
+
+        $db = DB::instance();
+        $db->execute($query, $params);
+    }
 }
 

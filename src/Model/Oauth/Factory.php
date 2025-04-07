@@ -6,6 +6,14 @@ use IPS\Model\Config as Config;
 
 class Factory
 {
+    /**
+     * トークンエンティティを生成して返す
+     *
+     * @param string $access Access Token
+     * @param string $refresh Refresh Token
+     * @param int $expire Expire
+     * @return Model\Oauth\Token
+     */
     public static function create($access = null, $refresh = null, $expire = null)
     {
         $token = new Token();

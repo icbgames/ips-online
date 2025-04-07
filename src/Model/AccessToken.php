@@ -7,6 +7,18 @@ namespace IPS\Model;
  */
 class AccessToken
 {
+    private $settings;
+
+    /**
+     *
+     *
+     * @param Model\Settings $settings
+     */
+    public function __construct(Settings $settings)
+    {
+        $this->settings = $settings;
+    }
+
     /**
      * アクセストークンの更新処理
      *
@@ -52,6 +64,38 @@ class AccessToken
         $token->setAccess($response_data['access_token']);
         $expire = (int)$response_data['expires_in'] + time() - 60 * 10;
         $token->setExpire($expire);
+    }
+
+    /**
+     * 指定したユーザーのアクセストークンとリフレッシュトークンを取得する
+     *
+     * 取得を試みた時点でアクセストークンの有効期限が切れている場合、
+     * 最新のアクセストークンを再取得のうえDBに登録しなおす
+     *
+     * @param string $login
+     * @param Oauth\Token
+     */
+    public function getUserToken($login)
+    {
+        $setting = $this->settings->get($login);
+        if(is_null($setting)) {
+            return null;
+        }
+
+        $expire = (int)$setting['access_token_expire'];
+        if(!empty($expire) && time() < $expire) {
+            // expireが空ではなく、かつ現在日時よりも未来である場合、アクセストークンは有効
+            $token = Oauth\Factory::create($setting['access_token'], $setting['refresh_token'], $setting['access_token_expire']);
+            return $token;
+        }
+
+        // expireが空の場合、または有効期限が切れている場合は再取得し、DBに登録したうえで返す
+        $token = Oauth\Factory::create(null, $setting['refresh_token'], null);
+        $token->setLogin($login);
+        $this->refresh($token);
+        $this->saveTokens($token);
+
+        return $token;
     }
 
     /**

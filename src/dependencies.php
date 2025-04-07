@@ -31,8 +31,16 @@ return [
             $c->get('ipsModelPoint'),
         );
     }),
+    'ipsBatchSubscriptionUpdater' => DI\factory(function(DI\Container $c) {
+        return new Batch\SubscriptionUpdater(
+            $c->get('ipsModelUser'),
+            $c->get('ipsModelTwitch'),
+        );
+    }),
     'ipsModelAccessToken' => DI\factory(function(DI\Container $c) {
-        return new Model\AccessToken();
+        return new Model\AccessToken(
+            $c->get('ipsModelSettings'),
+        );
     }),
     'ipsModelCommand' => DI\factory(function(DI\Container $c) {
         return new Model\Command();
@@ -45,7 +53,7 @@ return [
     }),
     'ipsModelTwitch' => DI\factory(function(DI\Container $c) {
         return new Model\Twitch(
-            $c->get('ipsModelAccessToken')
+            $c->get('ipsModelAccessToken'),
         );
     }),
     'ipsModelUser' => DI\factory(function(DI\Container $c) {
