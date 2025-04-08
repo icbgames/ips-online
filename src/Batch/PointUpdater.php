@@ -3,6 +3,7 @@
 namespace IPS\Batch;
 
 use IPS\Model as Model;
+use IPS\Model\Config as Config;
 use IPS\Model\Log as Log;
 
 /**
@@ -24,15 +25,18 @@ class PointUpdater
 
     public function execute()
     {
-        $targetList = [ 'mayuko7s', 'kirukiru_21', 'mira_kiryu' ];
-        $add = 10;
+        $targetList = Config::get('ips', 'channels');
 
         foreach($targetList as $target) {
             // 集計対象のチャンネルでポイント対象となる有効な時間を取得
             // 最終発言日時からこの時間の間はポイント対象となる
             // なので、最終発言日時がM分前以降のユーザーを取得する
-            $minutes = 20;
+            $setting = $this->settings->get($target);
+            $minutes = (int)$setting['period'];
             $userList = $this->user->getRecentChatUserList($target, $minutes);
+
+            // 1回あたりの加算ポイント
+            $add = (int)$setting['addition'];
 
             // 集計対象のチャンネルのポイント対象外ユーザーを取得
             // bot等にポイントを付与しないための措置

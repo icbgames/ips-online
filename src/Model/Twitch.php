@@ -72,7 +72,7 @@ class Twitch
     public function getSubscriptionInfo($login, $channel)
     {
         // channnelからチャンネルIDを取得する
-        $user = new User($this);
+        $user = new User($this); // @todo DIしたいのに設計ミスって循環依存になってしまったのでいつか設計見直す
         $userInfo = $user->getUserInfo($channel);
         $channelId = $userInfo['user_id'];
 

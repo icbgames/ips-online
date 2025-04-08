@@ -8,16 +8,25 @@ class Log
 
     public static function debug($message)
     {
+        if(Config::get('ips', 'log', 'level') < 3) {
+            return;
+        }
         static::writeLog('DEBUG', $message);
     }
 
     public static function info($message)
     {
+        if(Config::get('ips', 'log', 'level') < 2) {
+            return;
+        }
         static::writeLog('INFO', $message);
     }
 
     public static function warn($message)
     {
+        if(Config::get('ips', 'log', 'level') < 1) {
+            return;
+        }
         static::writeLog('WARN', $message);
     }
 

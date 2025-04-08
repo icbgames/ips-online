@@ -19,5 +19,17 @@ return [
     ],
     'ips' => [
         'url' => 'https://ips-online.link/',
+        'channels' => [
+            'kirukiru_21',
+            'mira_kiryu',
+            'mayuko7s',
+        ],
+        // 0 -> ERROR
+        // 1 -> ERROR, WARN
+        // 2 -> ERROR, WARN, INFO
+        // 3 -> ERROR, WARN, INFO, DEBUG
+        'log' => [
+            'level' => 3,
+        ],
     ],
 ];
