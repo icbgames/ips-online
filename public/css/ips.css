@@ -28,6 +28,7 @@
   min-width: 100px;
   max-width: 240px;
   min-height: 300px;
+  max-height: 800px;
   border: #8888ff 1px dashed;
 }
 

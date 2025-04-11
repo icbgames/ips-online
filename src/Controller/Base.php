@@ -58,21 +58,24 @@ abstract class Base
         $this->assignVars['errors'][] = $error;
     }
 
+    /**
+     * Set-Cookieヘッダを発行する
+     *
+     * @param string $name
+     * @param string $value
+     * @param int $expire CookieのExpireに設定するUNIXタイムスタンプ
+     */
+    protected function cookie($name, $value, $expire)
+    {
+        setcookie($name, $value, $expire, '/', '', false, false);
+    }
+
     public function action()
     {
     }
 
     public function render()
     {
-        /**
-        echo '<!DOCTYPE><html><head><title>IPS Online</title></head><body>';
-        echo '<h1>Welcom to IPS Online.</h1>';
-        echo '<a href="https://id.twitch.tv/oauth2/authorize?client_id=htukebwn7imooessy0j06vhjqyfc2v&redirect_uri=https://ips-online.link/&response_type=code&scope=channel:read:subscriptions chat:read chat:edit channel:read:redemptions&state=ips-online">利用登録はこちらから</a>';
-        echo '<hr>';
-        echo '<pre>';
-        var_dump($this->assignVars);
-        echo '</pre><hr></body></html>';
-*/
         $loader = new \Twig\Loader\FilesystemLoader(__DIR__ . '/../../templates');
         $twig = new \Twig\Environment($loader);
         echo $twig->render($this->template, $this->assignVars);
