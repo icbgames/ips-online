@@ -20,6 +20,8 @@ class Top extends Base
     {
         $this->template = 'top.twig';
         $this->assign('page_name', 'IPS Online Top Page');
+        $isLoggedIn = $this->isLoggedIn();
+        $this->assign('login', $isLoggedIn);
 
         $code = $this->param('code');
 
@@ -64,5 +66,30 @@ class Top extends Base
             $cookie = json_encode($cookieData);
             $this->cookie('IPS', $cookie, $token->getExpire());
         }
+    }
+
+    /**
+     * ログイン状態かどうかを返す
+     *
+     * @return bool
+     */
+    private isLoggedIn()
+    {
+        if(!isset($_COOKIE['IPS'])) {
+            return false;
+        }
+        $cookie = json_decode($_COOKIE['IPS'], true);
+        if(empty($cookie)) {
+            return false;
+        }
+
+        $signature = $cookie['s'];
+        $access = $cookie['a'];
+        $refresh = $cookie['r'];
+        $login = $cookie['l'];
+        $expire = $cookie['e'];
+
+        $result = $this->accessToken->verifySign($signature, $access, $refresh, $login, $expire);
+        return $result;
     }
 }
