@@ -32,6 +32,18 @@ abstract class Base
     }
 
     /**
+     *
+     *
+     *
+     */
+    public function isLoggedIn()
+    {
+        if(isset($_COOKIE['IPS'])) {
+            echo $_COOKIE['IPS'];
+        }
+    }
+
+    /**
      * 画面テンプレートへ埋め込む変数の値をセットする
      *
      * 引数が2つの場合は1次元目に第2引数の値を
@@ -78,6 +90,7 @@ abstract class Base
     {
         $loader = new \Twig\Loader\FilesystemLoader(__DIR__ . '/../../templates');
         $twig = new \Twig\Environment($loader);
+        $this->isLoggedIn();
         echo $twig->render($this->template, $this->assignVars);
     }
 }
