@@ -39,7 +39,8 @@ abstract class Base
     public function isLoggedIn()
     {
         if(isset($_COOKIE['IPS'])) {
-            echo $_COOKIE['IPS'];
+            $cookie = json_decode($_COOKIE['IPS'], true);
+            var_dump($cookie);
         }
     }
 
