@@ -12,10 +12,24 @@
   </p>
   <div class="ips__setting-list">
 
-{{ setting.period }}
-{{ setting.addition }}
-{{ setting.command }}
-{{ setting.name }}
+    <table>
+      <tr>
+        <th></th>
+        <td><input type="text" value="{{ setting.period }}"></td>
+      </tr>
+      <tr>
+        <th></th>
+        <td><input type="text" value="{{ setting.addition }}"></td>
+      </tr>
+      <tr>
+        <th></th>
+        <td><input type="text" value="{{ setting.command }}"></td>
+      </tr>
+      <tr>
+        <th></th>
+        <td><input type="text" value="{{ setting.name }}"></td>
+      </tr>
+    </table>
   </div>
 </div>
 
