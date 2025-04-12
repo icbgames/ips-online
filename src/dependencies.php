@@ -71,6 +71,7 @@ return [
     'www/setting' => DI\factory(function(DI\Container $c) {
         return new Controller\Setting(
             $c->get('ipsModelSettings'),
+            $c->get('ipsModelAccessToken'),
         );
     }),
     'www/error' => DI\factory(function(DI\Container $c) {

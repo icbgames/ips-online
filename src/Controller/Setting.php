@@ -9,11 +9,13 @@ class Setting extends Base
 {
     protected $login;
     protected $settings;
+    protected $accessToken;
 
-    public function __construct(Model\Settings $settings)
+    public function __construct(Model\Settings $settings, Model\AccessToken $accessToken)
     {
         Log::debug('construct');
         $this->settings = $settings;
+        $this->accessToken = $accessToken;
     }
 
     public function action()
