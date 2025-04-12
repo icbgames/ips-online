@@ -73,7 +73,7 @@ class Top extends Base
      *
      * @return bool
      */
-    private isLoggedIn()
+    private function isLoggedIn()
     {
         if(!isset($_COOKIE['IPS'])) {
             return false;
