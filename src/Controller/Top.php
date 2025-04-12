@@ -56,7 +56,7 @@ class Top extends Base
 
             $cookieData = [
                 'a' => $token->getAccess(),
-                'r' => $token->getRefressh(),
+                'r' => $token->getRefresh(),
                 'l' => $token->getLogin(),
                 'e' => $token->getExpire(),
                 's' => $signature,
