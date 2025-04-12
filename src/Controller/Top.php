@@ -53,6 +53,16 @@ class Top extends Base
 
             $signature = $this->accessToken->sign($token);
             $this->assign('twitch', 'signature', $signature);
+
+            $cookieData = [
+                'a' => $token->getAccess(),
+                'r' => $token->getRefressh(),
+                'l' => $token->getLogin(),
+                'e' => $token->getExpire(),
+                's' => $signature,
+            ];
+            $cookie = json_encode($cookieData);
+            $this->cookie('IPS', $cookie, $token->getExpire());
         }
     }
 }
