@@ -57,7 +57,7 @@ class User
     public function getRecentChatUserList($target, $minutes)
     {
         $query = "select "
-               . "  login, target, chatted_at "
+               . "  login, target, chatted_at, tier "
                . "from "
                . "  LATEST_CHAT_TIME "
                . "where "

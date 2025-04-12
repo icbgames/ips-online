@@ -46,6 +46,8 @@ try {
     $class = $container->get('www/error');
 }
 
-$class->action();
-$class->render();
-
+try {
+    $class->action();
+    $class->render();
+} catch(Exception $e) {
+}

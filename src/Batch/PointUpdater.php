@@ -37,6 +37,9 @@ class PointUpdater
 
             // 1回あたりの加算ポイント
             $add = (int)$setting['addition'];
+            $add1 = (int)$setting['addition_t1'];
+            $add2 = (int)$setting['addition_t2'];
+            $add3 = (int)$setting['addition_t3'];
 
             // 集計対象のチャンネルのポイント対象外ユーザーを取得
             // bot等にポイントを付与しないための措置
@@ -56,7 +59,17 @@ class PointUpdater
 
                 // ポイント付与処理
                 $userInfo = $this->user->getUserInfo($user['login']);
-                $this->point->add($userInfo['user_id'], $userInfo['login'], $userInfo['disp_name'], $target, $add);
+                
+                // サブスクTierに応じて加算ポイントを計算
+                switch($user['tier']) {
+                    case 1: $addition = $add + $add1; break;
+                    case 2: $addition = $add + $add2; break;
+                    case 3: $addition = $add + $add3; break;
+                    default: $addition = $add;
+                }
+
+                // 実際の加算処理
+                $this->point->add($userInfo['user_id'], $userInfo['login'], $userInfo['disp_name'], $target, $addition);
             }
         }
 
