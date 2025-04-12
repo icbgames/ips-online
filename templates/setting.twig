@@ -1,0 +1,22 @@
+{% extends "ips_base.twig" %}
+
+{% block head %}
+{% endblock %}
+
+{% block inner %}
+
+<div class="ips__setting">
+  <h2 class="ips__clear-top">IPS 設定</h2>
+  <p>
+  設定を入力して保存ボタンを押してください
+  </p>
+  <div class="ips__setting-list">
+
+{{ setting.period }}
+{{ setting.addition }}
+{{ setting.command }}
+{{ setting.name }}
+  </div>
+</div>
+
+{% endblock %}
