@@ -25,11 +25,7 @@
   </div>
   <div class="ips__content-body">
     <div class="ips__side">
-{% if login == true %}
-login
-{% else %}
-logout
-{% endif %}
+      <p class="ips__login-name">ようこそ、<strong>{{ login }}</strong>さん</p>
       <ul class="ips__menu">
         <li class="ips__menu-item"><a href="/">トップページ</a></li>
         <li class="ips__menu-item"><a href="/setting">設定</a></li>

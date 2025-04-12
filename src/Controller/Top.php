@@ -21,7 +21,7 @@ class Top extends Base
         $this->template = 'top.twig';
         $this->assign('page_name', 'IPS Online Top Page');
         $isLoggedIn = $this->isLoggedIn();
-        $this->assign('login', $isLoggedIn);
+        $this->assign('loggedin', $isLoggedIn);
 
         $code = $this->param('code');
 
@@ -75,6 +75,7 @@ class Top extends Base
      */
     private function isLoggedIn()
     {
+        $this->assign('login', 'ゲスト');
         if(!isset($_COOKIE['IPS'])) {
             return false;
         }
@@ -90,6 +91,11 @@ class Top extends Base
         $expire = $cookie['e'];
 
         $result = $this->accessToken->verifySign($signature, $access, $refresh, $login, $expire);
+
+        if($result) {
+            $this->assign('login', $login);
+        }
+
         return $result;
     }
 }
