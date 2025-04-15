@@ -152,6 +152,48 @@ p {
 
 
 
+/*********************/
+/* 設定ページ        */
+/*********************/
+
+.ips__setting-list {
+}
+
+.ips__setting-table {
+  margin: 10px auto 20px;
+  border-collapse: collapse;
+  border: black 1px solid;
+  font-size: calc(var(--font-size) * 0.8);
+  font-size: 1rem;
+}
+
+.ips__setting-table tr {
+}
+
+.ips__setting-table th, .ips__setting-table td {
+  padding: 4px 6px;
+  border: black 1px solid;
+}
+
+.ips__setting-table th {
+  background-color: #ddffff;
+  text-align: center;
+}
+
+.ips__setting-table td {
+  text-align: left;
+}
+
+td.ips__setting-input {
+  padding: 2px 4px;
+}
+
+.ips__setting-table td input {
+  font-size: 1.2rem;
+  width: 8rem;
+  height: 1.2rem;
+}
+
 
 
 

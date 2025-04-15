@@ -12,24 +12,55 @@
   </p>
   <div class="ips__setting-list">
 
-    <table>
+{% if loggedin %}
+  <table class="ips__setting-table">
       <tr>
-        <th></th>
-        <td><input type="text" value="{{ setting.period }}"></td>
+        <th>ポイント加算期間(分)</th>
+        <td class="ips__setting-input"><input type="text" value="{{ setting.period }}"></td>
+        <td>最終発言日時からポイントが加算される期間</td>
       </tr>
       <tr>
-        <th></th>
-        <td><input type="text" value="{{ setting.addition }}"></td>
+        <th>1分あたりのポイント加算量</th>
+        <td class="ips__setting-input"><input type="text" value="{{ setting.addition }}"></td>
+        <td>発言後1分ごとにこのポイントが加算</td>
       </tr>
       <tr>
-        <th></th>
-        <td><input type="text" value="{{ setting.command }}"></td>
+        <th>ポイント確認コマンド</th>
+        <td class="ips__setting-input"><input type="text" value="{{ setting.command }}"></td>
+        <td>!に続けてこのコマンドを打つと所持ポイントが表示</td>
       </tr>
       <tr>
-        <th></th>
-        <td><input type="text" value="{{ setting.name }}"></td>
+        <th>ポイント名称</th>
+        <td class="ips__setting-input"><input type="text" value="{{ setting.name }}"></td>
+        <td>あなたのチャンネルのポイントの名称です</td>
+      </tr>
+      <tr>
+        <th>ポイント単位</th>
+        <td class="ips__setting-input"><input type="text" value="{{ setting.unit }}"></td>
+        <td>あなたのチャンネルのポイントの単位です</td>
+      </tr>
+      <tr>
+        <th>Tier1ボーナス</th>
+        <td class="ips__setting-input"><input type="text" value="{{ setting.addition_t1 }}"></td>
+        <td></td>
+      </tr>
+      <tr>
+        <th>Tier2ボーナス</th>
+        <td class="ips__setting-input"><input type="text" value="{{ setting.addition_t2 }}"></td>
+        <td></td>
+      </tr>
+      <tr>
+        <th>Tier3ボーナス</th>
+        <td class="ips__setting-input"><input type="text" value="{{ setting.addition_t3 }}"></td>
+        <td></td>
       </tr>
     </table>
+{% else %}
+    <p>
+      <a href="https://id.twitch.tv/oauth2/authorize?client_id=htukebwn7imooessy0j06vhjqyfc2v&redirect_uri=https://ips-online.link/&response_type=code&scope=channel:read:subscriptions%20chat:read%20chat:edit%20channel:read:redemptions&state=ips-online">こちらのリンク</a>からログインおよびIPS Onlineに対する認可を行ってください。<br>
+      既に認可済みの場合はログインの有効期限が切れているため↑のリンクから再ログインしてください。
+    </p>
+{% endif %}
   </div>
 </div>
 
