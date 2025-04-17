@@ -27,6 +27,7 @@ return [
     }),
     'ipsBatchPointUpdater' => DI\factory(function(DI\Container $c) {
         return new Batch\PointUpdater(
+            $c->get('ipsModelSettings'),
             $c->get('ipsModelUser'),
             $c->get('ipsModelPoint'),
         );

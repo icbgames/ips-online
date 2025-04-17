@@ -14,11 +14,13 @@ use IPS\Model\Log as Log;
  */
 class PointUpdater
 {
+    private $settings;
     private $user;
     private $point;
 
-    public function __construct(Model\User $user, Model\Point $point)
+    public function __construct(Model\Settings $settings, Model\User $user, Model\Point $point)
     {
+        $this->settings = $settings;
         $this->user = $user;
         $this->point = $point;
     }
