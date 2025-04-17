@@ -30,6 +30,8 @@ class PointUpdater
         $targetList = Config::get('ips', 'channels');
 
         foreach($targetList as $target) {
+            Log::debug("update target: {$target}");
+
             // 集計対象のチャンネルでポイント対象となる有効な時間を取得
             // 最終発言日時からこの時間の間はポイント対象となる
             // なので、最終発言日時がM分前以降のユーザーを取得する
