@@ -65,6 +65,10 @@ class Top extends Base
             ];
             $cookie = json_encode($cookieData);
             $this->cookie('IPS', $cookie, $token->getExpire());
+
+            // ログイン状態にする
+            $this->assign('loggedin', true);
+            $this->assign('login', $token->getLogin());
         }
     }
 

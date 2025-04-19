@@ -79,6 +79,10 @@ h2 {
   background-color: #ddffbb;
 }
 
+input {
+  font-family: "Zen Maru Gothic", serif;
+}
+
 .ips__clear-top {
   margin-top: 0;
 }
