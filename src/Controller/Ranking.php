@@ -30,7 +30,7 @@ class Ranking extends Base
         }
 
         Log::debug("ranking for {$channel}");
-        $this->assign('channel' $channel);
+        $this->assign('channel', $channel);
         $ranking = $this->point->getPointRanking($channel);
         $this->assign('ranking', $ranking);
     }
