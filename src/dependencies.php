@@ -75,7 +75,7 @@ return [
             $c->get('ipsModelAccessToken'),
         );
     }),
-    'www/setting' => DI\factory(function(DI\Container $c) {
+    'www/ranking' => DI\factory(function(DI\Container $c) {
         return new Controller\Ranking(
             $c->get('ipsModelPoint'),
         );
