@@ -1,6 +1,7 @@
 <?php
 
 use Psr\Container\ContainerInterface;
+use IPS\Model\Log as Log;
 
 date_default_timezone_set('Asia/Tokyo');
 
@@ -45,6 +46,8 @@ try {
     $class = $container->get($controller);
 } catch(Exception $e) {
     // 404 or top redirect
+    Log::degub("Exception with {$controller}");
+    Log::debug($e->getMessage());
     $class = $container->get('www/error');
 }
 
