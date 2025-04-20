@@ -78,4 +78,15 @@ return [
     'www/error' => DI\factory(function(DI\Container $c) {
         return new Controller\Error();
     }),
+    // for Rest API
+    'api/setting' => DI\factory(function(DI\Container $c) {
+        return new Controller\Api\Setting(
+            $c->get('validator'),
+            $c->get('ipsModelSettings'),
+        );
+    }),
+    // validator
+    'validator' => DI\factory(function(DI\Container $c) {
+        return new Rakit\Validation\Validator(['lang' => 'ja']);
+    }),
 ];

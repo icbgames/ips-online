@@ -32,8 +32,10 @@ $controller = trim($controller, '/');
 if(empty($controller)) {
     $controller = 'top';
 }
-$controller = "www/{$controller}";
 
+if(substr($controller, 0, 4) !== 'api/') {
+    $controller = "www/{$controller}";
+}
 
 $containerBuilder = new DI\ContainerBuilder();
 $containerBuilder->addDefinitions(__DIR__ . '/../src/dependencies.php');
@@ -50,4 +52,5 @@ try {
     $class->action();
     $class->render();
 } catch(Exception $e) {
+    echo $e->getMessage();
 }

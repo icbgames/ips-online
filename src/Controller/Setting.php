@@ -13,14 +13,12 @@ class Setting extends Base
 
     public function __construct(Model\Settings $settings, Model\AccessToken $accessToken)
     {
-        Log::debug('construct');
         $this->settings = $settings;
         $this->accessToken = $accessToken;
     }
 
     public function action()
     {
-        Log::debug('action');
         $this->template = 'setting.twig';
         $this->assign('page_name', 'IPS Online Setting');
         $isLoggedIn = $this->isLoggedIn();

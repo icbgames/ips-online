@@ -13,55 +13,64 @@
   <div class="ips__setting-list">
 
 {% if loggedin %}
+  <h3>概要</h3>
   <table class="ips__setting-table">
       <tr>
-        <th>ポイント加算期間(分)</th>
-        <td class="ips__setting-input"><input type="text" value="{{ setting.period }}"></td>
-        <td>最終発言日時からポイントが加算される期間</td>
-      </tr>
-      <tr>
-        <th>1分あたりのポイント加算量</th>
-        <td class="ips__setting-input"><input type="text" value="{{ setting.addition }}"></td>
-        <td>発言後1分ごとにこのポイントが加算</td>
-      </tr>
-      <tr>
-        <th>ポイント確認コマンド</th>
-        <td class="ips__setting-input"><input type="text" value="{{ setting.command }}"></td>
-        <td>!に続けてこのコマンドを打つと所持ポイントが表示</td>
-      </tr>
-      <tr>
         <th>ポイント名称</th>
-        <td class="ips__setting-input"><input type="text" value="{{ setting.name }}"></td>
+        <td class="ips__setting-input"><input type="text" name="ips-setting-name" value="{{ setting.name }}"></td>
         <td>あなたのチャンネルのポイントの名称です</td>
       </tr>
       <tr>
         <th>ポイント単位</th>
-        <td class="ips__setting-input"><input type="text" value="{{ setting.unit }}"></td>
+        <td class="ips__setting-input"><input type="text" name="ips-setting-unit" value="{{ setting.unit }}"></td>
         <td>あなたのチャンネルのポイントの単位です</td>
       </tr>
       <tr>
+        <th>ポイント確認コマンド</th>
+        <td class="ips__setting-input"><input type="text" name="ips-setting-command" value="{{ setting.command }}"></td>
+        <td>!に続けてこのコマンドを打つと所持ポイントが表示</td>
+      </tr>
+  </table>
+
+  <h3>チャットポイント</h3>
+  <table class="ips__setting-table">
+      <tr>
+        <th>ポイント加算期間(分)</th>
+        <td class="ips__setting-input"><input type="text" name="ips-setting-period" value="{{ setting.period }}"></td>
+        <td>最終発言日時からポイントが加算される期間</td>
+      </tr>
+      <tr>
+        <th>1分あたりのポイント加算量</th>
+        <td class="ips__setting-input"><input type="text" name="ips-setting-addition" value="{{ setting.addition }}"></td>
+        <td>発言後1分ごとにこのポイントが加算</td>
+      </tr>
+      <tr>
         <th>Tier1ボーナス</th>
-        <td class="ips__setting-input"><input type="text" value="{{ setting.addition_t1 }}"></td>
+        <td class="ips__setting-input"><input type="text" name="ips-setting-addition_t1" value="{{ setting.addition_t1 }}"></td>
         <td></td>
       </tr>
       <tr>
         <th>Tier2ボーナス</th>
-        <td class="ips__setting-input"><input type="text" value="{{ setting.addition_t2 }}"></td>
+        <td class="ips__setting-input"><input type="text" name="ips-setting-addition_t2" value="{{ setting.addition_t2 }}"></td>
         <td></td>
       </tr>
       <tr>
         <th>Tier3ボーナス</th>
-        <td class="ips__setting-input"><input type="text" value="{{ setting.addition_t3 }}"></td>
+        <td class="ips__setting-input"><input type="text" name="ips-setting-addition_t3" value="{{ setting.addition_t3 }}"></td>
         <td></td>
       </tr>
+  </table>
+
+  <h3>その他ポイント ※未実装です!</h3>
+  <table class="ips__setting-table">
       <tr>
         <th>Raidポイント</th>
-        <td class="ips__setting-input"><input type="text" value="※未実装です"></td>
+        <td class="ips__setting-input"><input type="text" value=""></td>
         <td>Raidしてくれた人にこのポイントが加算</td>
       </tr>
       <tr>
         <th>Raiderボーナス</th>
-        <td class="ips__setting-input"><input type="text" value="※未実装です"></td>
+        <td class="ips__setting-input"><input type="text" value=""></td>
         <td>Raider10人ごとにこのポイントが追加で加算</td>
       </tr>
       <tr>
@@ -75,6 +84,9 @@
         <td></td>
       </tr>
     </table>
+    <p class="ips__txt-center">
+      <button class="ips__btn-save ips__setting-submit">上記内容で保存</button>
+    </p>
 {% else %}
     <p>
       <a href="https://id.twitch.tv/oauth2/authorize?client_id=htukebwn7imooessy0j06vhjqyfc2v&redirect_uri=https://ips-online.link/&response_type=code&scope=channel:read:subscriptions%20chat:read%20chat:edit%20channel:read:redemptions&state=ips-online">こちらのリンク</a>からログインおよびIPS Onlineに対する認可を行ってください。<br>
@@ -84,4 +96,8 @@
   </div>
 </div>
 
+<div id="ips__error-popup">
+  <button class="ips__error-popup-close">×</button>
+  <p class="ips__error-popup-message">error</p>
+</div>
 {% endblock %}

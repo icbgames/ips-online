@@ -37,5 +37,26 @@ class Settings
         }
         return $results[0];
     }
+
+    public function update($channel, $params)
+    {
+        $query = "update SETTINGS "
+               . "set ";
+
+        $tmp = [];
+        $binds = [];
+        foreach($params as $k => $v) {
+            $tmp[] = " {$k} = :{$k} ";
+            $binds[':' . $k] = $v;
+        }
+        $query .= implode(',', $tmp);
+
+        $query .= " where channel = :channel ";
+
+        $binds[':channel'] = $channel;
+
+        $db = DB::instance();
+        $db->execute($query, $binds);
+    }
 }
 
