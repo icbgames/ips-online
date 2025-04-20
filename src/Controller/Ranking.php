@@ -17,19 +17,21 @@ class Ranking extends Base
 
     public function action()
     {
+        Log::debug('detect channel');
+        $channel = $this->get('channel');
+        if(empty($channel)) {
+            Log::debug('channel is null');
+            $this->status = 302;
+            header('Location: /');
+            return;
+        }
+        Log::debug("ranking for {$channel}");
+
         $this->template = 'ranking.twig';
         $this->assign('page_name', 'IPS Online Ranking');
         $isLoggedIn = $this->isLoggedIn();
         $this->assign('loggedin', $isLoggedIn);
 
-        $channel = $this->get('channel');
-        if(empty($channel)) {
-            $this->status = 302;
-            header('Location: /');
-            return;
-        }
-
-        Log::debug("ranking for {$channel}");
         $this->assign('channel', $channel);
         $ranking = $this->point->getPointRanking($channel);
         $this->assign('ranking', $ranking);
