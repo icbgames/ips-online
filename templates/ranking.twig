@@ -7,9 +7,21 @@
 
 <div class="ips__ranking">
   <h2 class="ips__clear-top">{{ channel }}のポイントランキング</h2>
+
+  <table>
+    <tr>
+      <th>順位</th>
+      <th>名前</th>
+      <th>ポイント</th>
+    </tr>
 {% for r in ranking %}
-  <p>{{ r.rank }}: {{ r.disp_name }} ( {{ r.login }} ) - {{ r.points }}</p>
+    <tr>
+      <td>{{ r.rank }}</td>
+      <td>{{ r.disp_name}} ( {{ r.login }} )</td>
+      <td>{{ r.points }}</td>
+    </tr>
 {% endfor %}
+  </table>
 </div>
 
 {% endblock %}
