@@ -29,6 +29,9 @@
       <ul class="ips__menu">
         <li class="ips__menu-item"><a href="/">トップページ</a></li>
         <li class="ips__menu-item"><a href="/setting">設定</a></li>
+{% if loggedin %}
+        <li class="ips__menu-item"><a href="/ranking?channel={{ login }}">ランキング</a></li>
+{% endif %}
       </ul>
       <p>
       問い合わせはDiscordかTwitterまで

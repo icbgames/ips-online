@@ -146,5 +146,40 @@ class Point
         }
         return $results[0];
     }
+
+    /**
+     * 指定したチャンネルのポイントランキングを返す
+     *
+     * ポイント降順、login昇順でソートする
+     *
+     * @param string $channel ランキング取得対称のチャンネル
+     * @return array
+     */
+    public function getPointRanking($channel)
+    {
+        $query = "select "
+               . "  user_id, login, disp_name, channel, points, rank "
+               . "from "
+               . "  ( "
+               . "    select "
+               . "      user_id, login, disp_name, channel, points, "
+               . "      RANK() OVER (order by points desc, login asc) as rank "
+               . "    from "
+               . "      IPS_POINTS "
+               . "    where "
+               . "      channel = :channel "
+               . "  ) ";
+        
+        $params = [
+            ':channel' => $channel,
+        ];
+
+        $db = DB::instance();
+        $db->execute($query, $params);
+        
+        $results = $db->fetch();
+        return $results;
+    }
+
 }
 

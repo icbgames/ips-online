@@ -27,6 +27,7 @@ class Top extends Base
 
         // codeがある = Twitchの同意を踏んで飛んできた場合
         if(!is_null($code)) {
+            Log::info("register redirect: {$code}");
             $token = $this->accessToken->getTokenByCode($code);
             
             // アクセストークンが取得できなかった場合 (認可コードが不正、もしくは使用済み)
@@ -36,6 +37,7 @@ class Top extends Base
                 return;
             }
 
+            Log::debug("try to specify login");
             $this->twitch->specifyLogin($token);
 
             // loginが取得できなかった場合
