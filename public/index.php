@@ -46,7 +46,7 @@ try {
     $class = $container->get($controller);
 } catch(Exception $e) {
     // 404 or top redirect
-    Log::degub("Exception with {$controller}");
+    Log::debug("Exception with {$controller}");
     Log::debug($e->getMessage());
     $class = $container->get('www/error');
 }
