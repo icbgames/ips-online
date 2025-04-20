@@ -18,7 +18,7 @@ class Ranking extends Base
     public function action()
     {
         Log::debug('detect channel');
-        $channel = $this->get('channel');
+        $channel = $this->param('channel');
         if(empty($channel)) {
             Log::debug('channel is null');
             $this->status = 302;
