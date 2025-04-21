@@ -48,7 +48,14 @@ class PointUpdater
             // 集計対象のチャンネルのポイント対象外ユーザーを取得
             // bot等にポイントを付与しないための措置
             $ignoreListWk = $this->point->getIgnoreList($target);
-            $ignoreList = [];
+            $ignoreList = [
+                'sery_bot',
+                'streamelements',
+                'nightbot',
+                'wizebot',
+                'frostytoolsdotcom',
+                'ips_online',
+            ];
             foreach($ignoreListWk as $w) {
                 $ignoreList[] = $w['login'];
             }
