@@ -8,20 +8,47 @@
 <div class="ips__ranking">
   <h2 class="ips__clear-top">{{ channel }}のポイントランキング</h2>
 
-  <table>
+{% if ranking is empty %}
+  <p>まだ集計されたランキングがありません</P>
+
+{% else %}
+  <table class="ips__ranking-list">
     <tr>
       <th>順位</th>
       <th>名前</th>
       <th>ポイント</th>
     </tr>
 {% for r in ranking %}
-    <tr>
-      <td>{{ r.rank }}</td>
+    <tr{% if loggedin %} class="ips__ranking-edit" x-ips-edit-channel="{{ channel }}" x-ips-edit-user="{{ r.login }}" x-ips-edit-name="{{ r.disp_name }}" x-ips-edit-point="{{ r.points }}"{% endif %}>
+      <td class="ips__txt-center">{{ r.rank }}</td>
       <td>{{ r.disp_name}} ( {{ r.login }} )</td>
-      <td>{{ r.points }}</td>
+      <td class="ips__txt-center">{{ r.points }}</td>
     </tr>
 {% endfor %}
   </table>
+{% endif %}
+
 </div>
 
+<div class="ips__edit-popup">
+  <h3>ポイントを修正します</h3>
+  <table class="ips__edit-table">
+    <tr>
+      <th>対象チャンネル</th>
+      <td><span class="ips__edit-popup-channel">{{ channel }}</span></td>
+    </tr>
+    <tr>
+      <th>修正対象ユーザー</th>
+      <td><span class="ips__edit-popup-name"></span> (<span class="ips__edit-popup-user"></span>)</td>
+    </tr>
+    <tr>
+      <th>ポイント</th>
+      <td><input type="text" class="ips__edit-popup-point" value=""></td>
+    </tr>
+  </table>
+  <p class="ips__txt-center">データを削除したい場合はポイントを0にして更新してください</p>
+  <p class="ips__txt-center">
+    <button class="ips__btn-save ips__edit-submit">上記内容で更新</button>
+  </p>
+</div>
 {% endblock %}

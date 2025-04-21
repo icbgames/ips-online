@@ -26,13 +26,30 @@ window.IPS = window.IPS || {};
       addition_t2: addition_t2,
       addition_t3: addition_t3
     };
-    console.log(values);
     return values;
   };
 
   _.popupError = function(msg){
     q('.ips__error-popup-message').textContent = msg;
-    q('#ips__error-popup').classList.toggle('show');
+    q('#ips__error-popup').classList.add('show');
+  };
+  _.popupSuccess = function(msg){
+    q('.ips__success-popup-message').textContent = msg;
+    q('#ips__success-popup').classList.add('show');
+  };
+  
+  _.popupEdit = function(channel, name, user, point) {
+    var c = q('.ips__edit-popup-channel');
+    var n = q('.ips__edit-popup-name');
+    var u = q('.ips__edit-popup-user');
+    var p = q('.ips__edit-popup-point');
+
+    c.textContent = channel;
+    n.textContent = name;
+    u.textContent = user;
+    p.value = point;
+
+    q('.ips__edit-popup').classList.add('show');
   };
 }(this));
 
@@ -43,29 +60,54 @@ window.onload = function() {
 
   var __ = window.IPS;
 
-  q('.ips__setting-submit').addEventListener('click', function(e) {
-    var params = __.getSettingValues();
+  var submit = q('.ips__setting-submit');
+  if(submit) {
+      submit.addEventListener('click', function(e) {
+        var params = __.getSettingValues();
 
-    (async function() {
-      const response = await fetch('/api/setting', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(params)
+        (async function() {
+          const response = await fetch('/api/setting', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(params)
+          });
+
+          if(!response.ok) {
+            const data = await response.json();
+            __.popupError(data.message);
+            return;
+          }
+
+          const data = await response.json();
+          __.popupSuccess('正常に保存されました');
+        }());
+    });
+  }
+
+  var eclose = q('.ips__error-popup-close');
+  if(eclose) {
+    eclose.addEventListener('click', function(e) {
+      q('#ips__error-popup').classList.remove('show');
+    });
+  }
+
+  var sclose = q('.ips__success-popup-close');
+  if(sclose) {
+    sclose.addEventListener('click', function(e) {
+      q('#ips__success-popup').classList.remove('show');
+    });
+  }
+
+  var redit = qq('.ips__ranking-edit');
+  if(redit) {
+    redit.forEach(function(edit){
+      edit.addEventListener('click', function(e) {
+        var channel = this.getAttribute('x-ips-edit-channel');
+        var name = this.getAttribute('x-ips-edit-name');
+        var user = this.getAttribute('x-ips-edit-user');
+        var point = this.getAttribute('x-ips-edit-point');
+        __.popupEdit(channel, name, user, point);
       });
-
-      if(!response.ok) {
-        const data = await response.json();
-        __.popupError(data.message);
-        return;
-      }
-
-      const data = await response.json();
-      __.popupError('正常に保存されました');
-    }());
-
-  });
-
-  q('.ips__error-popup-close').addEventListener('click', function(e) {
-    q('#ips__error-popup').classList.toggle('show');
-  });
+    });
+  }
 };

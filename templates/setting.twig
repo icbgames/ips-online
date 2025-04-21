@@ -47,19 +47,19 @@
       <tr>
         <th>Tier1ボーナス</th>
         <td class="ips__setting-input"><input type="text" name="ips-setting-addition_t1" value="{{ setting.addition_t1 }}"></td>
-        <td></td>
+        <td rowspan="3">サブスクライバーにはTierに応じて<br>上記ポイントに追加でこのポイントが加算</td>
       </tr>
       <tr>
         <th>Tier2ボーナス</th>
         <td class="ips__setting-input"><input type="text" name="ips-setting-addition_t2" value="{{ setting.addition_t2 }}"></td>
-        <td></td>
       </tr>
       <tr>
         <th>Tier3ボーナス</th>
         <td class="ips__setting-input"><input type="text" name="ips-setting-addition_t3" value="{{ setting.addition_t3 }}"></td>
-        <td></td>
       </tr>
   </table>
+
+  <p class="ips__txt-center">ポイント加算の仕組みについてはこちらをご参照ください<br><img src="/img/ips_introduction_3.jpg" width="400" height="225"></p>
 
   <h3>その他ポイント ※未実装です!</h3>
   <table class="ips__setting-table">
@@ -96,8 +96,4 @@
   </div>
 </div>
 
-<div id="ips__error-popup">
-  <button class="ips__error-popup-close">×</button>
-  <p class="ips__error-popup-message">error</p>
-</div>
 {% endblock %}
