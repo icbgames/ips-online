@@ -13,10 +13,12 @@ $container = $containerBuilder->build();
 
 $chat = $container->get('ipsBatchChatMonitor');
 
+if(isset($argv[1])) {
+    $target = $argv[1];
+} else {
+    $target = 'kirukiru_21';
+}
 
-$target = 'mayuko7s';
-$target = 'kirukiru_21';
-$target = 'mira_kiryu';
 $chat->setChannel($target);
 $chat->execute();
 
