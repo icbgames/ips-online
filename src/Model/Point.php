@@ -181,5 +181,53 @@ class Point
         return $results;
     }
 
+    /**
+     * 指定したチャンネルにおける対象のユーザーのポイントを引数で与えた数値で更新する
+     *
+     * @param string $channel 対象のチャンネル
+     * @param string $login 対象のユーザー
+     * @param int $point 更新するポイント
+     */
+    public function updateUserPoint($channel, $login, $point)
+    {
+        $query = "update IPS_POINTS "
+               . "set "
+               . "  points = :points "
+               . "where "
+               . "  channel = :channel and "
+               . "  login = :login ";
+        
+        $params = [
+            ':points' => $point,
+            ':channel' => $channel,
+            ':login' => $login,
+        ];
+
+        $db = DB::instance();
+        $db->execute($query, $params);
+    }
+
+    /**
+     * 指定したチャンネルにおける対象のユーザーのポイント情報を削除する
+     *
+     * @param string $channel 対象のチャンネル
+     * @param string $login 対象のユーザー
+     */
+    public function deleteUserPoint($channel, $login)
+    {
+        $query = "delete from "
+               . "  IPS_POINTS "
+               . "where "
+               . "  channel = :channel and "
+               . "  login = :login ";
+        
+        $params = [
+            ':channel' => $channel,
+            ':login' => $login,
+        ];
+
+        $db = DB::instance();
+        $db->execute($query, $params);
+    }
 }
 

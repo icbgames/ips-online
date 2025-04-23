@@ -90,6 +90,12 @@ return [
             $c->get('ipsModelSettings'),
         );
     }),
+    'api/point' => DI\factory(function(DI\Container $c) {
+        return new Controller\Api\Point(
+            $c->get('validator'),
+            $c->get('ipsModelPoint'),
+        );
+    }),
     // validator
     'validator' => DI\factory(function(DI\Container $c) {
         return new Rakit\Validation\Validator(['lang' => 'ja']);
