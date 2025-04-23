@@ -3,6 +3,9 @@
   color: black;
 }
 
+body.noscroll {
+  overflow: hidden;
+}
 
 .ips__content {
   min-width: 640px;

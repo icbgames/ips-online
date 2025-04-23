@@ -51,6 +51,23 @@ window.IPS = window.IPS || {};
 
     q('.ips__edit-popup').classList.add('show');
   };
+
+  _.closeEdit = function() {
+    q('.ips__edit-popup').classList.remove('show');
+  };
+
+  _.overlay = function(on) {
+    var b = q('body');
+    var o = q('#ips__overlay');
+    
+    if(on) {
+        b.classList.add('noscroll');
+        o.classList.add('show');
+    } else {
+        b.classList.remove('noscroll');
+        o.classList.remove('show');
+    }
+  };
 }(this));
 
 
@@ -106,8 +123,41 @@ window.onload = function() {
         var name = this.getAttribute('x-ips-edit-name');
         var user = this.getAttribute('x-ips-edit-user');
         var point = this.getAttribute('x-ips-edit-point');
+        __.overlay(true);
         __.popupEdit(channel, name, user, point);
       });
+    });
+  }
+
+  var esubmit = q('.ips__edit-submit');
+  if(esubmit) {
+    esubmit.addEventListener('click', function(e) {
+      var params = __.getEditValues();
+
+      (async function() {
+        const response = await fetch('/api/point', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify(params)
+        });
+
+        if(!response.ok) {
+          const data = await response.json();
+          __.popupError(data.message);
+          return;
+        }
+
+        const data = await response.json();
+        __.popupSuccess('正常に更新されました');
+      }());
+    });
+  }
+
+  var ecancel = q('.ips__edit-cancel');
+  if(ecancel) {
+    ecancel.addEventListener('click', function(e) {
+      __.closeEdit();
+      __.overlay(false);
     });
   }
 };
