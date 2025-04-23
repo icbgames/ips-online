@@ -17,6 +17,17 @@ if(is_file(__DIR__ . '/../src/dependencies.php')) {
     require_once '/home/ips-online/src/dependencies.php';
 }
 
+// error handler
+set_error_handler(function ($errno, $errstr, $errfile, $errline) {
+    throw new ErrorException($errstr, 0, $errno, $errfile, $errline);
+});
+
+set_exception_handler(function ($e) {
+    Log::warn("Uncaught Exception: " . $e->getMessage());
+});
+
+
+// Routing
 $requestUri = $_SERVER['REQUEST_URI'];
 $parts = explode('?', $requestUri);
 $requestUri = trim(trim($parts[0]), '/');
