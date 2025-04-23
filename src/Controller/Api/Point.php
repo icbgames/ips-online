@@ -32,7 +32,7 @@ class Point extends RestBase
         $login = $this->getLogin();
         $param = $this->postBody();
 
-        $this->validator->addValidator('channel_owner', new class extends \Rakit\Validator\Rule{
+        $this->validator->addValidator('channel_owner', new class extends \Rakit\Validation\Rule{
             protected $message = 'チャンネルオーナーではありません';
             protected $fillableParams = ['expected'];
 
@@ -40,7 +40,7 @@ class Point extends RestBase
             {
                 $this->requireParameters(['expected']);
                 $expected = $this->parameter('expected');
-                return $value === $ecpected;
+                return $value === $expected;
             }
         });
 

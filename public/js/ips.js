@@ -68,6 +68,20 @@ window.IPS = window.IPS || {};
         o.classList.remove('show');
     }
   };
+
+  _.getEditValues = function() {
+    var channel = q('.ips__edit-popup-channel').textContent;
+    var user = q('.ips__edit-popup-user').textContent;
+    var point = q('.ips__edit-popup-point').value;
+
+    var values = {
+      channel: channel,
+      user: user,
+      point: point
+    };
+
+    return values;
+  };
 }(this));
 
 
