@@ -1,25 +1,6 @@
 {% extends "ips_base.twig" %}
 
 {% block head %}
-<script type="text/javascript">
-var authResult = {};
-
-{% if twitch.access_token is not empty %}
-authResult.accessToken = '{{ twitch.access_token }}';
-{% endif %}
-{% if twitch.refresh_token is not empty %}
-authResult.refreshToken = '{{ twitch.refresh_token }}';
-{% endif %}
-{% if twitch.login is not empty %}
-authResult.login = '{{ twitch.login }}';
-{% endif %}
-{% if twitch.expire is not empty %}
-authResult.expire = '{{ twitch.expire }}';
-{% endif %}
-{% if twitch.signature is not empty %}
-authResult.signature = '{{ twitch.signature }}';
-{% endif %}
-</script>
 {% endblock %}
 
 {% block inner %}
