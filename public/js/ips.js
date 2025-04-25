@@ -162,7 +162,8 @@ window.onload = function() {
         }
 
         const data = await response.json();
-        __.popupSuccess('正常に更新されました');
+        __.popupSuccess('正常に更新されました (2秒後にリロードします)');
+        setTimeout(function(){ location.reload(); }, 2100);
       }());
     });
   }
