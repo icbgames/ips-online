@@ -69,6 +69,10 @@ return [
             $c->get('ipsModelTwitch')
         );
     }),
+    'www/information' => DI\factory(function(DI\Container $c) {
+        return new Controller\Information(
+        );
+    }),
     'www/setting' => DI\factory(function(DI\Container $c) {
         return new Controller\Setting(
             $c->get('ipsModelSettings'),

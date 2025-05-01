@@ -28,6 +28,7 @@
       <p class="ips__login-name">ようこそ、<strong>{{ login }}</strong>さん</p>
       <ul class="ips__menu">
         <li class="ips__menu-item"><a href="/">トップページ</a></li>
+        <li class="ips__menu-item"><a href="/information">おしらせ</a></li>
         <li class="ips__menu-item"><a href="/setting">設定</a></li>
 {% if loggedin %}
         <li class="ips__menu-item"><a href="/ranking?channel={{ login }}">ランキング</a></li>
@@ -38,6 +39,9 @@
         <a href="https://id.twitch.tv/oauth2/authorize?client_id=htukebwn7imooessy0j06vhjqyfc2v&redirect_uri=https://ips-online.link/&response_type=code&scope=channel:read:subscriptions%20chat:read%20chat:edit%20channel:read:redemptions&state=ips-online">ログイン</a>
       </p>
 {% endif %}
+      <p>
+        <span class="ips__inline-icon ips__logo-x"><a href="https://x.com/ipsonline">@ipsonline</a></span>
+      </p>
       <p>
       問い合わせはDiscordかTwitterまで
       </p>

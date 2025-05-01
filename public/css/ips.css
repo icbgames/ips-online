@@ -331,6 +331,26 @@ td.ips__setting-input {
   cursor: pointer;
 }
 
+.ips__inline-icon {
+}
+
+.ips__inline-icon::before {
+  display: inline-block;
+  width: 1.6rem;
+  height: 1.6rem;
+  margin: 0;
+  margin-right: 8px;
+  background-color: black;
+  background-image: url('/img/x-logo.png');
+  background-size: 1.2rem 1.2rem;
+  background-position: 0.2rem 0.2rem;
+  background-repeat: no-repeat;
+  content: '.';
+}
+
+.ips__logo-x {
+}
+
 /*********************/
 /* ランキングページ  */
 /*********************/
