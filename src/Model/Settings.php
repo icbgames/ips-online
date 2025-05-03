@@ -18,7 +18,7 @@ class Settings
         $query = "select "
                . "  channel, period, addition, command, name, unit, "
                . "  refresh_token, access_token, access_token_expire, "
-               . "  addition_t1, addition_t2, addition_t3 "
+               . "  addition_t1, addition_t2, addition_t3, raid, raid_bonus "
                . "from "
                . "  SETTINGS "
                . "where "

@@ -13,6 +13,7 @@ abstract class RestBase
 {
     protected $status = 200;
     protected $response;
+    protected $headers = null;
 
     /**
      * 指定されたリクエストパラメータを返す (GET)
@@ -65,6 +66,29 @@ abstract class RestBase
         }
 
         return $decoded;
+    }
+
+    /**
+     * 指定されたリクエストヘッダの値を返す。未指定の場合はヘッダすべてを返す。
+     *
+     * @param string $key
+     * @return array|string
+     */
+    protected function headers($key = null)
+    {
+        if(is_null($this->headers)) {
+            $this->headers = getallheaders();
+        }
+
+        if(is_null($key)) {
+            return $this->headers;
+        }
+
+        if(isset($this->headers[$key])) {
+            return $this->headers[$key];
+        }
+
+        return null;
     }
 
     /**
