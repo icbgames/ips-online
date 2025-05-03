@@ -8,19 +8,16 @@ use IPS\Model\Log as Log;
 
 class Event extends RestBase
 {
-    private $validator;
-    private $point;
+    private $settings;
 
     /**
      * Construct
      *
-     * @param Validator $validator
-     * @param Model\Point $point
+     * @param Model\Settings $settings
      */
-    public function __construct(Validator $validator, Model\Point $point)
+    public function __construct(Model\Settings $settings)
     {
-        $this->validator = $validator;
-        $this->point = $point;
+        $this->settings = $settings;
     }
 
     public function action()

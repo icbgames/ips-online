@@ -100,6 +100,11 @@ return [
             $c->get('ipsModelPoint'),
         );
     }),
+    'api/event' => DI\factory(function(DI\Container $c) {
+        return new Controller\Api\Event(
+            $c->get('ipsModelSettings'),
+        );
+    }),
     // validator
     'validator' => DI\factory(function(DI\Container $c) {
         return new Rakit\Validation\Validator(['lang' => 'ja']);
