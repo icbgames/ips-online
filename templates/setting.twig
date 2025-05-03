@@ -89,7 +89,7 @@
     </p>
 {% else %}
     <p>
-      <a href="https://id.twitch.tv/oauth2/authorize?client_id=htukebwn7imooessy0j06vhjqyfc2v&redirect_uri=https://ips-online.link/&response_type=code&scope=channel:read:subscriptions%20chat:read%20chat:edit%20channel:read:redemptions&state=ips-online">こちらのリンク</a>からログインおよびIPS Onlineに対する認可を行ってください。<br>
+      <a href="{{ oauthUrl }}">こちらのリンク</a>からログインおよびIPS Onlineに対する認可を行ってください。<br>
       既に認可済みの場合はログインの有効期限が切れているため↑のリンクから再ログインしてください。
     </p>
 {% endif %}

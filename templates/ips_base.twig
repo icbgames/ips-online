@@ -36,7 +36,7 @@
       </ul>
 {% if loggedin == false %}
       <p class="ips__login-button">
-        <a href="https://id.twitch.tv/oauth2/authorize?client_id=htukebwn7imooessy0j06vhjqyfc2v&redirect_uri=https://ips-online.link/&response_type=code&scope=channel:read:subscriptions%20chat:read%20chat:edit%20channel:read:redemptions&state=ips-online">ログイン</a>
+        <a href="{{ oauthUrl }}">ログイン</a>
       </p>
 {% endif %}
       <p>

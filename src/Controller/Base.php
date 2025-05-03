@@ -2,6 +2,8 @@
 
 namespace IPS\Controller;
 
+use IPS\Model\Config as Config;
+
 /**
  * Web系コントローラー基底クラス
  *
@@ -76,6 +78,9 @@ abstract class Base
 
     public function render()
     {
+        $oauthUrl = Config::get('twitch', 'oauth', 'url');
+        $this->assignVars['oauthUrl'] = $oauthUrl;
+
         $loader = new \Twig\Loader\FilesystemLoader(__DIR__ . '/../../templates');
         $twig = new \Twig\Environment($loader);
         echo $twig->render($this->template, $this->assignVars);
