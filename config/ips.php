@@ -17,7 +17,7 @@ return [
             'timeout' => 60,
         ],
         'oauth' => [
-            'url' => 'https://id.twitch.tv/oauth2/authorize?client_id=htukebwn7imooessy0j06vhjqyfc2v&redirect_uri=https://ips-online.link/&response_type=code&scope=channel:read:subscriptions%20chat:read%20chat:edit%20channel:read:redemptions%20channel:read:raid&state=ips-online',
+            'url' => 'https://id.twitch.tv/oauth2/authorize?client_id=htukebwn7imooessy0j06vhjqyfc2v&redirect_uri=https://ips-online.link/&response_type=code&scope=channel:read:subscriptions%20chat:read%20chat:edit%20channel:read:redemptions&state=ips-online',
         ],
     ],
     'ips' => [
