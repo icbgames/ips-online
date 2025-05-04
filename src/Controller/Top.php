@@ -50,6 +50,9 @@ class Top extends Base
             // 取得したアクセストークンとリフレッシュトークンをDBに保存
             $this->accessToken->saveTokens($token);
 
+            // レイド通知のEventSub購読処理
+            $this->twitch->subscribeEventSub($token->getLogin());
+
             $this->assign('twitch', 'login', $token->getLogin());
             $this->assign('twitch', 'access_token', $token->getAccess());
             $this->assign('twitch', 'refresh_token', $token->getRefresh());

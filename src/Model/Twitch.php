@@ -185,4 +185,63 @@ class Twitch
         $token->setLogin($login);
         return $login;
     }
+
+    /**
+     * 指定したチャンネルでレイド通知のEventSubを購読する
+     *
+     * @param string $channel
+     */
+    public function subscribeEventSub($channel)
+    {
+        Log::debug("Subscribe EventSub: {$channel}");
+
+        // channnelからチャンネルIDを取得する
+        $user = new User($this); // @todo DIしたいのに設計ミスって循環依存になってしまったのでいつか設計見直す
+        $userInfo = $user->getUserInfo($channel);
+        $userId = $userInfo['user_id'];
+
+        // アクセストークンを取得
+        $token = $this->accessToken->getUserToken($channel);
+        $accessToken = $token->getAccess();
+
+        $clientId = Config::get('client_id');
+        $callbackUrl = 'https://ips-online.link/api/event';
+        $secret = Config::get('eventsub_secret');
+
+        // リクエストデータ
+        $request = [
+            'type' => 'channel.raid',
+            'version' => '1',
+            'condition' => [
+                'to_broadcaster_user_id' => $userId,
+            ],
+            'transport' => [
+                'method' => 'webhook',
+                'callback' => $callbackUrl,
+                'secret' => $secret,
+            ],
+        ];
+        Log::debug(var_export($request, true));
+        
+        // curl api call
+        $url = Config::get('twitch', 'api', 'eventsubs');
+        $headers = [
+            "Client-ID: {$clientId}",
+            "Authorization: Bearer {$accessToken}",
+            'Content-Type: application/json',
+        ];
+
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($request));
+
+        $response = curl_exec($ch);
+        $status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        curl_close($ch);
+
+        Log::debug("STATUS: {$status}");
+        Log::debug(var_export($resposne, true));
+    }
 }

@@ -9,6 +9,7 @@ return [
             'oauth2token' => 'https://id.twitch.tv/oauth2/token',
             'users' => 'https://api.twitch.tv/helix/users',
             'subscriptions' => 'https://api.twitch.tv/helix/subscriptions',
+            'eventsubs' => 'https://api.twitch.tv/helix/eventsub/subscriptions',
         ],
         'irc' => [
             'host' => 'irc.chat.twitch.tv',
