@@ -215,7 +215,7 @@ class Twitch
             'type' => 'channel.raid',
             'version' => '1',
             'condition' => [
-                'to_broadcaster_user_id' => $userId,
+                'to_broadcaster_user_id' => (string)$userId,
             ],
             'transport' => [
                 'method' => 'webhook',
