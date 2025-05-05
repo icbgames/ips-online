@@ -45,7 +45,7 @@ class AppAccessToken
         $db->execute($query, $params);
         $results = $db->fetch();
 
-        if(!isset($result[0])) {
+        if(!isset($results[0])) {
             // expireだけ無い
             throw new \Exception('expire is missing.');
         }
