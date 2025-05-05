@@ -30,7 +30,7 @@ class Event extends PlainBase
         $signature = $this->headers('Twitch-Eventsub-Message-Signature');
         $messageType = $this->headers('Twitch-Eventsub-Message-Type');
 
-        $body = $this->postBody();
+        $body = $this->postBody(true);
         Log::debug("request body for /api/evnet: " . var_export($body, true));
 
         $hmacMessage = $messageId . $timestamp . $body;
