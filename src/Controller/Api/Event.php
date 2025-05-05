@@ -4,6 +4,7 @@ namespace IPS\Controller\Api;
 
 use Rakit\Validation\Validator as Validator;
 use IPS\Model as Model;
+use IPS\Model\Config as Config;
 use IPS\Model\Log as Log;
 
 class Event extends PlainBase
