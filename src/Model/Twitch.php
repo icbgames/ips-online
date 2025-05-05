@@ -210,6 +210,27 @@ class Twitch
         $callbackUrl = 'https://ips-online.link/api/event';
         $secret = Config::get('eventsub_secret');
 
+        // 既に購読済みかどうかチェックして購読済みなら何もしない
+        $headers = [
+            "Client-ID: {$clientId}",
+            "Authorization: Bearer {$accessToken}",
+            'Content-Type: application/json',
+        ];
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+
+        $response = curl_exec($ch);
+        curl_close($ch);
+        $json = json_decode($response, true);
+        foreach($json['data'] as $subs) {
+            if($subs['type'] === 'channel.raid' && $subs['condition']['to_broadcaster_user_id'] == $userId && $subs['status'] === 'enabled') {
+                Log::debug("Already subscribed: {$userId} ({$channel})");
+                return;
+            }
+        }
+
+
         // リクエストデータ
         $request = [
             'type' => 'channel.raid',
