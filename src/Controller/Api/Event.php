@@ -66,10 +66,13 @@ class Event extends PlainBase
 
             // レイドの場合
             if($request['subscription']['type'] === 'channel.raid') {
-                $raider = $event['from_broadcaster_user_login'];
+                $raiderId = $event['from_broadcaster_user_id'];
+                $raiderLogin = $event['from_broadcaster_user_login'];
+                $raiderName = $event['from_broadcaster_user_name'];
+                $channel = $event['to_broadcaster_user_login'];
+
                 $viewers = (int)$event['viewers'];
 
-                $channel = $event['to_broadcaster_user_login'];
                 $setting = $this->settings->get($channel);
                 $add = (int)$setting['raid'] + (int)$setting['raid_bonus'] * $viewers;
 
@@ -77,6 +80,8 @@ class Event extends PlainBase
                 Log::info(var_export($event, true));
                 Log::debug(var_export($setting, true));
                 Log::info("raid add point: {$add}");
+
+                $this->point->add($raiderId, $raiderLogin, $raiderName, $channel, $add);
             }
         }
 
