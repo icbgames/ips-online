@@ -22,6 +22,8 @@ class Event extends PlainBase
 
     public function action()
     {
+        Log::debug('api/event');
+
         // signature検証
         $messageId = $this->headers('Twitch-Eventsub-Message-Id');
         $timestamp = $this->headers('Twitch-Eventsub-Message-Timestamp');

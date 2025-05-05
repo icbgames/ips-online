@@ -66,5 +66,7 @@ try {
     $class->action();
     $class->render();
 } catch(Exception $e) {
+    Log::debug("Exception while action ({$controller})");
+    Log::debug($e->getMessage());
     echo $e->getMessage();
 }
