@@ -211,6 +211,7 @@ class Twitch
         $secret = Config::get('eventsub_secret');
 
         // 既に購読済みかどうかチェックして購読済みなら何もしない
+        $url = Config::get('twitch', 'api', 'eventsubs');
         $headers = [
             "Client-ID: {$clientId}",
             "Authorization: Bearer {$accessToken}",
@@ -247,7 +248,6 @@ class Twitch
         Log::debug(var_export($request, true));
         
         // curl api call
-        $url = Config::get('twitch', 'api', 'eventsubs');
         $headers = [
             "Client-ID: {$clientId}",
             "Authorization: Bearer {$accessToken}",
