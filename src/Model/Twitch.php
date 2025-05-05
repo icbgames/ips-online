@@ -242,6 +242,6 @@ class Twitch
         curl_close($ch);
 
         Log::debug("STATUS: {$status}");
-        Log::debug(var_export($resposne, true));
+        Log::debug(var_export($response, true));
     }
 }
