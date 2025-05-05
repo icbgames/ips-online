@@ -34,9 +34,11 @@ class Event extends PlainBase
         Log::debug("request body for /api/evnet: " . var_export($body, true));
 
         $hmacMessage = $messageId . $timestamp . $body;
+        Log::debug("HMAC: {$hmacMessage}");
 
         $secret = Config::get('eventsub_secret');
         $expectedSignature = 'sha256=' . hash_hmac('sha256', $hmacMessage, $secret);
+        Log::debug("Expected: {$expectedSignature}");
 
         $result = hash_equals($expectedSignature, $signature);
         if(!$result) {
