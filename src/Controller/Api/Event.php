@@ -28,7 +28,8 @@ class Event extends RestBase
         $signature = $this->headers('Twitch-Eventsub-Message-Signature');
         $messageType = $this->headers('Twitch-Eventsub-Message-Type');
 
-        $body = $this->getPostBody();
+        $body = $this->postBody();
+        Log::debug("request body for /api/evnet: {$body}");
 
         $hmacMessage = $messageId . $timestamp . $body;
 
