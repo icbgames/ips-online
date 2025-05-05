@@ -9,15 +9,18 @@ namespace IPS\Model;
 class Twitch
 {
     protected $accessToken;
+    protected $appAccessToken;
 
     /**
      * Constructor
      *
      * @param AccessToken $accessToken
+     * @param AppAccessToken $appAccessToken
      */
-    public function __construct(AccessToken $accessToken)
+    public function __construct(AccessToken $accessToken, AppAccessToken $appAccessToken)
     {
         $this->accessToken = $accessToken;
+        $this->appAccessToken = $appAccessToken;
     }
 
     /**
@@ -201,8 +204,7 @@ class Twitch
         $userId = $userInfo['user_id'];
 
         // アクセストークンを取得
-        $token = $this->accessToken->getUserToken($channel);
-        $accessToken = $token->getAccess();
+        $accessToken = $this->appAccessToken->get();
 
         $clientId = Config::get('client_id');
         $callbackUrl = 'https://ips-online.link/api/event';

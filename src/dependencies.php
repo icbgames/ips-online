@@ -43,6 +43,9 @@ return [
             $c->get('ipsModelSettings'),
         );
     }),
+    'ipsModelAppAccessToken' => DI\factory(function(DI\Container $c) {
+        return new Model\AppAccessToken();
+    }),
     'ipsModelCommand' => DI\factory(function(DI\Container $c) {
         return new Model\Command();
     }),
@@ -55,6 +58,7 @@ return [
     'ipsModelTwitch' => DI\factory(function(DI\Container $c) {
         return new Model\Twitch(
             $c->get('ipsModelAccessToken'),
+            $c->get('ipsModelAppAccessToken'),
         );
     }),
     'ipsModelUser' => DI\factory(function(DI\Container $c) {
