@@ -48,6 +48,9 @@ class Event extends PlainBase
 
         // challenge検証
         if($messageType === 'webhook_callback_verification') {
+            Log::info('challenge verification');
+            Log::debug("challenge: {$request['challenge']}");
+
             echo $request['challenge'];
             return;
         }
