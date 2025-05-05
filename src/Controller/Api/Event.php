@@ -6,7 +6,7 @@ use Rakit\Validation\Validator as Validator;
 use IPS\Model as Model;
 use IPS\Model\Log as Log;
 
-class Event extends RestBase
+class Event extends PlainBase
 {
     private $settings;
 
