@@ -107,6 +107,7 @@ return [
     'api/event' => DI\factory(function(DI\Container $c) {
         return new Controller\Api\Event(
             $c->get('ipsModelSettings'),
+            $c->get('ipsModelPoint'),
         );
     }),
     // validator

@@ -10,15 +10,18 @@ use IPS\Model\Log as Log;
 class Event extends PlainBase
 {
     private $settings;
+    private $point;
 
     /**
      * Construct
      *
      * @param Model\Settings $settings
+     * @param Model\Point $point
      */
-    public function __construct(Model\Settings $settings)
+    public function __construct(Model\Settings $settings, Model\Point $point)
     {
         $this->settings = $settings;
+        $this->point = $point;
     }
 
     public function action()
