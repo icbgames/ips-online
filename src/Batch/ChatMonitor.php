@@ -13,12 +13,14 @@ class ChatMonitor
     private $socket;
     private $user;
     private $accessToken;
+    private $setting;
     private $channel;
     
-    public function __construct(Model\User $user, Model\AccessToken $accessToken)
+    public function __construct(Model\User $user, Model\AccessToken $accessToken, Model\Setting $setting)
     {
         $this->user = $user;
         $this->accessToken = $accessToken;
+        $this->setting = $setting;
     }
 
     public function __destruct()
@@ -37,6 +39,8 @@ class ChatMonitor
     {
         $token = Model\Oauth\Factory::create();
         $refresh = Config::get('refresh_token');
+        $setting = $this->setting->get($this->channel);
+        $refresh = $setting['refresh_token'];
         $token->setRefresh($refresh);
         $this->connectTwitch($token);
 
