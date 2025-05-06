@@ -57,6 +57,7 @@ class AccessToken
         // decode response and check.
         $response_data = json_decode($response, true);
         if (!isset($response_data['access_token'])) {
+            Log::info(var_export($data, true));
             Log::info($response);
             throw new \Exception('Failed to refresh an access token.');
         }
