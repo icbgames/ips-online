@@ -10,6 +10,7 @@ return [
         return new Batch\ChatMonitor(
             $c->get('ipsModelUser'),
             $c->get('ipsModelAccessToken'),
+            $c->get('ipsModelSettings'),
         );
     }),
     'ipsBatchCommandExecutor' => DI\factory(function(DI\Container $c) {
