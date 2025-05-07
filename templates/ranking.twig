@@ -19,7 +19,7 @@
       <th>ポイント</th>
     </tr>
 {% for r in ranking %}
-    <tr{% if loggedin %} class="ips__ranking-edit" x-ips-edit-channel="{{ channel }}" x-ips-edit-user="{{ r.login }}" x-ips-edit-name="{{ r.disp_name }}" x-ips-edit-point="{{ r.points }}"{% endif %}>
+    <tr{% if loggedin and login == channel %} class="ips__ranking-edit" x-ips-edit-channel="{{ channel }}" x-ips-edit-user="{{ r.login }}" x-ips-edit-name="{{ r.disp_name }}" x-ips-edit-point="{{ r.points }}"{% endif %}>
       <td class="ips__txt-center">{{ r.rank }}</td>
       <td>{{ r.disp_name}} ( {{ r.login }} )</td>
       <td class="ips__txt-center">{{ r.points }}</td>
