@@ -55,11 +55,13 @@ class Twitch
 
         if($response === false) {
             // error
+            throw new \Exception("Failed to get user info: {$login}");
         }
 
         $response = json_decode($response, false);
         if(!isset($response->data[0])) {
             // error
+            throw new \Exception("Invalid user info: {$login}");
         }
         
         return $response->data[0];

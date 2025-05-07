@@ -111,7 +111,13 @@ class User
         }
 
         // DBに有効なキャッシュが無い場合Twitch APIから取得
-        $userInfo = $this->twitch->getUserInfo($login);
+        try {
+            $userInfo = $this->twitch->getUserInfo($login);
+        } catch(\Exception $e) {
+            Log::warn($e->getMessage());
+            return;
+        }
+
         $this->cacheUserInfo($userInfo->id, $userInfo->login, $userInfo->display_name);
         return [
             'user_id' => $userInfo->id,
