@@ -23,6 +23,7 @@ return [
     ],
     'ips' => [
         'url' => 'https://ips-online.link/',
+        'callback' => 'https://ips-online.link/api/event',
         'channels' => [
             'kirukiru_21',
             'mira_kiryu',

@@ -8,6 +8,13 @@ namespace IPS\Model;
  */
 class Twitch
 {
+    /**
+     * EventSub用のtype
+     */
+    const SUBTYPE_RAID = 'channel.raid';
+    const SUBTYPE_BITS = 'channel.cheer';
+    const SUBTYPE_GIFT = 'channel.subscription.gift';
+
     protected $accessToken;
     protected $appAccessToken;
 
@@ -195,10 +202,11 @@ class Twitch
      * 指定したチャンネルでレイド通知のEventSubを購読する
      *
      * @param string $channel
+     * @param string $type
      */
-    public function subscribeEventSub($channel)
+    public function subscribeEventSub($channel, $type)
     {
-        Log::debug("Subscribe EventSub: {$channel}");
+        Log::debug("Subscribe EventSub: {$channel} - {$type}");
 
         // channnelからチャンネルIDを取得する
         $user = new User($this); // @todo DIしたいのに設計ミスって循環依存になってしまったのでいつか設計見直す
@@ -209,7 +217,7 @@ class Twitch
         $accessToken = $this->appAccessToken->get();
 
         $clientId = Config::get('client_id');
-        $callbackUrl = 'https://ips-online.link/api/event';
+        $callbackUrl = Config::get('ips', 'callback');
         $secret = Config::get('eventsub_secret');
 
         // 既に購読済みかどうかチェックして購読済みなら何もしない
@@ -227,20 +235,42 @@ class Twitch
         curl_close($ch);
         $json = json_decode($response, true);
         foreach($json['data'] as $subs) {
-            if($subs['type'] === 'channel.raid' && $subs['condition']['to_broadcaster_user_id'] == $userId && $subs['status'] === 'enabled') {
-                Log::debug("Already subscribed: {$userId} ({$channel})");
-                return;
+            switch($type) {
+                case static::SUBTYPE_RAID:
+                    if($subs['condition']['to_broadcaster_user_id'] == $userId && $subs['status'] === 'enabled') {
+                        Log::debug("Already subscribed: {$userId} ({$channel} - {$type})");
+                        return;
+                    }
+                    break;
+
+                case static::SUBTYPE_BITS:
+                case static::SUBTYPE_GIFT:
+                    if($subs['condition']['broadcaster_user_id'] == $userId && $subs['status'] === 'enabled') {
+                        Log::debug("Already subscribed: {$userId} ({$channel} - {$type})");
+                        return;
+                    }
+                    break;
+
+                default:
+                    throw new \Exception('Invalid EventSub type.');
             }
         }
 
 
         // リクエストデータ
+        switch($type) {
+            case static::SUBTYPE_RAID:
+                $condition = ['to_broadcaster_user_id' => (string)$userId];
+                break;
+            case static::SUBTYPE_BITS:
+            case static::SUBTYPE_GIFT:
+                $condition = ['broadcaster_user_id' => (string)$userId];
+                break;
+        }
         $request = [
-            'type' => 'channel.raid',
+            'type' => $type,
             'version' => '1',
-            'condition' => [
-                'to_broadcaster_user_id' => (string)$userId,
-            ],
+            'condition' => $condition,
             'transport' => [
                 'method' => 'webhook',
                 'callback' => $callbackUrl,

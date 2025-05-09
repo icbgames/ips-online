@@ -85,6 +85,12 @@ class Event extends PlainBase
                 Log::info("raid add point: {$add}");
 
                 $this->point->add($raiderId, $raiderLogin, $raiderName, $channel, $add);
+            } elseif($request['subscription']['type'] === 'channel.cheer') {
+                Log::info('>>> BITS INFO');
+                Log::info(var_export($event, true));
+            } elseif($request['subscription']['type'] === 'channel.subscription.gift') {
+                Log::info('>>> SUB GIFT INFO');
+                Log::info(var_export($event, true));
             }
         }
 

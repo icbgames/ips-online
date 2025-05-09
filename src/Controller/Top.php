@@ -3,6 +3,7 @@
 namespace IPS\Controller;
 
 use IPS\Model as Model;
+use IPS\Model\Twitch as Twitch;
 use IPS\Model\Log as Log;
 
 class Top extends Base
@@ -10,7 +11,7 @@ class Top extends Base
     protected $accessToken;
     protected $twitch;
 
-    public function __construct(Model\AccessToken $accessToken, Model\Twitch $twitch)
+    public function __construct(Model\AccessToken $accessToken, Twitch $twitch)
     {
         $this->accessToken = $accessToken;
         $this->twitch = $twitch;
@@ -50,8 +51,10 @@ class Top extends Base
             // 取得したアクセストークンとリフレッシュトークンをDBに保存
             $this->accessToken->saveTokens($token);
 
-            // レイド通知のEventSub購読処理
-            $this->twitch->subscribeEventSub($token->getLogin());
+            // レイド通知、ビッツ通知、サブギフ通知のEventSub購読処理
+            $this->twitch->subscribeEventSub($token->getLogin(), Twitch::SUBTYPE_RAID);
+            $this->twitch->subscribeEventSub($token->getLogin(), Twitch::SUBTYPE_BITS);
+            $this->twitch->subscribeEventSub($token->getLogin(), Twitch::SUBTYPE_GIFT);
 
             $this->assign('twitch', 'login', $token->getLogin());
             $this->assign('twitch', 'access_token', $token->getAccess());
