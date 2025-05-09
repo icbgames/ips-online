@@ -235,9 +235,9 @@ class Twitch
         curl_close($ch);
         $json = json_decode($response, true);
         foreach($json['data'] as $subs) {
-            switch($type) {
+            switch($subs['type']) {
                 case static::SUBTYPE_RAID:
-                    if($subs['condition']['to_broadcaster_user_id'] == $userId && $subs['status'] === 'enabled') {
+                    if($subs['type'] === $type && $subs['condition']['to_broadcaster_user_id'] == $userId && $subs['status'] === 'enabled') {
                         Log::debug("Already subscribed: {$userId} ({$channel} - {$type})");
                         return;
                     }
@@ -245,14 +245,11 @@ class Twitch
 
                 case static::SUBTYPE_BITS:
                 case static::SUBTYPE_GIFT:
-                    if($subs['condition']['broadcaster_user_id'] == $userId && $subs['status'] === 'enabled') {
+                    if($subs['type'] === $type && $subs['condition']['broadcaster_user_id'] == $userId && $subs['status'] === 'enabled') {
                         Log::debug("Already subscribed: {$userId} ({$channel} - {$type})");
                         return;
                     }
                     break;
-
-                default:
-                    throw new \Exception('Invalid EventSub type.');
             }
         }
 
