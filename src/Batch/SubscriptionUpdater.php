@@ -3,6 +3,7 @@
 namespace IPS\Batch;
 
 use IPS\Model as Model;
+use IPS\Model\Config as Config;
 use IPS\Model\Log as Log;
 
 /**
@@ -22,7 +23,7 @@ class SubscriptionUpdater
 
     public function execute()
     {
-        $channelList = ['kirukiru_21'];
+        $channelList = Config::get('ips', 'channels');
         foreach($channelList as $channel) {
             $this->updateTargetChannel($channel);
         }

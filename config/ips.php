@@ -26,7 +26,6 @@ return [
         'callback' => 'https://ips-online.link/api/event',
         'channels' => [
             'kirukiru_21',
-            'mira_kiryu',
             'mayuko7s',
         ],
         // 0 -> ERROR
