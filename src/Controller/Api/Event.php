@@ -86,8 +86,20 @@ class Event extends PlainBase
 
                 $this->point->add($raiderId, $raiderLogin, $raiderName, $channel, $add);
             } elseif($request['subscription']['type'] === 'channel.cheer') {
+                $cheererId = $event['user_id'];
+                $cheererLogin = $event['user_login'];
+                $cheererName = $event['user_name'];
+                $channel = $event['broadcaster_user_login'];
+
+                $bits = (int)$event['bits'];
+
+                $setting = $this->settings->get($channel);
+                $add = floor($bits / 100) * (int)$setting['bits100'];
+
                 Log::info('>>> BITS INFO');
                 Log::info(var_export($event, true));
+
+                $this->point->add($cheererId, $cheererLogin, $cheererName, $channel, $add);
             } elseif($request['subscription']['type'] === 'channel.subscription.gift') {
                 Log::info('>>> SUB GIFT INFO');
                 Log::info(var_export($event, true));
