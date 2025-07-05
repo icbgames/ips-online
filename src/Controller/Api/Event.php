@@ -101,8 +101,37 @@ class Event extends PlainBase
 
                 $this->point->add($cheererId, $cheererLogin, $cheererName, $channel, $add);
             } elseif($request['subscription']['type'] === 'channel.subscription.gift') {
+                $gifterId = $event['user_id'];
+                $gifterLogin = $event['user_login'];
+                $gifterName = $event['user_name'];
+                $channel = $event['broadcaster_user_login'];
+
+                $tier = (int)$event['tier'];
+                $amount = (int)$event['total'];
+
+                $setting = $this->settings->get($channel);
+                switch($tier) {
+                    case 1000:
+                        $add = (int)$setting['gift_t1'] * $amount;
+                        break;
+
+                    case 2000:
+                        $add = (int)$setting['gift_t2'] * $amount;
+                        break;
+
+                    case 3000:
+                        $add = (int)$setting['gift_t3'] * $amount;
+                        break;
+
+                    default:
+                        $add = 0;
+                        break;
+                }
+
                 Log::info('>>> SUB GIFT INFO');
                 Log::info(var_export($event, true));
+
+                $this->point->add($gifterId, $gifterLogin, $gifterName, $channel, $add);
             }
         }
 
