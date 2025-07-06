@@ -15,6 +15,12 @@ window.IPS = window.IPS || {};
     var addition_t1 = q('input[name=ips-setting-addition_t1]').value;
     var addition_t2 = q('input[name=ips-setting-addition_t2]').value;
     var addition_t3 = q('input[name=ips-setting-addition_t3]').value;
+    var raid        = q('input[name=ips-setting-raid]').value;
+    var raid_bonus  = q('input[name=ips-setting-raid_bonus]').value;
+    var bits100     = q('input[name=ips-setting-bits100]').value;
+    var gift_t1     = q('input[name=ips-setting-gift_t1]').value;
+    var gift_t2     = q('input[name=ips-setting-gift_t2]').value;
+    var gift_t3     = q('input[name=ips-setting-gift_t3]').value;
 
     var values = {
       name: name,
@@ -24,7 +30,13 @@ window.IPS = window.IPS || {};
       addition: addition,
       addition_t1: addition_t1,
       addition_t2: addition_t2,
-      addition_t3: addition_t3
+      addition_t3: addition_t3,
+      raid: raid,
+      raid_bonus: raid_bonus,
+      bits100: bits100,
+      gift_t1: gift_t1,
+      gift_t2: gift_t2,
+      gift_t3: gift_t3
     };
     return values;
   };
