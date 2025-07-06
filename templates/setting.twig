@@ -74,14 +74,24 @@
         <td>Raider10人ごとにこのポイントが追加で加算</td>
       </tr>
       <tr>
-        <th>Bitsポイント<br>※未実装です</th>
-        <td class="ips__setting-input"><input type="text" value=""></td>
+        <th>Bitsポイント</th>
+        <td class="ips__setting-input"><input type="text" value="{{ setting.bits100 }}"></td>
         <td>Cheer 100bitsごとにこのポイントが加算(99bitsは0ポイント)</td>
       </tr>
       <tr>
-        <th></th>
-        <td class="ips__setting-input"><input type="text" value=""></td>
-        <td></td>
+        <th>Tier1サブギフポイント</th>
+        <td class="ips__setting-input"><input type="text" value="{{ setting.gift_t1 }}"></td>
+        <td>Tier1のサブギフ1個につきこのポイントが加算</td>
+      </tr>
+      <tr>
+        <th>Tier2サブギフポイント</th>
+        <td class="ips__setting-input"><input type="text" value="{{ setting.gift_t2 }}"></td>
+        <td>Tier2のサブギフ1個につきこのポイントが加算</td>
+      </tr>
+      <tr>
+        <th>Tier3サブギフポイント</th>
+        <td class="ips__setting-input"><input type="text" value="{{ setting.gift_t3 }}"></td>
+        <td>Tier3のサブギフ1個につきこのポイントが加算</td>
       </tr>
     </table>
     <p class="ips__txt-center">
