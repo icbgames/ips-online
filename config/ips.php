@@ -27,6 +27,7 @@ return [
         'channels' => [
             'kirukiru_21',
             'mayuko7s',
+            '7holic',
         ],
         // 0 -> ERROR
         // 1 -> ERROR, WARN
@@ -34,6 +35,14 @@ return [
         // 3 -> ERROR, WARN, INFO, DEBUG
         'log' => [
             'level' => 3,
+        ],
+    ],
+    'monitor' => [
+        'critical' => [
+            'rank',
+        ],
+        'threshold' => [
+            'twitch' => ['interval' => 600, 'count' => 5],
         ],
     ],
 ];
