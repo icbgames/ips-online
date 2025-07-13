@@ -13,18 +13,12 @@
   <div class="ips__ignore-list">
 
 {% if loggedin %}
-  <h3>概要</h3>
-  <table class="ips__ignore-table">
-      <tr>
-        <th>対象外ユーザー</th>
-        <td> </td>
-      </tr>
+  <h3>対象外ユーザー</h3>
+<textarea rows="20" cols="20">
 {% for ignore in ignoreList %}
-      <tr>
-        <td>{{ ignore.login }}</td>
-      </tr>
+{{ ignore.login }}
 {% endfor %}
-  </table>
+</textare>
 
 {% else %}
     <p>
