@@ -18,6 +18,11 @@ return [
             $c->get('ipsModelSettings'),
         );
     }),
+    'ipsBatchMonitor' => DI\factory(function(DI\Container $c) {
+        return new Batch\Monitor(
+            $c->get('ipsModelDiscord'),
+        );
+    }),
     'ipsBatchPointChecker' => DI\factory(function(DI\Container $c) {
         return new Batch\PointChecker(
             $c->get('ipsModelPoint'),
@@ -50,6 +55,9 @@ return [
     'ipsModelCommand' => DI\factory(function(DI\Container $c) {
         return new Model\Command();
     }),
+    'ipsModelDiscord' => DI\factory(function(DI\Container $c) {
+        return new Model\Discord();
+    }),
     'ipsModelPoint' => DI\factory(function(DI\Container $c) {
         return new Model\Point();
     }),
@@ -81,6 +89,12 @@ return [
     'www/setting' => DI\factory(function(DI\Container $c) {
         return new Controller\Setting(
             $c->get('ipsModelSettings'),
+            $c->get('ipsModelAccessToken'),
+        );
+    }),
+    'www/ignore' => DI\factory(function(DI\Container $c) {
+        return new Controller\Ignore(
+            $c->get('ipsModelPoint'),
             $c->get('ipsModelAccessToken'),
         );
     }),

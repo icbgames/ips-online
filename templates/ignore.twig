@@ -1,0 +1,38 @@
+{% extends "ips_base.twig" %}
+
+{% block head %}
+{% endblock %}
+
+{% block inner %}
+
+<div class="ips__ignore">
+  <h2 class="ips__clear-top">IPS ポイント加算対象外リスト</h2>
+  <p>
+  ここで設定しているユーザーはポイントが加算されません
+  </p>
+  <div class="ips__ignore-list">
+
+{% if loggedin %}
+  <h3>概要</h3>
+  <table class="ips__ignore-table">
+      <tr>
+        <th>対象外ユーザー</th>
+        <td> </td>
+      </tr>
+{% for ignore in ignoreList %}
+      <tr>
+        <td>{{ ignore.login }}</td>
+      </tr>
+{% endfor %}
+  </table>
+
+{% else %}
+    <p>
+      <a href="{{ oauthUrl }}">こちらのリンク</a>からログインおよびIPS Onlineに対する認可を行ってください。<br>
+      既に認可済みの場合はログインの有効期限が切れているため↑のリンクから再ログインしてください。
+    </p>
+{% endif %}
+  </div>
+</div>
+
+{% endblock %}
