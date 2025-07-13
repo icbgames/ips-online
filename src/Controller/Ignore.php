@@ -11,7 +11,7 @@ class Ignore extends Base
     protected $point;
     protected $accessToken;
 
-    public function __construct(Model\Settings $point, Model\AccessToken $accessToken)
+    public function __construct(Model\Point $point, Model\AccessToken $accessToken)
     {
         $this->point = $point;
         $this->accessToken = $accessToken;
