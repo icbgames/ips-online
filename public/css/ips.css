@@ -96,6 +96,7 @@ body.noscroll {
   padding: 0 2em;
   margin: 0;
   display: inline-block;
+  font-size: 12px;
 }
 
 .ips__copyright-wrapper {
