@@ -28,6 +28,8 @@ return [
             'kirukiru_21',
             'mayuko7s',
             '7holic',
+            'uzakiaoi',
+            'pakichi',
         ],
         // 0 -> ERROR
         // 1 -> ERROR, WARN
