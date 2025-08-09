@@ -24,6 +24,9 @@ body.noscroll {
 
 .ips__content-footer {
   width: 100%;
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: black 1px solid;
 }
 
 
@@ -79,10 +82,19 @@ body.noscroll {
 
 
 
+.ips__footer-link {
+}
+
+.ips__footer-link ul {
+}
+
+.ips__footer-link ul li {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
 .ips__copyright-wrapper {
-  margin-top: 10px;
-  padding-top: 10px;
-  border-top: black 1px solid;
 }
 
 .ips__copyright {
