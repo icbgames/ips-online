@@ -86,6 +86,10 @@ return [
         return new Controller\Information(
         );
     }),
+    'www/policy' => DI\factory(function(DI\Container $c) {
+        return new Controller\Policy(
+        );
+    }),
     'www/setting' => DI\factory(function(DI\Container $c) {
         return new Controller\Setting(
             $c->get('ipsModelSettings'),
