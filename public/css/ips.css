@@ -86,12 +86,16 @@ body.noscroll {
 }
 
 .ips__footer-link ul {
+  margin: 0;
+  padding: 0;
+  text-align: center;
 }
 
 .ips__footer-link ul li {
   list-style: none;
-  padding: 0;
+  padding: 0 2em;
   margin: 0;
+  display: inline-block;
 }
 
 .ips__copyright-wrapper {
