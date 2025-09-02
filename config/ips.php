@@ -30,6 +30,7 @@ return [
             '7holic',
             'uzakiaoi',
             'pakichi',
+            't_abyss_',
         ],
         // 0 -> ERROR
         // 1 -> ERROR, WARN
