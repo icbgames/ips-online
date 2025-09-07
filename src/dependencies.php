@@ -129,6 +129,12 @@ return [
             $c->get('ipsModelPoint'),
         );
     }),
+    'api/ignore' => DI\factory(function(DI\Container $c) {
+        return new Controller\Api\Ignore(
+            $c->get('validator'),
+            $c->get('ipsModelPoint')
+        );
+    }),
     // validator
     'validator' => DI\factory(function(DI\Container $c) {
         return new Rakit\Validation\Validator(['lang' => 'ja']);

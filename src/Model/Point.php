@@ -36,6 +36,52 @@ class Point
     }
 
     /**
+     * 指定チャンネルの ignore (無視) ユーザーを追加する
+     *
+     * @param string $channel
+     * @param string $login
+     */
+    public function addIgnoreUser($channel, $login)
+    {
+        $query = "insert or ignore into "
+               . "  IGNORE_USERS "
+               . "  ( channel, login ) "
+               . "values "
+               . "  ( :channel, :login ) ";
+
+        $params = [
+            ':channel' => $channel,
+            ':login' => $login,
+        ];
+
+        $db = DB::instance();
+        $db->execute($query, $params);
+    }
+
+    /**
+     * 指定チャンネルの ignore (無視) ユーザーを削除する
+     *
+     * @param string $channel
+     * @param string $login
+     */
+    public function deleteIgnoreUser($channel, $login)
+    {
+        $query = "delete from "
+               . "  IGNORE_USERS "
+               . "where "
+               . "  channel = :channel and "
+               . "  login = :login ";
+
+        $params = [
+            ':channel' => $channel,
+            ':login' => $login,
+        ];
+
+        $db = DB::instance();
+        $db->execute($query, $params);
+    }
+
+    /**
      * 対象となるユーザーにポイントを付与する
      *
      * @param int $userId

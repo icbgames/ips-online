@@ -24,8 +24,8 @@ class Ignore extends Base
         $isLoggedIn = $this->isLoggedIn();
         $this->assign('loggedin', $isLoggedIn);
 
-        $ignoreList = $this->point->getIgnoreList($this->login);
-        $this->assign('ignoreList', $ignoreList);
+    $ignoreList = $this->point->getIgnoreList($this->login);
+    $this->assign('ignoreList', $ignoreList);
     }
 
     /**
