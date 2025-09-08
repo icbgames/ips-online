@@ -204,15 +204,13 @@ window.onload = function() {
         return res.json().then(function(body){ return {status: res.status, body: body}; });
       }).then(function(r){
         if(r.status === 200) {
-          var tbody = document.querySelector('.ips__ignore-table tbody');
-          var tr = document.createElement('tr');
-          var tdLogin = document.createElement('td'); tdLogin.textContent = login;
-          var tdOp = document.createElement('td');
-          var btn = document.createElement('button'); btn.type='button'; btn.className='ips__ignore-delete'; btn.setAttribute('data-login', login); btn.textContent='削除';
-          btn.addEventListener('click', function(){ deleteIgnoreUser(login, tr); });
-          tdOp.appendChild(btn);
-          tr.appendChild(tdLogin); tr.appendChild(tdOp);
-          tbody.appendChild(tr);
+            var ul = document.querySelector('.ips__ignore-list-ul');
+            var li = document.createElement('li');
+            var a = document.createElement('a');
+            a.href = '#'; a.className = 'ips__ignore-delete'; a.setAttribute('data-login', login); a.textContent = login;
+            a.addEventListener('click', function(ev){ ev.preventDefault(); onClickDelete(a, li); });
+            li.appendChild(a);
+            ul.appendChild(li);
           form.querySelector('input[name=login]').value = '';
           __.popupSuccess('追加しました: ' + login);
         } else {
@@ -224,7 +222,7 @@ window.onload = function() {
 
   function deleteIgnoreUser(login, row) {
     var channel = document.querySelector('.ips__login-name strong') ? document.querySelector('.ips__login-name strong').textContent : '';
-    fetch('/api/ignore', {
+    return fetch('/api/ignore', {
       method: 'DELETE',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({ channel: channel, user: login })
@@ -234,18 +232,28 @@ window.onload = function() {
       if(r.status === 200) {
         if(row && row.parentNode) row.parentNode.removeChild(row);
         __.popupSuccess('削除しました: ' + login);
+        return true;
       } else {
         __.popupError(r.body.message || '削除に失敗しました');
+        return false;
       }
-    }).catch(function(){ __.popupError('通信エラー'); });
+    }).catch(function(){ __.popupError('通信エラー'); return false; });
+  }
+
+  function onClickDelete(anchor, li) {
+    var login = anchor.getAttribute('data-login');
+    var confirmed = window.confirm(login + ' を対象外ユーザーから削除してもよろしいですか？');
+    if(!confirmed) return;
+    deleteIgnoreUser(login, li);
   }
 
   // wire up existing delete buttons
-  qq('.ips__ignore-delete').forEach(function(btn){
-    btn.addEventListener('click', function(){
-      var login = btn.getAttribute('data-login');
-      var tr = btn.closest('tr');
-      deleteIgnoreUser(login, tr);
+  qq('.ips__ignore-delete').forEach(function(el){
+    el.addEventListener('click', function(ev){
+      ev.preventDefault();
+      var login = el.getAttribute('data-login');
+      var li = el.closest('li');
+      onClickDelete(el, li);
     });
   });
 };

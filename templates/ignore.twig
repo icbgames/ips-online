@@ -29,24 +29,13 @@
   
   <h3>追加の対象外ユーザー</h3>
 
-  <table class="ips__ignore-table">
-    <thead>
-      <tr>
-        <th>login</th>
-        <th>操作</th>
-      </tr>
-    </thead>
-    <tbody>
+  <ul class="ips__ignore-list-ul">
     {% for ignore in ignoreList %}
-      <tr>
-        <td>{{ ignore.login }}</td>
-        <td>
-          <button type="button" class="ips__ignore-delete" data-login="{{ ignore.login }}">削除</button>
-        </td>
-      </tr>
+      <li>
+        <a href="#" class="ips__ignore-delete" data-login="{{ ignore.login }}">{{ ignore.login }}</a>
+      </li>
     {% endfor %}
-    </tbody>
-  </table>
+  </ul>
   
   <form method="post" class="ips__ignore-form">
     <input type="hidden" name="action" value="add">
