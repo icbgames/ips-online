@@ -18,31 +18,35 @@
 
 {% if loggedin %}
   <h3>デフォルト対象外ユーザー</h3>
-  <ul>
-    <li>frostytoolsdotcom</li>
-    <li>ips_online</li>
-    <li>nightbot</li>
-    <li>sery_bot</li>
-    <li>streamelements</li>
-    <li>wizebot</li>
-  </ul>
+  <div class="ips__content-detail">
+    <ul>
+      <li>frostytoolsdotcom</li>
+      <li>ips_online</li>
+      <li>nightbot</li>
+      <li>sery_bot</li>
+      <li>streamelements</li>
+      <li>wizebot</li>
+    </ul>
+  </div>
   
   <h3>追加の対象外ユーザー</h3>
-  <ul class="ips__ignore-list-ul">
+  <div class="ips__content-detail">
+    <ul class="ips__ignore-list-ul">
     {% for ignore in ignoreList %}
       <li>
         <a href="#" class="ips__ignore-delete" data-login="{{ ignore.login }}">{{ ignore.login }}</a>
       </li>
     {% endfor %}
-  </ul>
+    </ul>
+  </div>
   
   <h3>対象外ユーザーの追加</h3>
-  <p>
+  <div class="ips__content-detail">
   <form method="post" class="ips__ignore-form">
     <input type="hidden" name="action" value="add">
     <label><input type="text" name="login" placeholder="Twitchのアカウントを入力" required></label> <button type="button" class="ips__ignore-add">追加</button>
   </form>
-  </p>
+  </div>
 
 {% else %}
     <p>
