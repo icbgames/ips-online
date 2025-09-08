@@ -28,7 +28,6 @@
   </ul>
   
   <h3>追加の対象外ユーザー</h3>
-
   <ul class="ips__ignore-list-ul">
     {% for ignore in ignoreList %}
       <li>
@@ -37,6 +36,8 @@
     {% endfor %}
   </ul>
   
+  <h3>対象外ユーザーの追加</h3>
+  <p>
   <form method="post" class="ips__ignore-form">
     <input type="hidden" name="action" value="add">
     <label>
@@ -45,7 +46,7 @@
     </label>
   <button type="button" class="ips__ignore-add">追加</button>
   </form>
-
+  </p>
 
 {% else %}
     <p>
