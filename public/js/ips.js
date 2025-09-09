@@ -267,9 +267,9 @@ window.onload = function() {
       var displayedChannel = params.has('channel') ? params.get('channel') : (document.getElementById('ips__template-channel') ? document.getElementById('ips__template-channel').value : '');
       var operator = document.getElementById('ips__operator-login') ? document.getElementById('ips__operator-login').value : '';
 
-      if(!entered) { __.popupError('確認用アカウントを入力してください'); return; }
+      if(!entered) { __.popupError('アカウントを入力してください'); return; }
       if(displayedChannel !== operator || operator !== entered) {
-        __.popupError('表示中のチャンネル、操作者のアカウント、入力アカウントが一致していません');
+        __.popupError('入力されたTwitchアカウントが正しくありません');
         return;
       }
 
