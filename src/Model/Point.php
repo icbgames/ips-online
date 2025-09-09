@@ -275,5 +275,18 @@ class Point
         $db = DB::instance();
         $db->execute($query, $params);
     }
+
+    /**
+     * 指定したチャンネルのすべてのポイント情報を削除する
+     *
+     * @param string $channel
+     */
+    public function deleteAllPoints($channel)
+    {
+        $query = "delete from IPS_POINTS where channel = :channel";
+        $params = [':channel' => $channel];
+        $db = DB::instance();
+        $db->execute($query, $params);
+    }
 }
 

@@ -71,6 +71,10 @@
     </div>
   </div>
 
+  <!-- hidden values for client-side JS -->
+  <input type="hidden" id="ips__operator-login" value="{{ login }}">
+  <input type="hidden" id="ips__template-channel" value="{{ channel | default('') }}">
+
   <div id="ips__error-popup">
     <button class="ips__error-popup-close">×</button>
     <p class="ips__error-popup-message">error</p>

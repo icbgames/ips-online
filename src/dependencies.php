@@ -129,6 +129,12 @@ return [
             $c->get('ipsModelPoint'),
         );
     }),
+    'api/reset' => DI\factory(function(DI\Container $c) {
+        return new Controller\Api\Reset(
+            $c->get('validator'),
+            $c->get('ipsModelPoint')
+        );
+    }),
     'api/ignore' => DI\factory(function(DI\Container $c) {
         return new Controller\Api\Ignore(
             $c->get('validator'),
