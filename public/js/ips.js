@@ -256,4 +256,40 @@ window.onload = function() {
       onClickDelete(el, li);
     });
   });
+
+  // Ranking: reset all points (owner only)
+  var resetBtn = q('#ips__reset-button');
+  if(resetBtn) {
+    resetBtn.addEventListener('click', function(){
+      var input = q('#ips__reset-account');
+      var entered = input ? input.value.trim() : '';
+      var params = new URLSearchParams(window.location.search);
+      var displayedChannel = params.has('channel') ? params.get('channel') : (document.getElementById('ips__template-channel') ? document.getElementById('ips__template-channel').value : '');
+      var operator = document.getElementById('ips__operator-login') ? document.getElementById('ips__operator-login').value : '';
+
+      if(!entered) { __.popupError('確認用アカウントを入力してください'); return; }
+      if(displayedChannel !== operator || operator !== entered) {
+        __.popupError('表示中のチャンネル、操作者のアカウント、入力アカウントが一致していません');
+        return;
+      }
+
+      var confirmed = window.confirm('この操作は取り消せません。本当に全リセットしますか？');
+      if(!confirmed) return;
+
+      fetch('/api/reset', {
+        method: 'DELETE',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ channel: displayedChannel })
+      }).then(function(res){
+        return res.json().then(function(body){ return {status: res.status, body: body}; });
+      }).then(function(r){
+        if(r.status === 200) {
+          __.popupSuccess('すべてのポイントを削除しました');
+          setTimeout(function(){ location.reload(); }, 800);
+        } else {
+          __.popupError(r.body.message || 'リセットに失敗しました');
+        }
+      }).catch(function(){ __.popupError('通信エラー'); });
+    });
+  }
 };

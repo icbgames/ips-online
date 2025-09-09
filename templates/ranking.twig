@@ -30,6 +30,14 @@
 
 </div>
 
+{% if loggedin and login == channel %}
+<div class="ips__ranking-reset">
+  <h3>ポイント全リセット（チャンネルオーナーのみ）</h3>
+  <label>あなたのアカウント（確認用）: <input type="text" id="ips__reset-account" placeholder="your_twitch_account"></label>
+  <button type="button" id="ips__reset-button" class="ips__reset-all">ポイントを全リセット</button>
+</div>
+{% endif %}
+
 <div class="ips__edit-popup">
   <h3>ポイントを修正します</h3>
   <table class="ips__edit-table">
