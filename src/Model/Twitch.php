@@ -14,6 +14,8 @@ class Twitch
     const SUBTYPE_RAID = 'channel.raid';
     const SUBTYPE_BITS = 'channel.cheer';
     const SUBTYPE_GIFT = 'channel.subscription.gift';
+    const SUBTYPE_STREAM_ONLINE = 'stream.online';
+    const SUBTYPE_STREAM_OFFLINE = 'stream.offline';
 
     protected $accessToken;
     protected $appAccessToken;
@@ -283,6 +285,104 @@ class Twitch
             'Content-Type: application/json',
         ];
 
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($request));
+
+        $response = curl_exec($ch);
+        $status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        curl_close($ch);
+
+        Log::debug("STATUS: {$status}");
+        Log::debug(var_export($response, true));
+    }
+
+    /**
+     * 指定したチャンネルで配信開始・終了通知のEventSubを購読する
+     *
+     * @param string $channel
+     */
+    public function subscribeStreamEvent($channel)
+    {
+        Log::debug("Subscribe EventSub: {$channel} - stream");
+
+        // channnelからチャンネルIDを取得する
+        $user = new User($this); // @todo DIしたいのに設計ミスって循環依存になってしまったのでいつか設計見直す
+        $userInfo = $user->getUserInfo($channel);
+        $userId = $userInfo['user_id'];
+
+        // アクセストークンを取得
+        $accessToken = $this->appAccessToken->get();
+
+        $clientId = Config::get('client_id');
+        $callbackUrl = Config::get('ips', 'callback');
+        $secret = Config::get('eventsub_secret');
+
+        // 既に購読済みかどうかチェックして購読済みなら何もしない
+        $url = Config::get('twitch', 'api', 'eventsubs');
+        $headers = [
+            "Client-ID: {$clientId}",
+            "Authorization: Bearer {$accessToken}",
+            'Content-Type: application/json',
+        ];
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+
+        $response = curl_exec($ch);
+        curl_close($ch);
+        $json = json_decode($response, true);
+        foreach($json['data'] as $subs) {
+            if($subs['type'] == static::SUBTYPE_STREAM_ONLINE &&
+               $subs['condition']['broadcaster_user_id'] == $userId &&
+               $subs['status'] === 'enabled') {
+                Log::debug("Already subscribed: {$userId} ({$channel} - stream)");
+                return;
+            }
+        }
+
+        // リクエストデータ
+        $condition = ['broadcaster_user_id' => (string)$userId];
+
+        // 配信開始
+        $request = [
+            'type' => static::SUBTYPE_STREAM_ONLINE,
+            'version' => '1',
+            'condition' => $condition,
+            'transport' => [
+                'method' => 'webhook',
+                'callback' => $callbackUrl,
+                'secret' => $secret,
+            ],
+        ];
+        Log::debug(var_export($request, true));
+        
+        // curl api call
+        $headers = [
+            "Client-ID: {$clientId}",
+            "Authorization: Bearer {$accessToken}",
+            'Content-Type: application/json',
+        ];
+
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($request));
+
+        $response = curl_exec($ch);
+        $status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        curl_close($ch);
+
+        Log::debug("STATUS: {$status}");
+        Log::debug(var_export($response, true));
+
+        // 配信終了
+        $request['type'] = static::SUBTYPE_STREAM_OFFLINE;
+        Log::debug(var_export($request, true));
+        
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
