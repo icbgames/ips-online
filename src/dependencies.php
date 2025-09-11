@@ -64,6 +64,9 @@ return [
     'ipsModelSettings' => DI\factory(function(DI\Container $c) {
         return new Model\Settings();
     }),
+    'ipsModelStream' => DI\factory(function(DI\Container $c) {
+        return new Model\Stream();
+    }),
     'ipsModelTwitch' => DI\factory(function(DI\Container $c) {
         return new Model\Twitch(
             $c->get('ipsModelAccessToken'),
