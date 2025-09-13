@@ -86,6 +86,7 @@ class Event extends PlainBase
 
                 $this->point->add($raiderId, $raiderLogin, $raiderName, $channel, $add);
             } elseif($request['subscription']['type'] === 'channel.cheer') {
+                // cheerの場合
                 $cheererId = $event['user_id'];
                 $cheererLogin = $event['user_login'];
                 $cheererName = $event['user_name'];
@@ -101,6 +102,7 @@ class Event extends PlainBase
 
                 $this->point->add($cheererId, $cheererLogin, $cheererName, $channel, $add);
             } elseif($request['subscription']['type'] === 'channel.subscription.gift') {
+                // サブギフの場合
                 $gifterId = $event['user_id'];
                 $gifterLogin = $event['user_login'];
                 $gifterName = $event['user_name'];
@@ -132,6 +134,14 @@ class Event extends PlainBase
                 Log::info(var_export($event, true));
 
                 $this->point->add($gifterId, $gifterLogin, $gifterName, $channel, $add);
+            } elseif($request['subscription']['type'] === 'stream.online') {
+                // 配信開始の場合
+                $channel = $event['broadcaster_user_login'];
+                $this->stream->activate($channel);
+            } elseif($request['subscription']['type'] === 'stream.offline') {
+                // 配信終了の場合
+                $channel = $event['broadcaster_user_login'];
+                $this->stream->deactivate($channel);
             }
         }
 
