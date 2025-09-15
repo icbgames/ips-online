@@ -130,6 +130,7 @@ return [
         return new Controller\Api\Event(
             $c->get('ipsModelSettings'),
             $c->get('ipsModelPoint'),
+            $c->get('ipsModelStream'),
         );
     }),
     'api/reset' => DI\factory(function(DI\Container $c) {
