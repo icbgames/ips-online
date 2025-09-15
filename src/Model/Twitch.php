@@ -434,6 +434,6 @@ class Twitch
         if(!isset($response['data']) || !isset($response['data'][0])) {
             return Stream::STATUS_OFFLINE;
         }
-        return Stream::STATAUS_ONLINE;
+        return Stream::STATUS_ONLINE;
     }
 }
