@@ -136,10 +136,14 @@ class Event extends PlainBase
                 $this->point->add($gifterId, $gifterLogin, $gifterName, $channel, $add);
             } elseif($request['subscription']['type'] === 'stream.online') {
                 // 配信開始の場合
+                Log::info('>>> STREAM ONLINE');
+                Log::info(var_export($event, true));
                 $channel = $event['broadcaster_user_login'];
                 $this->stream->activate($channel);
             } elseif($request['subscription']['type'] === 'stream.offline') {
                 // 配信終了の場合
+                Log::info('>>> STREAM OFFLINE');
+                Log::info(var_export($event, true));
                 $channel = $event['broadcaster_user_login'];
                 $this->stream->deactivate($channel);
             }
