@@ -38,6 +38,12 @@ return [
             $c->get('ipsModelPoint'),
         );
     }),
+    'ipsBatchStreamStatusUpdater' => DI\factory(function(DI\Container $c) {
+        return new Batch\StreamStatusUpdater(
+            $c->get('ipsModelStream'),
+            $c->get('ipsModelTwitch'),
+        );
+    }),
     'ipsBatchSubscriptionUpdater' => DI\factory(function(DI\Container $c) {
         return new Batch\SubscriptionUpdater(
             $c->get('ipsModelUser'),

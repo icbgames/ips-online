@@ -396,4 +396,44 @@ class Twitch
         Log::debug("STATUS: {$status}");
         Log::debug(var_export($response, true));
     }
+
+    /**
+     * 指定したチャンネルの配信ステータスを返す
+     *
+     * @param string $channel
+     * @return int Stream::STATUS_OFFLINE|Stream::STATUS_ONLINE
+     */
+    public function getStreamStatus($channel)
+    {
+        // アクセストークンを取得
+        $accessToken = $this->appAccessToken->get();
+
+        $clientId = Config::get('client_id');
+        $callbackUrl = Config::get('ips', 'callback');
+        $secret = Config::get('eventsub_secret');
+
+        // 配信ステータス取得
+        $url = Config::get('twitch', 'api', 'streams');
+        $url = "{$url}?user_login={$channel}";
+        $headers = [
+            "Client-ID: {$clientId}",
+            "Authorization: Bearer {$accessToken}",
+            'Content-Type: application/json',
+        ];
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+
+        $response = curl_exec($ch);
+        curl_close($ch);
+
+        // レスポンスをデコード
+        $response = json_decode($response, true);
+        Log::debug(var_export($response, true));
+
+        if(!isset($response['data']) || !isset($response['data'][0])) {
+            return Stream::STATUS_OFFLINE;
+        }
+        return Stream::STATAUS_ONLINE;
+    }
 }

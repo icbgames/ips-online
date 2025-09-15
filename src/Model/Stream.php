@@ -98,4 +98,25 @@ class Stream
     {
         $this->updateStatus($channel, static::STATUS_OFFLINE);
     }
+
+    /**
+     * IPSを利用している全チャンネルの一覧を返す
+     *
+     * @return array
+     */
+    public function getAllChannels()
+    {
+        $query = "select "
+               . "  channel "
+               . "from "
+               . "  SETTINGS "
+               . "order by channel";
+        
+        $db = DB::instance();
+        $db->execute($query);
+        
+        $results = $db->fetch();
+        $channels = array_column($results, 'channel');
+        return $channels;
+    }
 }

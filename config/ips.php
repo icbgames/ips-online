@@ -10,6 +10,7 @@ return [
             'users' => 'https://api.twitch.tv/helix/users',
             'subscriptions' => 'https://api.twitch.tv/helix/subscriptions',
             'eventsubs' => 'https://api.twitch.tv/helix/eventsub/subscriptions',
+            'streams' => 'https://api.twitch.tv/helix/streams',
         ],
         'irc' => [
             'host' => 'irc.chat.twitch.tv',
