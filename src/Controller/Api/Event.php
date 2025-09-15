@@ -20,7 +20,7 @@ class Event extends PlainBase
      * @param Model\Point $point
      * @param Model\Stream $stream
      */
-    public function __construct(Model\Settings $settings, Model\Point $point, $Model\Stream $stream)
+    public function __construct(Model\Settings $settings, Model\Point $point, Model\Stream $stream)
     {
         $this->settings = $settings;
         $this->point = $point;
