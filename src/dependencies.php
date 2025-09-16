@@ -36,6 +36,7 @@ return [
             $c->get('ipsModelSettings'),
             $c->get('ipsModelUser'),
             $c->get('ipsModelPoint'),
+            $c->get('ipsModelStream'),
         );
     }),
     'ipsBatchStreamStatusUpdater' => DI\factory(function(DI\Container $c) {

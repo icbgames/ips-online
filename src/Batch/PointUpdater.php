@@ -17,12 +17,14 @@ class PointUpdater
     private $settings;
     private $user;
     private $point;
+    private $stream;
 
-    public function __construct(Model\Settings $settings, Model\User $user, Model\Point $point)
+    public function __construct(Model\Settings $settings, Model\User $user, Model\Point $point, Model\Stream $stream)
     {
         $this->settings = $settings;
         $this->user = $user;
         $this->point = $point;
+        $this->stream = $stream;
     }
 
     public function execute()
@@ -30,6 +32,13 @@ class PointUpdater
         $targetList = Config::get('ips', 'channels');
 
         foreach($targetList as $target) {
+            // 対象のチャンネルが配信中でない場合、スキップ
+            $status = $this->stream->getStatus($target);
+            if($status !== Model\Stream::STATUS_ONLINE) {
+                Log::debug("SKIP >>> {$target} is offline");
+                continue;
+            }
+
             Log::debug("update target: {$target}");
 
             // 集計対象のチャンネルでポイント対象となる有効な時間を取得
