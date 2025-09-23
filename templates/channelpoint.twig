@@ -6,6 +6,44 @@
 {% block inner %}
 
 <div class="ips__channelpoint">
+  <h2 class="ips__clear-top">{{ channel }} のチャンネルポイント報酬</h2>
+
+{% if not loggedin %}
+  <p>このページを表示するにはログインが必要です。<a href="{{ oauthUrl }}">ログインする</a></p>
+{% else %}
+
+  {% if rewards is empty %}
+    <p>チャンネルポイント報酬が見つかりません。</p>
+  {% else %}
+    <table class="ips__table ips__channelpoint-list">
+      <tr>
+        <th>画像</th>
+        <th>タイトル</th>
+        <th>コスト</th>
+      </tr>
+    {% for r in rewards %}
+      <tr>
+        <td class="ips__txt-center"><img src="{{ r.image }}" alt="{{ r.title }}" style="max-width:96px; max-height:64px;"></td>
+        <td>{{ r.title }}</td>
+        <td class="ips__txt-center">{{ r.cost }}</td>
+      </tr>
+    {% endfor %}
+    </table>
+  {% endif %}
+
+{% endif %}
+
+</div>
+
+{% endblock %}
+{% extends "ips_base.twig" %}
+
+{% block head %}
+{% endblock %}
+
+{% block inner %}
+
+<div class="ips__channelpoint">
 </div>
 
 {% endblock %}
