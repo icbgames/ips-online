@@ -36,7 +36,7 @@ class Channelpoint extends Base
                     'id' => $r['id'],
                     'title' => $r['title'],
                     'cost' => $r['cost'],
-                    'image' => is_null($r['image']) ? $r['default_image']['url_4x'] : $r['image']['url_4x'],
+                    'image' => is_null($r['image']) ? $r['default_image']['url_2x'] : $r['image']['url_2x'],
                 ];
 
                 $rewardList[] = $tmp;
