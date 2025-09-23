@@ -26,8 +26,23 @@ class Channelpoint extends Base
         $this->assign('loggedin', $isLoggedIn);
 
         if($isLoggedIn) {
+            $rewardList = [];
             $rewards = $this->twitch->getRewards($this->login);
-            $this->assign('rewards', $rewards);
+            foreach($rewards as $r) {
+                if($r['is_enabled'] !== true) {
+                    continue;
+                }
+                $tmp = [
+                    'id' => $r['id'],
+                    'title' => $r['title'],
+                    'cost' => $r['cost'],
+                    'image' => is_null($r['image']) ? $r['default_image']['url_4x'] : $r['image']['url_4x'],
+                ];
+
+                $rewardList[] = $tmp;
+            }
+            Log::debug(var_export($rewardList, true));
+            $this->assign('rewards', $rewardList);
         }
     }
 

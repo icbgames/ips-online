@@ -475,5 +475,9 @@ class Twitch
         $data = json_decode($response, true);
         Log::debug(var_export($data, true));
 
+        if(!isset($data['data'])) {
+            return [];
+        }
+        return $data['data'];
     }
 }
