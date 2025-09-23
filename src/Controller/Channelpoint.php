@@ -26,7 +26,7 @@ class Channelpoint extends Base
         $this->assign('loggedin', $isLoggedIn);
 
         if($isLoggedIn) {
-            $rewards = $this->twitch->getRewards($channel);
+            $rewards = $this->twitch->getRewards($this->login);
             $this->assign('rewards', $rewards);
         }
     }
