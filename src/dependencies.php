@@ -92,6 +92,12 @@ return [
             $c->get('ipsModelTwitch')
         );
     }),
+    'www/channelpoint' => DI\factory(function(DI\Container $c) {
+        return new Controller\Channelpoint(
+            $c->get('ipsModelTwitch'),
+            $c->get('ipsModelAccessToken'),
+        );
+    }),
     'www/information' => DI\factory(function(DI\Container $c) {
         return new Controller\Information(
         );

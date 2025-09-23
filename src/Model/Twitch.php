@@ -436,4 +436,44 @@ class Twitch
         }
         return Stream::STATUS_ONLINE;
     }
+
+    /**
+     *
+     */
+    public function getRewards($channel)
+    {
+        // channnelからチャンネルIDを取得する
+        $user = new User($this); // @todo DIしたいのに設計ミスって循環依存になってしまったのでいつか設計見直す
+        $userInfo = $user->getUserInfo($channel);
+        $channelId = $userInfo['user_id'];
+
+        // TwitchのクライアントIDとOAuthトークンを設定
+        $clientId = Config::get('client_id');
+        $token = $this->accessToken->getUserToken($channel);
+        $accessToken = $token->getAccess();
+
+        // ヘッダー設定
+        $headers = [
+            "Client-ID: {$clientId}",
+            "Authorization: Bearer {$accessToken}",
+            'Content-Type: application/json',
+        ];
+
+        // チャンネルポイント報酬を取得するためのAPIエンドポイント
+        $url = Config::get('twitch', 'api', 'rewards');
+        $url = "{$url}?broadcaster_id={$channelId}";
+
+        // cURLを使用してAPIリクエスト
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        $response = curl_exec($ch);
+        curl_close($ch);
+
+        // レスポンスをデコード
+        $data = json_decode($response, true);
+        Log::debug(var_export($data, true));
+
+    }
 }

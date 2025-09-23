@@ -6,11 +6,12 @@
 return [
     'twitch' => [
         'api' => [
-            'oauth2token' => 'https://id.twitch.tv/oauth2/token',
-            'users' => 'https://api.twitch.tv/helix/users',
+            'oauth2token'   => 'https://id.twitch.tv/oauth2/token',
+            'users'         => 'https://api.twitch.tv/helix/users',
             'subscriptions' => 'https://api.twitch.tv/helix/subscriptions',
-            'eventsubs' => 'https://api.twitch.tv/helix/eventsub/subscriptions',
-            'streams' => 'https://api.twitch.tv/helix/streams',
+            'eventsubs'     => 'https://api.twitch.tv/helix/eventsub/subscriptions',
+            'streams'       => 'https://api.twitch.tv/helix/streams',
+            'rewards'       => 'https://api.twitch.tv/helix/channel_points/custom_rewards',
         ],
         'irc' => [
             'host' => 'irc.chat.twitch.tv',
