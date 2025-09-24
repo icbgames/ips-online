@@ -155,6 +155,12 @@ return [
             $c->get('ipsModelPoint')
         );
     }),
+    'api/channelpoint' => DI\factory(function(DI\Container $c) {
+        return new Controller\Api\Channelpoint(
+            $c->get('validator'),
+            $c->get('ipsModelChannelpoints')
+        );
+    }),
     'api/ignore' => DI\factory(function(DI\Container $c) {
         return new Controller\Api\Ignore(
             $c->get('validator'),
