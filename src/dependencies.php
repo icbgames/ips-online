@@ -59,6 +59,9 @@ return [
     'ipsModelAppAccessToken' => DI\factory(function(DI\Container $c) {
         return new Model\AppAccessToken();
     }),
+    'ipsModelChannelpoints' => DI\factory(function(DI\Container $c) {
+        return new Model\Channelpoints();
+    }),
     'ipsModelCommand' => DI\factory(function(DI\Container $c) {
         return new Model\Command();
     }),
