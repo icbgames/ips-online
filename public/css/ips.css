@@ -506,10 +506,10 @@ ul.ips__channelpoint-register-list li {
 }
 
 .ips__size-5em {
-  size: 5em;
+  width: 5em;
 }
 .ips__size-30em {
-  size: 30em;
+  width: 30em;
 }
 
 
