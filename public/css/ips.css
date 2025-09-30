@@ -497,9 +497,12 @@ ul.ips__channelpoint-register-list {
 
 ul.ips__channelpoint-register-list li {
   list-style: none;
+  margin-bottom: 1rem;
 }
 
-
+ul.ips__channelpoint-register-list li p {
+  margin: 0 0 0.2rem;
+}
 
 .ips__channelpoint-register-form {
   font-size: calc(var(--font-size) * 0.8);
