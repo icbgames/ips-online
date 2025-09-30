@@ -486,9 +486,32 @@ td.ips__setting-input {
 }
 
 .ips__channelpoint-setting-detail {
-  width: 400px;
+  flex: 70;
+  width: 480px;
   max-width: 50%;
 }
+
+ul.ips__channelpoint-register-list {
+  padding: 0;
+}
+
+ul.ips__channelpoint-register-list li {
+  list-style: none;
+}
+
+
+
+.ips__channelpoint-register-form {
+  font-size: calc(var(--font-size) * 0.8);
+}
+
+.ips__size-5em {
+  size: 5em;
+}
+.ips__size-30em {
+  size: 30em;
+}
+
 
 
 
