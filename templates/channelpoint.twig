@@ -15,20 +15,28 @@
   {% if rewards is empty %}
     <p>チャンネルポイント報酬が見つかりません。</p>
   {% else %}
+  <div class="ips__channelpoint-setting">
+    <div class="ips__channelpoint-setting-list">
     <table class="ips__table ips__channelpoint-list">
-      <tr>
-        <th>画像</th>
-        <th>タイトル</th>
-        <th>コスト</th>
-      </tr>
     {% for r in rewards %}
       <tr>
+        <td><input type="radio" name="channelpoint-target" value="{{ r.id }}"></td>
         <td class="ips__txt-center"><img src="{{ r.image }}" alt="{{ r.title }}" style="max-width:96px; max-height:64px;"></td>
         <td>{{ r.title }}</td>
         <td class="ips__txt-center">{{ r.cost }}</td>
       </tr>
     {% endfor %}
     </table>
+    </div>
+    <div class="ips__channelpoint-setting-detail">
+      <ul>
+        <li>
+          <input type="text" name="message[]" value=""> <input type="text" name="probability[]" value=""> <input type="text" name="point[]" value="">
+        </li>
+      </ul>
+      <button>1行増やす</button> <button>この内容で登録</button>
+    </div>
+  </div>
   {% endif %}
 
 {% endif %}

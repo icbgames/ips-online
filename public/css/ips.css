@@ -473,3 +473,22 @@ td.ips__setting-input {
 }
 
 
+/****************************/
+/* チャンネルポイントページ */
+/****************************/
+.ips__channelpoint-setting {
+  display: flex;
+}
+
+.ips__channelpoint-setting-list {
+  width: 400px;
+  max-width: 50%;
+}
+
+.ips__channelpoint-setting-detail {
+  width: 400px;
+  max-width: 50%;
+}
+
+
+
