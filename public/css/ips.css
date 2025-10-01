@@ -522,6 +522,12 @@ ul.ips__channelpoint-register-list li p {
   font-size: calc(var(--font-size) * 0.8);
 }
 
+.ips__channelpoint-setting-notice {
+  font-size: calc(var(--font-size) * 0.6);
+  border: 1px dashed #888888;
+  padding: 0.5rem;
+}
+
 .ips__size-5em {
   width: 5em;
 }
