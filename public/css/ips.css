@@ -355,7 +355,7 @@ td.ips__setting-input {
 .ips__inline-icon {
 }
 
-.ips__inline-icon::before {
+.ips__logo-x::before {
   display: inline-block;
   width: 1.6rem;
   height: 1.6rem;
@@ -363,6 +363,20 @@ td.ips__setting-input {
   margin-right: 8px;
   background-color: black;
   background-image: url('/img/x-logo.png');
+  background-size: 1.2rem 1.2rem;
+  background-position: 0.2rem 0.2rem;
+  background-repeat: no-repeat;
+  content: '.';
+}
+
+.ips__logo-discord::before {
+  display: inline-block;
+  width: 1.6rem;
+  height: 1.6rem;
+  margin: 0;
+  margin-right: 8px;
+  background-color: black;
+  background-image: url('/img/discord-logo.png');
   background-size: 1.2rem 1.2rem;
   background-position: 0.2rem 0.2rem;
   background-repeat: no-repeat;
