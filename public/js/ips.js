@@ -257,6 +257,22 @@ window.onload = function() {
     });
   });
 
+  // Channelpoint: add row to register list
+  var cpAddBtn = q('.ips__channelpoint-add-row');
+  if(cpAddBtn) {
+    cpAddBtn.addEventListener('click', function(){
+      var ul = q('.ips__channelpoint-register-list');
+      if(!ul) return;
+      var firstLi = ul.querySelector('li');
+      if(!firstLi) return;
+      var clone = firstLi.cloneNode(true);
+      // clear input values inside clone
+      var inputs = clone.querySelectorAll('input');
+      inputs.forEach(function(inp){ inp.value = ''; });
+      ul.appendChild(clone);
+    });
+  }
+
   // Ranking: reset all points (owner only)
   var resetBtn = q('#ips__reset-button');
   if(resetBtn) {
