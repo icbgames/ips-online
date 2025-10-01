@@ -371,12 +371,12 @@ td.ips__setting-input {
 
 .ips__logo-discord::before {
   display: inline-block;
-  width: 1.6rem;
+  width: 2rem;
   height: 1.6rem;
   margin: 0;
-  margin-right: 8px;
+  margin-right: 4px;
   background-image: url('/img/discord-logo.png');
-  background-size: 1.2rem 1.2rem;
+  background-size: 1.6rem 1.2rem;
   background-position: 0.2rem 0.2rem;
   background-repeat: no-repeat;
   color: #FFFFFF;
