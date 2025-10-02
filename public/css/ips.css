@@ -530,15 +530,15 @@ ul.ips__channelpoint-register-list li p {
 
 .ips__channelpoint-btn {
   padding: 0.2rem 3rem;
-  margin: 20px auto;
-  font-size: 1.5rem;
+  margin: 8px auto;
+  font-size: 1.2rem;
   font-family: "Zen Maru Gothic", serif;
 }
 .ips__channelpoint-btn.ips__channelpoint-add-row {
   color: #ffffff;
-  background-color: #228b22;
+  background-color: #ff0066;
   border: 0;
-  border-bottom: 5px solid #006400;
+  border-bottom: 5px solid #cc0066;
 }
 .ips__channelpoint-btn.ips__channelpoint-register {
   color: #ffffff;
@@ -547,12 +547,12 @@ ul.ips__channelpoint-register-list li p {
   border-bottom: 5px solid #006400;
 }
 .ips__channelpoint-btn.ips__channelpoint-add-row:hover {
-  margin-top: 23px;
-  border-bottom: 2px solid #006400;
+  margin-top: 11px;
+  border-bottom: 2px solid #cc0066;
   cursor: pointer;
 }
 .ips__channelpoint-btn.ips__channelpoint-register:hover {
-  margin-top: 23px;
+  margin-top: 11px;
   border-bottom: 2px solid #006400;
   cursor: pointer;
 }
