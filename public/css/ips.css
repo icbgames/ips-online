@@ -510,10 +510,14 @@ ul.ips__channelpoint-register-list {
 }
 
 ul.ips__channelpoint-register-list li {
-  list-style: none;
+  list-style: decimal;
   margin-bottom: 1rem;
   padding: 0 0 1rem 1rem;
   border-bottom: 1px dashed #808080;
+}
+ul.ips__channelpoint-register-list li:last-child {
+  border-bottom: none;
+  margin-bottom: 2rem;
 }
 
 ul.ips__channelpoint-register-list li p {
@@ -523,6 +527,41 @@ ul.ips__channelpoint-register-list li p {
 .ips__channelpoint-register-form {
   font-size: calc(var(--font-size) * 0.8);
 }
+
+.ips__channelpoint-btn {
+  border-radius: 3px;
+  position: relative;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin: 0 auto;
+  max-width: 220px;
+  padding: 10px 25px;
+  color: #FFF;
+  transition: 0.3s ease-in-out;
+  font-weight: 600;
+  text-decoration: none;
+}
+.ips__channelpoint-btn.ips__channelpoint-add-row {
+  color: #ffffff;
+  background: rgb(149,202,252);
+  background: linear-gradient(270deg, rgba(149,202,252,1) 0%, rgba(107,182,255,1) 100%);
+}
+.ips__channelpoint-btn.ips__channelpoint-register {
+  color: #ffffff;
+  background: rgb(149,202,252);
+  background: linear-gradient(270deg, rgba(149,202,252,1) 0%, rgba(107,182,255,1) 100%);
+}
+.ips__channelpoint-btn.ips__channelpoint-add-row:hover {
+  background: rgb(117,188,255);
+  background: linear-gradient(270deg, rgba(117,188,255,1) 0%, rgba(62,159,252,1) 100%);
+}
+.ips__channelpoint-btn.ips__channelpoint-register:hover {
+  background: rgb(117,188,255);
+  background: linear-gradient(270deg, rgba(117,188,255,1) 0%, rgba(62,159,252,1) 100%);
+}
+
+
 
 .ips__channelpoint-setting-notice {
   font-size: calc(var(--font-size) * 0.9);
