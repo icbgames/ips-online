@@ -273,6 +273,73 @@ window.onload = function() {
     });
   }
 
+  // Channelpoint: register handler
+  var cpRegisterBtn = q('.ips__channelpoint-register');
+  if(cpRegisterBtn) {
+    cpRegisterBtn.addEventListener('click', function(){
+      // find selected reward id
+      var selected = q('input[name="channelpoint-target"]:checked');
+      if(!selected) { __.popupError('対象のチャンネルポイント報酬を1つ選択してください'); return; }
+      var id = selected.value;
+
+      var ul = q('.ips__channelpoint-register-list');
+      if(!ul) { __.popupError('登録フォームが見つかりません'); return; }
+
+      var rows = ul.querySelectorAll('li');
+      if(!rows || rows.length === 0) { __.popupError('登録する行がありません'); return; }
+
+      var data = [];
+      var totalPermillage = 0;
+      for(var i=0;i<rows.length;i++){
+        var li = rows[i];
+        var msgInput = li.querySelector('input[name="message[]"]');
+        var probInput = li.querySelector('input[name="probability[]"]');
+        var pointInput = li.querySelector('input[name="point[]"]');
+
+        var message = msgInput ? msgInput.value.trim() : '';
+        if(!message || message.length === 0 || message.length > 30) { __.popupError('メッセージは1文字以上30文字以内で入力してください'); return; }
+
+        var probStr = probInput ? probInput.value.trim() : '';
+        probStr = probStr.replace(',', '.');
+        var prob = parseFloat(probStr);
+        if(!(isFinite(prob))) { __.popupError('確率には数値を入力してください'); return; }
+        if(prob < 0.1 || prob > 100) { __.popupError('確率は0.1以上100以下で指定してください'); return; }
+        // check 0.1 multiple: multiply by 10 and check integer
+        var permillage = Math.round(prob * 10);
+        if(Math.abs(prob * 10 - permillage) > 1e-6) { __.popupError('確率は0.1の倍数で指定してください (例: 0.1, 1.0, 12.3)'); return; }
+        if(permillage < 1 || permillage > 1000) { __.popupError('確率の値が不正です'); return; }
+
+        var point = pointInput ? parseInt(pointInput.value, 10) : NaN;
+        if(!isFinite(point) || isNaN(point) || point < 0 || point > 999999) { __.popupError('付与ポイントは0以上999999以下の整数で指定してください'); return; }
+
+        totalPermillage += permillage;
+        data.push({ message: message, permillage: permillage, point: point });
+      }
+
+      if(totalPermillage !== 1000) {
+        __.popupError('確率の合計は100%（合計で100.0）になる必要があります');
+        return;
+      }
+
+      // send request
+      cpRegisterBtn.disabled = true;
+      fetch('/api/channelpoint', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ id: id, data: data })
+      }).then(function(res){
+        return res.json().then(function(body){ return { status: res.status, body: body }; });
+      }).then(function(r){
+        cpRegisterBtn.disabled = false;
+        if(r.status === 200) {
+          __.popupSuccess('正常に登録されました');
+        } else {
+          __.popupError(r.body && r.body.message ? r.body.message : '登録に失敗しました');
+        }
+      }).catch(function(){ cpRegisterBtn.disabled = false; __.popupError('通信エラー'); });
+    });
+  }
+
   // Ranking: reset all points (owner only)
   var resetBtn = q('#ips__reset-button');
   if(resetBtn) {
