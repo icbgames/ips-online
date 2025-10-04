@@ -6,21 +6,51 @@
 {% block inner %}
 
 <div class="ips__channelpoint">
-  <h2 class="ips__clear-top">{{ login }} のチャンネルポイント報酬</h2>
+  <h2 class="ips__clear-top">{{ login }} のチャンネルポイント報酬設定</h2>
 
 {% if not loggedin %}
   <p>このページを表示するにはログインが必要です。<a href="{{ oauthUrl }}">ログインする</a></p>
 {% else %}
 
-  {% if rewards is empty %}
-    <p>チャンネルポイント報酬が見つかりません。</p>
-  {% else %}
+  <h3 class="ips__clear-top">設定済みのトリガー</h3>
+  <div class="ips__registered-trigger">
+{% if registered is empty %}
+    設定済みのトリガーはありません
+{% else %}
+{% for id, reg in registered %}
+<details class="ips__accordion">
+    <summary>{{ reg.title }}</summary>
+    <div>
+      <table class="ips__registered-trigger-detail">
+        <tr>
+          <th>メッセージ</th>
+          <th>確率</th>
+          <th>加算IPSポイント</th>
+        </tr>
+{% for t in reg.trigger %}
+        <tr>
+          <td>{{ t.message }}</td>
+          <td class="ips__txt-right">{{ t.permillage }}%</td>
+          <td class="ips__txt-right">{{ t.point }}</td>
+        </tr>
+{% endfor %}
+      </table>
+    </div>
+</details>
+{% endfor %}
+{% endif %}
+  </div>
+
+  <h3>チャンネルポイント報酬</h3>
   <div class="ips__channelpoint-setting">
+{% if rewards is empty %}
+    <p>チャンネルポイント報酬が見つかりません。</p>
+{% else %}
     <div class="ips__channelpoint-setting-list">
     <table class="ips__table ips__channelpoint-list">
     {% for r in rewards %}
       <tr>
-        <td><input type="radio" name="channelpoint-target" value="{{ r.id }}"></td>
+        <td>{% if r.is_registered == true %}登録済み{% else %}<input type="radio" name="channelpoint-target" value="{{ r.id }}">{% endif %}</td>
         <td class="ips__txt-center" style="background-color:{{ r.bg }};"><img src="{{ r.image }}" alt="{{ r.title }}" style="max-width:96px; max-height:64px; padding: 2px;"></td>
         <td>{{ r.title }}</td>
         <td class="ips__txt-center">{{ r.cost }}</td>
@@ -54,8 +84,8 @@
         <p>当選した際、そのチャンネルポイントを交換したユーザーに付与するポイントを設定できます<br>IPSポイント以外のものを報酬として与える場合は0に設定しておき、メッセージで内容を伝えてください</p>
       </div>
     </div>
+{% endif %}
   </div>
-  {% endif %}
 
 {% endif %}
 

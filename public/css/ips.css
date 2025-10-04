@@ -490,6 +490,75 @@ td.ips__setting-input {
 /****************************/
 /* チャンネルポイントページ */
 /****************************/
+.ips__registered-trigger {
+  margin: 2px 0 20px 30px;
+}
+
+.ips__registered-trigger-detail {
+  border: 1px black solid;
+  border-collapse: collapse;
+}
+.ips__registered-trigger-detail tr th {
+  text-align: center;
+  border: 1px black solid;
+  padding: 2px 4px;
+}
+.ips__registered-trigger-detail tr td {
+  border: 1px black solid;
+  padding: 2px 4px;
+}
+
+.ips__accordion {
+    max-width: 500px;
+    margin-bottom: 7px;
+    background-color: #c9e5f3;
+    border-radius: 5px;
+}
+
+.ips__accordion summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    padding: 0.5em 2em;
+    color: #000000;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.ips__accordion summary::-webkit-details-marker {
+    display: none;
+}
+
+.ips__accordion summary::after {
+    transform: translateY(-25%) rotate(45deg);
+    width: 7px;
+    height: 7px;
+    margin-left: 10px;
+    border-bottom: 3px solid #99b5c3;
+    border-right: 3px solid #99b5c3;
+    content: '';
+    transition: transform .3s;
+}
+
+.ips__accordion[open] summary::after {
+    transform: rotate(225deg);
+}
+
+.ips__accordion div {
+    transform: translateY(-10px);
+    opacity: 0;
+    margin: 0;
+    padding: .3em 2em 1.5em;
+    color: #050505;
+    transition: transform .5s, opacity .5s;
+}
+
+.ips__accordion[open] div {
+    transform: none;
+    opacity: 1;
+}
+
 .ips__channelpoint-setting {
   display: flex;
 }
