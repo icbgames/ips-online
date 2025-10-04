@@ -13,7 +13,7 @@ class Channelpoint extends Base
     protected $channelpoint;
     protected $accessToken;
 
-    public function __construct(Model\Twitch $twitch, Model\Channelpoint $channelpoint, Model\AccessToken $accessToken)
+    public function __construct(Model\Twitch $twitch, Model\Channelpoints $channelpoint, Model\AccessToken $accessToken)
     {
         $this->twitch = $twitch;
         $this->channelpoint = $channelpoint;
