@@ -98,6 +98,7 @@ return [
     'www/channelpoint' => DI\factory(function(DI\Container $c) {
         return new Controller\Channelpoint(
             $c->get('ipsModelTwitch'),
+            $c->get('ipsModelChannelpoints'),
             $c->get('ipsModelAccessToken'),
         );
     }),

@@ -10,11 +10,13 @@ class Channelpoint extends Base
 {
     protected $login;
     protected $twitch;
+    protected $channelpoint;
     protected $accessToken;
 
-    public function __construct(Model\Twitch $twitch, Model\AccessToken $accessToken)
+    public function __construct(Model\Twitch $twitch, Model\Channelpoint $channelpoint, Model\AccessToken $accessToken)
     {
         $this->twitch = $twitch;
+        $this->channelpoint = $channelpoint;
         $this->accessToken = $accessToken;
     }
 
@@ -26,6 +28,9 @@ class Channelpoint extends Base
         $this->assign('loggedin', $isLoggedIn);
 
         if($isLoggedIn) {
+            $registeredList = $this->channelpoint->getList($this->login);
+            $registeredIds = array_column($registeredList, 'id');
+
             $rewardList = [];
             $rewards = $this->twitch->getRewards($this->login);
             foreach($rewards as $r) {
@@ -36,7 +41,9 @@ class Channelpoint extends Base
                     'id' => $r['id'],
                     'title' => $r['title'],
                     'cost' => $r['cost'],
+                    'bg' => $r['background_color'],
                     'image' => is_null($r['image']) ? $r['default_image']['url_1x'] : $r['image']['url_1x'],
+                    'is_registered' => in_array($r['id'], $registeredIds),
                 ];
 
                 $rewardList[] = $tmp;
