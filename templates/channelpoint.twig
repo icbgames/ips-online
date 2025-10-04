@@ -20,7 +20,7 @@
     <table class="ips__table ips__channelpoint-list">
     {% for r in rewards %}
       <tr>
-        <td><input type="radio" name="channelpoint-target" value="{{ r.id }}"></td>
+        <td>{% if r.is_registered == true %}登録済み{% else %}<input type="radio" name="channelpoint-target" value="{{ r.id }}">{% endif %}</td>
         <td class="ips__txt-center" style="background-color:{{ r.bg }};"><img src="{{ r.image }}" alt="{{ r.title }}" style="max-width:96px; max-height:64px; padding: 2px;"></td>
         <td>{{ r.title }}</td>
         <td class="ips__txt-center">{{ r.cost }}</td>
