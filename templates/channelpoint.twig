@@ -15,11 +15,12 @@
   {% if rewards is empty %}
     <p>チャンネルポイント報酬が見つかりません。</p>
   {% else %}
+  <h3 class="ips__clear-top">設定済みのトリガー</h3>
   <div class="">
-    <h3 class="ips__clear-top">設定済みのトリガー</h3>
   </div>
+
+  <h3>チャンネルポイント報酬</h3>
   <div class="ips__channelpoint-setting">
-    <h3>チャンネルポイント報酬</h3>
     <div class="ips__channelpoint-setting-list">
     <table class="ips__table ips__channelpoint-list">
     {% for r in rewards %}
