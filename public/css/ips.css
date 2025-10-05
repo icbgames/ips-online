@@ -500,6 +500,7 @@ td.ips__setting-input {
 }
 .ips__registered-trigger-detail tr th {
   text-align: center;
+  border: 1px black solid;
   padding: 2px 4px;
 }
 .ips__registered-trigger-detail tr td {
