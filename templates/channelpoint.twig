@@ -6,7 +6,7 @@
 {% block inner %}
 
 <div class="ips__channelpoint">
-  <h2 class="ips__clear-top">{{ login }} のチャンネルポイント報酬</h2>
+  <h2 class="ips__clear-top">{{ login }} のチャンネルポイント報酬設定</h2>
 
 {% if not loggedin %}
   <p>このページを表示するにはログインが必要です。<a href="{{ oauthUrl }}">ログインする</a></p>
@@ -15,7 +15,11 @@
   {% if rewards is empty %}
     <p>チャンネルポイント報酬が見つかりません。</p>
   {% else %}
+  <div class="">
+    <h3 class="ips__clear-top">設定済みのトリガー</h3>
+  </div>
   <div class="ips__channelpoint-setting">
+    <h3>チャンネルポイント報酬</h3>
     <div class="ips__channelpoint-setting-list">
     <table class="ips__table ips__channelpoint-list">
     {% for r in rewards %}
