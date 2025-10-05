@@ -28,8 +28,17 @@ class Channelpoint extends Base
         $this->assign('loggedin', $isLoggedIn);
 
         if($isLoggedIn) {
-            $registeredList = $this->channelpoint->getList($this->login);
-            $registeredIds = array_column($registeredList, 'id');
+            $registeredTmp = $this->channelpoint->getList($this->login);
+            $registeredIds = array_column($registeredTmp, 'id');
+
+            $registeredList = [];
+            foreach($registeredTmp as $r) {
+                $registeredList[$r['id']]['trigger'][] = [
+                    'message' => $r['message'],
+                    'permillage' => (int)$r['permillage'] / 10,
+                    'point' => (int)$r['point'],
+                ];
+            }
 
             $rewardList = [];
             $rewards = $this->twitch->getRewards($this->login);
@@ -43,13 +52,18 @@ class Channelpoint extends Base
                     'cost' => $r['cost'],
                     'bg' => $r['background_color'],
                     'image' => is_null($r['image']) ? $r['default_image']['url_1x'] : $r['image']['url_1x'],
-                    'is_registered' => in_array($r['id'], $registeredIds),
+                    'is_registered' => false,
                 ];
 
+                if(in_array($r['id'], $registeredIds)) {
+                    $tmp['is_registered'] = true;
+                    $registeredList[$r['id']]['title'] = $r['title'];
+                }
                 $rewardList[] = $tmp;
             }
             Log::debug(var_export($rewardList, true));
             $this->assign('rewards', $rewardList);
+            $this->assign('registered', $registeredList);
         }
     }
 
