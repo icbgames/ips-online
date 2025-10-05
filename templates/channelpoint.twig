@@ -18,10 +18,21 @@
     設定済みのトリガーはありません
 {% else %}
 {% for id, reg in registered %}
-{{ reg.title }}<br>
+<details class="ips__accordion">
+    <summary>{{ reg.title }}</summary>
+    <div>
+      <table>
 {% for t in reg.trigger %}
-{{ t.message }} / {{ t.permillage }}<br>
+        <tr>
+          <td>{{ t.message }}</td>
+          <td>{{ t.permillage }}%</td>
+          <td>{{ t.point }}</td>
+        </tr>
 {% endfor %}
+      </table>
+    </div>
+    <p>背景色付きのシンプルなアコーディオンメニューです。</p>
+</details>
 {% endfor %}
 {% endif %}
   </div>
