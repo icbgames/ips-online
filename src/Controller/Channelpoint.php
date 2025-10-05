@@ -61,7 +61,8 @@ class Channelpoint extends Base
                 }
                 $rewardList[] = $tmp;
             }
-            Log::debug(var_export($rewardList, true));
+            Log::debug('rewards: ' . var_export($rewardList, true));
+            Log::debug('registered: ' . var_export($registeredList, true));
             $this->assign('rewards', $rewardList);
             $this->assign('registered', $registeredList);
         }
