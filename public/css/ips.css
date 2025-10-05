@@ -498,14 +498,18 @@ td.ips__setting-input {
   border: 1px black solid;
   border-collapse: collapse;
 }
-.ips__registered-trigger-detail tr th {
-  text-align: center;
-  border: 1px black solid;
-  padding: 2px 4px;
-}
+.ips__registered-trigger-detail tr th,
 .ips__registered-trigger-detail tr td {
   border: 1px black solid;
   padding: 2px 4px;
+  min-width: 5rem;
+}
+.ips__registered-trigger-detail tr th {
+  text-align: center;
+  background-color: #d0ffd0;
+}
+.ips__registered-trigger-detail tr td {
+  background-color: #f0f0f0;
 }
 
 .ips__accordion {
