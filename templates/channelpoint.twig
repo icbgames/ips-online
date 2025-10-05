@@ -12,15 +12,25 @@
   <p>このページを表示するにはログインが必要です。<a href="{{ oauthUrl }}">ログインする</a></p>
 {% else %}
 
-  {% if rewards is empty %}
-    <p>チャンネルポイント報酬が見つかりません。</p>
-  {% else %}
   <h3 class="ips__clear-top">設定済みのトリガー</h3>
   <div class="">
+{% if registered is empty %}
+    設定済みのトリガーはありません
+{% else %}
+{% for id, reg in registered %}
+{{ reg.title }}<br>
+{% for key, val in reg.trigger %}
+{{ key }} : {{ val }}<br>
+{% endfor %}
+{% endfor %}
+{% endif %}
   </div>
 
   <h3>チャンネルポイント報酬</h3>
   <div class="ips__channelpoint-setting">
+{% if rewards is empty %}
+    <p>チャンネルポイント報酬が見つかりません。</p>
+{% else %}
     <div class="ips__channelpoint-setting-list">
     <table class="ips__table ips__channelpoint-list">
     {% for r in rewards %}
@@ -59,8 +69,8 @@
         <p>当選した際、そのチャンネルポイントを交換したユーザーに付与するポイントを設定できます<br>IPSポイント以外のものを報酬として与える場合は0に設定しておき、メッセージで内容を伝えてください</p>
       </div>
     </div>
+{% endif %}
   </div>
-  {% endif %}
 
 {% endif %}
 
