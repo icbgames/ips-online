@@ -19,8 +19,8 @@
 {% else %}
 {% for id, reg in registered %}
 {{ reg.title }}<br>
-{% for key, val in reg.trigger %}
-{{ key }} : {{ val }}<br>
+{% for t in reg.trigger %}
+{{ t.message }} / {{ t.perimllage }}<br>
 {% endfor %}
 {% endfor %}
 {% endif %}
