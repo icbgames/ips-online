@@ -494,6 +494,18 @@ td.ips__setting-input {
   margin: 2px 0 20px 30px;
 }
 
+.ips__registered-trigger-detail {
+  border: 1px black solid;
+  border-collapse: collapse;
+}
+.ips__registered-trigger-detail tr th {
+  text-align: center;
+  padding: 2px 4px;
+}
+.ips__registered-trigger-detail tr td {
+  border: 1px black solid;
+  padding: 2px 4px;
+}
 
 .ips__accordion {
     max-width: 500px;
