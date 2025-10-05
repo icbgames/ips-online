@@ -490,6 +490,11 @@ td.ips__setting-input {
 /****************************/
 /* チャンネルポイントページ */
 /****************************/
+.ips__registered-trigger {
+  margin: 2px 0 20px 30px;
+}
+
+
 .ips__accordion {
     max-width: 500px;
     margin-bottom: 7px;
@@ -502,7 +507,7 @@ td.ips__setting-input {
     justify-content: space-between;
     align-items: center;
     position: relative;
-    padding: 1em 2em;
+    padding: 0.5em 2em;
     color: #000000;
     font-weight: 600;
     cursor: pointer;

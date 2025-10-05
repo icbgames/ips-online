@@ -13,7 +13,7 @@
 {% else %}
 
   <h3 class="ips__clear-top">設定済みのトリガー</h3>
-  <div class="">
+  <div class="ips__registered-trigger">
 {% if registered is empty %}
     設定済みのトリガーはありません
 {% else %}
@@ -22,6 +22,11 @@
     <summary>{{ reg.title }}</summary>
     <div>
       <table>
+        <tr>
+          <th>メッセージ</th>
+          <th>確率</th>
+          <th>加算IPSポイント</th>
+        </tr>
 {% for t in reg.trigger %}
         <tr>
           <td>{{ t.message }}</td>
@@ -31,7 +36,6 @@
 {% endfor %}
       </table>
     </div>
-    <p>背景色付きのシンプルなアコーディオンメニューです。</p>
 </details>
 {% endfor %}
 {% endif %}
