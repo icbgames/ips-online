@@ -19,6 +19,29 @@ class Channelpoint extends RestBase
 
     public function action()
     {
+        $method = isset($_SERVER['REQUEST_METHOD']) ? $_SERVER['REQUEST_METHOD'] : 'GET';
+
+        // DELETE: accept JSON body with { id: "..." } and perform remove
+        if($method === 'DELETE') {
+            if(!$this->isLogin()) {
+                return;
+            }
+
+            $body = file_get_contents('php://input');
+            $param = json_decode($body, true);
+            if(empty($param) || !is_array($param) || !isset($param['id'])) {
+                $this->status = 400;
+                $this->response = ['message' => 'invalid body'];
+                return;
+            }
+
+            $id = $param['id'];
+            $this->channelpoints->remove($id);
+            $this->response = ['result' => 'OK'];
+            return;
+        }
+
+        // POST: register new channelpoint settings (existing behavior)
         if(!$this->isLogin()) {
             return;
         }
