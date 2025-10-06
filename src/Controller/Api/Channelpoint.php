@@ -19,6 +19,46 @@ class Channelpoint extends RestBase
 
     public function action()
     {
+        $method = isset($_SERVER['REQUEST_METHOD']) ? $_SERVER['REQUEST_METHOD'] : 'GET';
+
+        // DELETE: accept JSON body with { id: "..." } and perform remove
+        if($method === 'DELETE') {
+            if(!$this->isLogin()) {
+                return;
+            }
+
+            $login = $this->getLogin();
+
+            $body = file_get_contents('php://input');
+            $param = json_decode($body, true);
+            if(empty($param) || !is_array($param) || !isset($param['id'])) {
+                $this->status = 400;
+                $this->response = ['message' => 'invalid body'];
+                return;
+            }
+
+            $id = $param['id'];
+
+            // check ownership: only allow deleting settings that belong to the logged-in channel
+            $exists = $this->channelpoints->get($id);
+            if(empty($exists) || !isset($exists[0]['channel'])) {
+                $this->status = 404;
+                $this->response = ['message' => 'not found'];
+                return;
+            }
+            $ownerChannel = $exists[0]['channel'];
+            if($ownerChannel !== $login) {
+                $this->status = 403;
+                $this->response = ['message' => 'forbidden'];
+                return;
+            }
+
+            $this->channelpoints->remove($id);
+            $this->response = ['result' => 'OK'];
+            return;
+        }
+
+        // POST: register new channelpoint settings (existing behavior)
         if(!$this->isLogin()) {
             return;
         }
