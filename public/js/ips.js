@@ -340,6 +340,38 @@ window.onload = function() {
     });
   }
 
+  // Channelpoint: registered trigger delete
+  var regDeleteBtns = qq('.ips__registered-trigger-delete');
+  if(regDeleteBtns) {
+    regDeleteBtns.forEach(function(btn){
+      btn.addEventListener('click', function(){
+        var id = btn.getAttribute('x-ips-channel-point-id');
+        if(!id) return;
+        var confirmed = window.confirm('このトリガーを削除してもよろしいですか？');
+        if(!confirmed) return;
+
+        fetch('/api/channelpoint', {
+          method: 'DELETE',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({ id: id })
+        }).then(function(res){
+          return res.json().then(function(body){ return { status: res.status, body: body }; });
+        }).then(function(r){
+          if(r.status === 200) {
+            __.popupSuccess('削除されました');
+            setTimeout(function(){ location.reload(); }, 700);
+          } else if(r.status === 403) {
+            __.popupError('権限がありません');
+          } else if(r.status === 404) {
+            __.popupError('該当データが見つかりませんでした');
+          } else {
+            __.popupError(r.body && r.body.message ? r.body.message : '削除に失敗しました');
+          }
+        }).catch(function(){ __.popupError('通信エラー'); });
+      });
+    });
+  }
+
   // Ranking: reset all points (owner only)
   var resetBtn = q('#ips__reset-button');
   if(resetBtn) {
