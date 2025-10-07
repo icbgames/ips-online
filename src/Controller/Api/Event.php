@@ -152,23 +152,20 @@ class Event extends PlainBase
 
                 $channelpointId = $event['reward']['id'];
                 $kujiList = $this->channelpoint->get($channelpointId);
-                Log::debug("ID: {$channelpointId}");
-                Log::debug(var_export($kujiList, true));
 
                 $kujiBox = [];
                 foreach($kujiList as $kuji) {
                     $win = [$kuji['message'], $kuji['point']];
                     $tmp = [];
                     $tmp = array_pad($tmp, (int)$kuji['permillage'], $win);
-                    Log::debug(var_export($tmp, true));
                     $kujiBox = array_merge($kujiBox, $tmp);
                 }
                 shuffle($kujiBox);
-                Log::debug(var_export($kujiBox, true));
 
                 $result = $kujiBox[0];
                 $message = $result[0];
-                $add = $result[1];
+                $add = (int)$result[1];
+                Log::debug("{$message} > {$add}");
 
                 $this->point->add($userId, $userLogin, $userName, $channel, $add);
             } elseif($request['subscription']['type'] === 'stream.online') {
