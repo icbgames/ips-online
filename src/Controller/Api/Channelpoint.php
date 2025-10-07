@@ -28,7 +28,6 @@ class Channelpoint extends RestBase
             if(!$this->isLogin()) {
                 return;
             }
-
             $login = $this->getLogin();
 
             $body = file_get_contents('php://input');
@@ -120,7 +119,7 @@ class Channelpoint extends RestBase
         }
 
         // remove existing and register new
-        $this->twitch->subscribeEventSub($login, Model\Twitch::SUBTYPE_CHANNEL_POINT);
+        $this->twitch->subscribeEventSub($channel, Model\Twitch::SUBTYPE_CHANNEL_POINT);
         $this->channelpoints->remove($id);
         $this->channelpoints->register($id, $channel, $data);
 
