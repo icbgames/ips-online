@@ -13,6 +13,7 @@ class Event extends PlainBase
     private $point;
     private $stream;
     private $channelpoint;
+    private $twitch;
 
     /**
      * Construct
@@ -21,13 +22,15 @@ class Event extends PlainBase
      * @param Model\Point $point
      * @param Model\Stream $stream
      * @param Model\Channelpoints $channelpoint
+     * @param Model\Twitch $twitch
      */
-    public function __construct(Model\Settings $settings, Model\Point $point, Model\Stream $stream, Model\Channelpoints $channelpoint)
+    public function __construct(Model\Settings $settings, Model\Point $point, Model\Stream $stream, Model\Channelpoints $channelpoint, Model\Twitch $twitch)
     {
         $this->settings = $settings;
         $this->point = $point;
         $this->stream = $stream;
         $this->channelpoint = $channelpoint;
+        $this->twitch = $twitch;
     }
 
     public function action()
@@ -168,6 +171,7 @@ class Event extends PlainBase
                 Log::debug("{$message} > {$add}");
 
                 $this->point->add($userId, $userLogin, $userName, $channel, $add);
+                $this->twitch->sendChat($channel, $mesesage);
             } elseif($request['subscription']['type'] === 'stream.online') {
                 // 配信開始の場合
                 Log::info('>>> STREAM ONLINE');
