@@ -171,7 +171,7 @@ class Event extends PlainBase
                 Log::debug("{$message} > {$add}");
 
                 $this->point->add($userId, $userLogin, $userName, $channel, $add);
-                $this->twitch->sendChat($channel, $mesesage);
+                $this->twitch->sendChat($channel, $message);
             } elseif($request['subscription']['type'] === 'stream.online') {
                 // 配信開始の場合
                 Log::info('>>> STREAM ONLINE');
