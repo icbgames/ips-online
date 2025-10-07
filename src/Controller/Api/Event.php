@@ -151,7 +151,7 @@ class Event extends PlainBase
                 $channel = $event['broadcaster_user_login'];
 
                 $channelpointId = $event['id'];
-                $kujiList = $this->channelpoint->get($channnelpointId);
+                $kujiList = $this->channelpoint->get($channelpointId);
                 $kujiBox = [];
                 foreach($kujiList as $kuji) {
                     $win = [$kuji['message'], $kuji['point']];
