@@ -14,6 +14,7 @@ class Twitch
     const SUBTYPE_RAID = 'channel.raid';
     const SUBTYPE_BITS = 'channel.cheer';
     const SUBTYPE_GIFT = 'channel.subscription.gift';
+    const SUBTYPE_CHANNEL_POINT = 'channel.channel_points_custom_reward_redemption.add';
     const SUBTYPE_STREAM_ONLINE = 'stream.online';
     const SUBTYPE_STREAM_OFFLINE = 'stream.offline';
 
@@ -201,7 +202,7 @@ class Twitch
     }
 
     /**
-     * 指定したチャンネルでレイド通知のEventSubを購読する
+     * 指定したチャンネルの各種通知のEventSubを購読する
      *
      * @param string $channel
      * @param string $type
@@ -247,6 +248,7 @@ class Twitch
 
                 case static::SUBTYPE_BITS:
                 case static::SUBTYPE_GIFT:
+                case static::SUBTYPE_CHANNEL_POINT:
                     if($subs['type'] === $type && $subs['condition']['broadcaster_user_id'] == $userId && $subs['status'] === 'enabled') {
                         Log::debug("Already subscribed: {$userId} ({$channel} - {$type})");
                         return;
@@ -263,6 +265,7 @@ class Twitch
                 break;
             case static::SUBTYPE_BITS:
             case static::SUBTYPE_GIFT:
+            case static::SUBTYPE_CHANNEL_POINT:
                 $condition = ['broadcaster_user_id' => (string)$userId];
                 break;
         }
@@ -297,6 +300,129 @@ class Twitch
 
         Log::debug("STATUS: {$status}");
         Log::debug(var_export($response, true));
+    }
+
+    /**
+     * 指定したEventSubの購読を解除する
+     *
+     * @param string $channel
+     * @param string $type
+     */
+    public function deleteEventSub($channel, $type)
+    {
+        Log::debug("DELETE Subscribe EventSub: {$channel} - {$type}");
+
+        // channnelからチャンネルIDを取得する
+        $user = new User($this); // @todo DIしたいのに設計ミスって循環依存になってしまったのでいつか設計見直す
+        $userInfo = $user->getUserInfo($channel);
+        $userId = $userInfo['user_id'];
+
+        // アクセストークンを取得
+        $accessToken = $this->appAccessToken->get();
+
+        $clientId = Config::get('client_id');
+        $callbackUrl = Config::get('ips', 'callback');
+        $secret = Config::get('eventsub_secret');
+
+        // 購読済みかチェックして、購読済みなら解除リクエスト
+        $eventSubList = $this->getEventSubList($channel);
+        foreach($eventSubList as $subs) {
+            $subId = null;
+            switch($subs['type']) {
+                case static::SUBTYPE_RAID:
+                    if($subs['type'] === $type && $subs['condition']['to_broadcaster_user_id'] == $userId) {
+                        $subId = $subs['id'];
+                    }
+                    break;
+
+                case static::SUBTYPE_BITS:
+                case static::SUBTYPE_GIFT:
+                case static::SUBTYPE_CHANNEL_POINT:
+                    if($subs['type'] === $type && $subs['condition']['broadcaster_user_id'] == $userId) {
+                        $subId = $subs['id'];
+                    }
+                    break;
+            }
+
+            if(is_null($subId)) {
+                continue;
+            }
+
+            // 該当するものがある場合は購読解除処理
+            $url = Config::get('twitch', 'api', 'eventsubs');
+            $url = "{$url}?id={$subId}";
+
+            $headers = [
+                "Client-ID: {$clientId}",
+                "Authorization: Bearer {$accessToken}",
+                'Content-Type: application/json',
+            ];
+
+            $ch = curl_init($url);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'DELETE');
+
+            $response = curl_exec($ch);
+            $status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+            curl_close($ch);
+
+            if($status == 204) {
+                Log::debug("DELETE EventSub success: {$subId} ({$channel})");
+                return true;
+            } else {
+                Log::debug("DELETE EventSub fail: {$subId} ({$channel})");
+                Log::debug(var_export($response, true));
+                return false;
+            }
+        }
+    }
+
+
+
+    /**
+     * 購読されているEventSubのうち、ステータスがenabledのものの一覧を返す
+     *
+     * @param string $channel
+     */
+    public function getEventSubList($channel)
+    {
+        Log::debug("Get EventSub List");
+
+        // channnelからチャンネルIDを取得する
+        $user = new User($this); // @todo DIしたいのに設計ミスって循環依存になってしまったのでいつか設計見直す
+        $userInfo = $user->getUserInfo($channel);
+        $userId = $userInfo['user_id'];
+
+        // アクセストークンを取得
+        $accessToken = $this->appAccessToken->get();
+
+        $clientId = Config::get('client_id');
+        $callbackUrl = Config::get('ips', 'callback');
+        $secret = Config::get('eventsub_secret');
+
+        $url = Config::get('twitch', 'api', 'eventsubs');
+        $headers = [
+            "Client-ID: {$clientId}",
+            "Authorization: Bearer {$accessToken}",
+            'Content-Type: application/json',
+        ];
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+
+        $return = [];
+
+        $response = curl_exec($ch);
+        curl_close($ch);
+        $json = json_decode($response, true);
+        foreach($json['data'] as $subs) {
+            if($subs['status'] === 'enabled') {
+                $return[] = $subs;
+            }
+        }
+
+        return $return;
     }
 
     /**

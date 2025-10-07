@@ -10,11 +10,13 @@ class Channelpoint extends RestBase
 {
     private $validator;
     private $channelpoints;
+    private $twitch;
 
-    public function __construct(Validator $validator, Model\Channelpoints $channelpoints)
+    public function __construct(Validator $validator, Model\Channelpoints $channelpoints, Model\Twitch $twitch)
     {
         $this->validator = $validator;
         $this->channelpoints = $channelpoints;
+        $this->twitch = $twitch;
     }
 
     public function action()
@@ -53,6 +55,7 @@ class Channelpoint extends RestBase
                 return;
             }
 
+            $this->twitch->deleteEventSub($this->login, Model\Twitch::SUBTYPE_CHANNEL_POINT);
             $this->channelpoints->remove($id);
             $this->response = ['result' => 'OK'];
             return;
@@ -117,6 +120,7 @@ class Channelpoint extends RestBase
         }
 
         // remove existing and register new
+        $this->twitch->subscribeEventSub($this->login, Model\Twitch::SUBTYPE_CHANNEL_POINT);
         $this->channelpoints->remove($id);
         $this->channelpoints->register($id, $channel, $data);
 
