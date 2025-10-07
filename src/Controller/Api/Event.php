@@ -150,7 +150,7 @@ class Event extends PlainBase
                 $userName = $event['user_name'];
                 $channel = $event['broadcaster_user_login'];
 
-                $channelpointId = $event['id'];
+                $channelpointId = $event['reward']['id'];
                 $kujiList = $this->channelpoint->get($channelpointId);
                 Log::debug("ID: {$channelpointId}");
                 Log::debug(var_export($kujiList, true));
