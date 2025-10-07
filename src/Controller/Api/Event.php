@@ -152,6 +152,9 @@ class Event extends PlainBase
 
                 $channelpointId = $event['id'];
                 $kujiList = $this->channelpoint->get($channelpointId);
+                Log::debug("ID: {$channelpointId}");
+                Log::debug(var_export($kujiList, true));
+
                 $kujiBox = [];
                 foreach($kujiList as $kuji) {
                     $win = [$kuji['message'], $kuji['point']];
