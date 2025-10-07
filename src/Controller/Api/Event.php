@@ -160,6 +160,7 @@ class Event extends PlainBase
                     $win = [$kuji['message'], $kuji['point']];
                     $tmp = [];
                     array_pad($tmp, $kuji['permillage'], $win);
+                    Log::debug(var_export($tmp, true));
                     $kujiBox = array_merge($kujiBox, $tmp);
                 }
                 shuffle($kujiBox);
