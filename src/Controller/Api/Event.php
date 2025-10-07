@@ -141,6 +141,29 @@ class Event extends PlainBase
                 // チャンネルポイント報酬交換の場合
                 Log::info('>>> CHANNEL POINT REWARD');
                 Log::info(var_export($event, true));
+
+                $userId = $event['user_id'];
+                $userLogin = $event['user_login'];
+                $userName = $event['user_name'];
+                $channel = $event['broadcaster_user_login'];
+
+                $channelpointId = $event['id'];
+                $kujiList = $this->channelpoint->get($channnelpointId);
+                $kujiBox = [];
+                foreach($kujiList as $kuji) {
+                    $win = [$kuji['message'], $kuji['point']];
+                    $tmp = [];
+                    array_pad($tmp, $kuji['permillage'], $win);
+                    $kujiBox[] = $tmp;
+                }
+                shuffle($kujiBox);
+                Log::debug(var_export($kujiBox, true));
+
+                $result = $kujiBox[0];
+                $message = $result[0];
+                $add = $result[1];
+
+                $this->point->add($userId, $userLogin, $userName, $channel, $add);
             } elseif($request['subscription']['type'] === 'stream.online') {
                 // 配信開始の場合
                 Log::info('>>> STREAM ONLINE');
