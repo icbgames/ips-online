@@ -137,6 +137,10 @@ class Event extends PlainBase
                 Log::info(var_export($event, true));
 
                 $this->point->add($gifterId, $gifterLogin, $gifterName, $channel, $add);
+            } elseif($request['subscription']['type'] === 'channel.channel_points_custom_reward_redemption.add') {
+                // チャンネルポイント報酬交換の場合
+                Log::info('>>> CHANNEL POINT REWARD');
+                Log::info(var_export($event, true));
             } elseif($request['subscription']['type'] === 'stream.online') {
                 // 配信開始の場合
                 Log::info('>>> STREAM ONLINE');
