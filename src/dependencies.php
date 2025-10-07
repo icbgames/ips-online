@@ -159,7 +159,8 @@ return [
     'api/channelpoint' => DI\factory(function(DI\Container $c) {
         return new Controller\Api\Channelpoint(
             $c->get('validator'),
-            $c->get('ipsModelChannelpoints')
+            $c->get('ipsModelChannelpoints'),
+            $c->get('ipsModelTwitch'),
         );
     }),
     'api/ignore' => DI\factory(function(DI\Container $c) {
