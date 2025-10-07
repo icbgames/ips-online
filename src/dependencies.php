@@ -148,6 +148,7 @@ return [
             $c->get('ipsModelSettings'),
             $c->get('ipsModelPoint'),
             $c->get('ipsModelStream'),
+            $c->get('ipsModelChannelpoints'),
         );
     }),
     'api/reset' => DI\factory(function(DI\Container $c) {
