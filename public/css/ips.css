@@ -513,7 +513,7 @@ td.ips__setting-input {
 }
 
 .ips__accordion {
-    max-width: 500px;
+    max-width: 640px;
     margin-bottom: 7px;
     background-color: #c9e5f3;
     border-radius: 5px;
@@ -629,7 +629,21 @@ ul.ips__channelpoint-register-list li p {
   border-bottom: 2px solid #006400;
   cursor: pointer;
 }
-
+.ips__registered-trigger-delete {
+  padding: 0.1rem 3rem;
+  margin: 6px auto;
+  font-size: 0.9rem;
+  font-family: "Zen Maru Gothic", serif;
+  color: #ffffff;
+  background-color: #760a91;
+  border: 0;
+  border-bottom: 4px solid #3b0947;
+}
+.ips__registered-trigger-delete:hover {
+  margin-top: 8px;
+  border-bottom: 2px solid #3b0947;
+  cursor: pointer;
+}
 
 .ips__channelpoint-setting-notice {
   font-size: calc(var(--font-size) * 0.9);

@@ -148,6 +148,8 @@ return [
             $c->get('ipsModelSettings'),
             $c->get('ipsModelPoint'),
             $c->get('ipsModelStream'),
+            $c->get('ipsModelChannelpoints'),
+            $c->get('ipsModelTwitch'),
         );
     }),
     'api/reset' => DI\factory(function(DI\Container $c) {

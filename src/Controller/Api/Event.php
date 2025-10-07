@@ -12,6 +12,8 @@ class Event extends PlainBase
     private $settings;
     private $point;
     private $stream;
+    private $channelpoint;
+    private $twitch;
 
     /**
      * Construct
@@ -19,12 +21,16 @@ class Event extends PlainBase
      * @param Model\Settings $settings
      * @param Model\Point $point
      * @param Model\Stream $stream
+     * @param Model\Channelpoints $channelpoint
+     * @param Model\Twitch $twitch
      */
-    public function __construct(Model\Settings $settings, Model\Point $point, Model\Stream $stream)
+    public function __construct(Model\Settings $settings, Model\Point $point, Model\Stream $stream, Model\Channelpoints $channelpoint, Model\Twitch $twitch)
     {
         $this->settings = $settings;
         $this->point = $point;
         $this->stream = $stream;
+        $this->channelpoint = $channelpoint;
+        $this->twitch = $twitch;
     }
 
     public function action()
@@ -141,6 +147,34 @@ class Event extends PlainBase
                 // チャンネルポイント報酬交換の場合
                 Log::info('>>> CHANNEL POINT REWARD');
                 Log::info(var_export($event, true));
+
+                $userId = $event['user_id'];
+                $userLogin = $event['user_login'];
+                $userName = $event['user_name'];
+                $channel = $event['broadcaster_user_login'];
+
+                $channelpointId = $event['reward']['id'];
+                $reward = $event['reward']['title'];
+                $kujiList = $this->channelpoint->get($channelpointId);
+
+                $kujiBox = [];
+                foreach($kujiList as $kuji) {
+                    $win = [$kuji['message'], $kuji['point']];
+                    $tmp = [];
+                    $tmp = array_pad($tmp, (int)$kuji['permillage'], $win);
+                    $kujiBox = array_merge($kujiBox, $tmp);
+                }
+                shuffle($kujiBox);
+
+                $result = $kujiBox[0];
+                $message = $result[0];
+                $add = (int)$result[1];
+                Log::debug("{$message} > {$add}");
+
+                $systemMessage = empty($userName) ? $userLogin : $userName . "さんが「{$reward}」を交換 > {$message}";
+
+                $this->point->add($userId, $userLogin, $userName, $channel, $add);
+                $this->twitch->sendChat($channel, $systemMessage);
             } elseif($request['subscription']['type'] === 'stream.online') {
                 // 配信開始の場合
                 Log::info('>>> STREAM ONLINE');
