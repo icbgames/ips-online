@@ -55,7 +55,7 @@ class Channelpoint extends RestBase
                 return;
             }
 
-            $this->twitch->deleteEventSub($this->login, Model\Twitch::SUBTYPE_CHANNEL_POINT);
+            $this->twitch->deleteEventSub($login, Model\Twitch::SUBTYPE_CHANNEL_POINT);
             $this->channelpoints->remove($id);
             $this->response = ['result' => 'OK'];
             return;
@@ -120,7 +120,7 @@ class Channelpoint extends RestBase
         }
 
         // remove existing and register new
-        $this->twitch->subscribeEventSub($this->login, Model\Twitch::SUBTYPE_CHANNEL_POINT);
+        $this->twitch->subscribeEventSub($login, Model\Twitch::SUBTYPE_CHANNEL_POINT);
         $this->channelpoints->remove($id);
         $this->channelpoints->register($id, $channel, $data);
 
