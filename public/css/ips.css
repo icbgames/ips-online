@@ -640,7 +640,7 @@ ul.ips__channelpoint-register-list li p {
   border-bottom: 4px solid #3b0947;
 }
 .ips__registered-trigger-delete:hover {
-  margin-top: 10px;
+  margin-top: 8px;
   border-bottom: 2px solid #3b0947;
   cursor: pointer;
 }
