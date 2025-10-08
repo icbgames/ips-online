@@ -154,6 +154,7 @@ class Event extends PlainBase
                 $channel = $event['broadcaster_user_login'];
 
                 $channelpointId = $event['reward']['id'];
+                $reward = $event['reward']['title'];
                 $kujiList = $this->channelpoint->get($channelpointId);
 
                 $kujiBox = [];
@@ -170,8 +171,10 @@ class Event extends PlainBase
                 $add = (int)$result[1];
                 Log::debug("{$message} > {$add}");
 
+                $systemMessage = empty($userName) ? $userLogin : $userName . "さんが「{$reward}」を交換 > {$message}";
+
                 $this->point->add($userId, $userLogin, $userName, $channel, $add);
-                $this->twitch->sendChat($channel, $message);
+                $this->twitch->sendChat($channel, $systemMessage);
             } elseif($request['subscription']['type'] === 'stream.online') {
                 // 配信開始の場合
                 Log::info('>>> STREAM ONLINE');

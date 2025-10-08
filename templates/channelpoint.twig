@@ -12,10 +12,10 @@
   <p>このページを表示するにはログインが必要です。<a href="{{ oauthUrl }}">ログインする</a></p>
 {% else %}
 
-  <h3 class="ips__clear-top">設定済みのトリガー</h3>
+  <h3 class="ips__clear-top">登録済みのトリガー</h3>
   <div class="ips__registered-trigger">
 {% if registered is empty %}
-    設定済みのトリガーはありません
+    登録済みのトリガーはありません
 {% else %}
 {% for id, reg in registered %}
 <details class="ips__accordion">
