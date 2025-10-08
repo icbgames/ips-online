@@ -29,7 +29,7 @@ class Channelpoint extends Base
 
         if($isLoggedIn) {
             $registeredTmp = $this->channelpoint->getList($this->login);
-            $registeredIds = array_column($registeredTmp, 'id');
+            $registeredIds = array_unique(array_column($registeredTmp, 'id'));
 
             $registeredList = [];
             foreach($registeredTmp as $r) {
