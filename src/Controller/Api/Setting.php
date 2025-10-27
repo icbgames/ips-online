@@ -45,6 +45,8 @@ class Setting extends RestBase
             'gift_t1'     => 'required|integer|min:0|max:99999',
             'gift_t2'     => 'required|integer|min:0|max:99999',
             'gift_t3'     => 'required|integer|min:0|max:99999',
+            'raid'        => 'required|integer|min:0|max:99999',
+            'raid_bonus'  => 'required|integer|min:0|max:1000',
         ], [
             'name:max'         => 'ポイント名称は10文字以内で設定してください',
             'unit:max'         => 'ポイントの単位は10文字以内で設定してください',
@@ -65,6 +67,12 @@ class Setting extends RestBase
             'addition_t3:integer' => 'Tier3ボーナスは0～1000の半角数字で設定してください',
             'addition_t3:min'     => 'Tier3ボーナスは0～1000の半角数字で設定してください',
             'addition_t3:max'     => 'Tier3ボーナスは0～1000の半角数字で設定してください',
+            'raid:integer'        => 'Raidポイントは0～99999の半角数字で入力してください',
+            'raid:min'            => 'Raidポイントは0～99999の半角数字で入力してください',
+            'raid:max'            => 'Raidポイントは0～99999の半角数字で入力してください',
+            'raid_bonus:integer'  => 'Raidボーナスは0～99999の半角数字で入力してください',
+            'raid_bonus:min'      => 'Raidボーナスは0～99999の半角数字で入力してください',
+            'raid_bonus:max'      => 'Raidボーナスは0～99999の半角数字で入力してください',
         ]);
 
         $validation->validate();
@@ -91,6 +99,8 @@ class Setting extends RestBase
         $giftT1 = $param['gift_t1'];
         $giftT2 = $param['gift_t2'];
         $giftT3 = $param['gift_t3'];
+        $raid = $param['raid'];
+        $raidBonus = $param['raid_bonus'];
 
         $params = [
             'name' => $name,
@@ -105,9 +115,11 @@ class Setting extends RestBase
             'gift_t1' => $giftT1,
             'gift_t2' => $giftT2,
             'gift_t3' => $giftT3,
+            'raid' => $raid,
+            'raid_bonus' => $raidBonus,
         ];
         $this->settings->update($login, $params);
-        $this->response = [$name, $unit, $command, $period, $addition, $additionT1, $additionT2, $additionT3, $bits100, $giftT1, $giftT2, $giftT3];
+        $this->response = [$name, $unit, $command, $period, $addition, $additionT1, $additionT2, $additionT3, $bits100, $giftT1, $giftT2, $giftT3, $raid, $raidBonus];
         Log::debug(var_export($this->response,true));
     }
 }
