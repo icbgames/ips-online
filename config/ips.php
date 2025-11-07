@@ -33,6 +33,7 @@ return [
             'uzakiaoi',
             'pakichi',
             't_abyss_',
+            'mashiroyukina',
         ],
         // 0 -> ERROR
         // 1 -> ERROR, WARN
