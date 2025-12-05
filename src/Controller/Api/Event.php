@@ -86,7 +86,7 @@ class Event extends PlainBase
                 $viewers = (int)$event['viewers'];
 
                 $setting = $this->settings->get($channel);
-                $add = (int)$setting['raid'] + (int)$setting['raid_bonus'] * $viewers;
+                $add = (int)$setting['raid'] + (int)$setting['raid_bonus'] * floor($viewers / 10);
 
                 Log::info('>>> RAID INFO');
                 Log::info(var_export($event, true));
