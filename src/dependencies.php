@@ -116,6 +116,11 @@ return [
             $c->get('ipsModelAccessToken'),
         );
     }),
+    'www/show' => DI\factory(function(DI\Container $c) {
+        return new Controller\Show(
+            $c->get('ipsModelSettings')
+        );
+    }),
     'www/ignore' => DI\factory(function(DI\Container $c) {
         return new Controller\Ignore(
             $c->get('ipsModelPoint'),
