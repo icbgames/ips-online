@@ -1,0 +1,31 @@
+{% extends "ips_base.twig" %}
+
+{% block head %}{% endblock %}
+
+{% block inner %}
+
+<div class="ips__show">
+  <h2 class="ips__clear-top">チャンネル設定の表示</h2>
+
+  {% if error_message is defined %}
+    <p>{{ error_message }}</p>
+  {% else %}
+    <h3>{{ channel }} の設定</h3>
+    <table class="ips__table">
+      <tr><th>項目</th><th>値</th></tr>
+      <tr><td>チャンネル</td><td>{{ settings.channel }}</td></tr>
+      <tr><td>名称</td><td>{{ settings.name }}</td></tr>
+      <tr><td>単位</td><td>{{ settings.unit }}</td></tr>
+      <tr><td>追加ポイント</td><td>{{ settings.addition }}</td></tr>
+      <tr><td>サブスクブースト(T1)</td><td>{{ settings.addition_t1 }}</td></tr>
+      <tr><td>サブスクブースト(T2)</td><td>{{ settings.addition_t2 }}</td></tr>
+      <tr><td>サブスクブースト(T3)</td><td>{{ settings.addition_t3 }}</td></tr>
+      <tr><td>レイドボーナス</td><td>{{ settings.raid }}</td></tr>
+      <tr><td>レイドボーナス量</td><td>{{ settings.raid_bonus }}</td></tr>
+      <tr><td>設定公開フラグ</td><td>{{ settings.setting_acl }}</td></tr>
+    </table>
+  {% endif %}
+
+</div>
+
+{% endblock %}
