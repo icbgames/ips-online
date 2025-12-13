@@ -94,6 +94,21 @@
         <td>Tier3のサブギフ1個につきこのポイントが加算</td>
       </tr>
     </table>
+
+    <h3></h3>
+    <table class="ips__setting-table">
+    <tr>
+      <th>設定値の公開</th>
+      <td><input type="radio" name="ips-setting-setting-acl" value="1"{% if setting.setting_acl == 1 %} selected{% endif %}> 公開 / <input type="radio" name="ips-setting-setting-acl" value="0"{% if setting.setting_acl == 0 %} selected{% endif %}> 非公開</td>
+      <td>このページで設定している設定情報を第三者向けに公開するかどうかを選択</td>
+    </tr>
+    <tr>
+      <th>ポイントランキングの公開</th>
+      <td><input type="radio" name="ips-setting-ranking-acl" value="1"{% if setting.ranking_acl == 1 %} selected{% endif %}> 公開 / <input type="radio" name="ips-setting-ranking-acl" value="0"{% if setting.ranking_acl == 0 %} selected{% endif %}> 非公開</td>
+      <td>ポイントランキングを第三者向けに公開するかどうかを選択</td>
+    </tr>
+    </table>
+    
     <p class="ips__txt-center">
       <button class="ips__btn-save ips__setting-submit">上記内容で保存</button>
     </p>
