@@ -335,6 +335,10 @@ td.ips__setting-input {
   height: 1.2rem;
 }
 
+.ips__setting-table td input[type="radio"] {
+  width: 1.5rem;
+}
+
 .ips__btn-save {
   color: #ffffff;
   background-color: #228b22;
