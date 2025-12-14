@@ -34,6 +34,7 @@ return [
             'pakichi',
             't_abyss_',
             'mashiroyukina',
+            'miiyuetaro',
         ],
         // 0 -> ERROR
         // 1 -> ERROR, WARN
