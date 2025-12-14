@@ -116,7 +116,7 @@ return [
             $c->get('ipsModelAccessToken'),
         );
     }),
-    'www/show' => DI\factory(function(DI\Container $c) {
+    'www/show/setting' => DI\factory(function(DI\Container $c) {
         return new Controller\Show(
             $c->get('ipsModelSettings')
         );
