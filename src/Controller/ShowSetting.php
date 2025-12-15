@@ -15,7 +15,7 @@ class ShowSetting extends Base
 
     public function action()
     {
-        $this->template = 'show.twig';
+        $this->template = 'show_setting.twig';
         $this->assign('page_name', 'チャンネル設定の表示');
 
         $channel = $this->param('channel');
