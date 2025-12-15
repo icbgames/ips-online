@@ -47,6 +47,8 @@ class Setting extends RestBase
             'gift_t3'     => 'required|integer|min:0|max:99999',
             'raid'        => 'required|integer|min:0|max:99999',
             'raid_bonus'  => 'required|integer|min:0|max:1000',
+            'setting_acl' => 'required|in:0,1',
+            'ranking_acl' => 'required|in:0,1',
         ], [
             'name:max'         => 'ポイント名称は10文字以内で設定してください',
             'unit:max'         => 'ポイントの単位は10文字以内で設定してください',
@@ -73,6 +75,10 @@ class Setting extends RestBase
             'raid_bonus:integer'  => 'Raidボーナスは0～99999の半角数字で入力してください',
             'raid_bonus:min'      => 'Raidボーナスは0～99999の半角数字で入力してください',
             'raid_bonus:max'      => 'Raidボーナスは0～99999の半角数字で入力してください',
+            'setting_acl:required' => '設定の公開設定が選択されていません',
+            'setting_acl:in'       => '設定の公開設定は0または1で指定してください',
+            'ranking_acl:required' => 'ランキングの公開設定が選択されていません',
+            'ranking_acl:in'       => 'ランキングの公開設定は0または1で指定してください',
         ]);
 
         $validation->validate();
@@ -101,6 +107,8 @@ class Setting extends RestBase
         $giftT3 = $param['gift_t3'];
         $raid = $param['raid'];
         $raidBonus = $param['raid_bonus'];
+        $settingAcl = $param['setting_acl'];
+        $rankingAcl = $param['ranking_acl'];
 
         $params = [
             'name' => $name,
@@ -117,9 +125,11 @@ class Setting extends RestBase
             'gift_t3' => $giftT3,
             'raid' => $raid,
             'raid_bonus' => $raidBonus,
+            'setting_acl' => $settingAcl,
+            'ranking_acl' => $rankingAcl,
         ];
         $this->settings->update($login, $params);
-        $this->response = [$name, $unit, $command, $period, $addition, $additionT1, $additionT2, $additionT3, $bits100, $giftT1, $giftT2, $giftT3, $raid, $raidBonus];
+        $this->response = [$name, $unit, $command, $period, $addition, $additionT1, $additionT2, $additionT3, $bits100, $giftT1, $giftT2, $giftT3, $raid, $raidBonus, $settingAcl, $rankingAcl];
         Log::debug(var_export($this->response,true));
     }
 }
