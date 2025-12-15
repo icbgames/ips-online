@@ -5,24 +5,82 @@
 {% block inner %}
 
 <div class="ips__show">
-  <h2 class="ips__clear-top">チャンネル設定の表示</h2>
+  <h2 class="ips__clear-top">{{ channel }}のIPS設定</h2>
 
   {% if error_message is defined %}
     <p>{{ error_message }}</p>
   {% else %}
-    <h3>{{ channel }} の設定</h3>
-    <table class="ips__table">
-      <tr><th>項目</th><th>値</th></tr>
-      <tr><td>チャンネル</td><td>{{ settings.channel }}</td></tr>
-      <tr><td>名称</td><td>{{ settings.name }}</td></tr>
-      <tr><td>単位</td><td>{{ settings.unit }}</td></tr>
-      <tr><td>追加ポイント</td><td>{{ settings.addition }}</td></tr>
-      <tr><td>サブスクブースト(T1)</td><td>{{ settings.addition_t1 }}</td></tr>
-      <tr><td>サブスクブースト(T2)</td><td>{{ settings.addition_t2 }}</td></tr>
-      <tr><td>サブスクブースト(T3)</td><td>{{ settings.addition_t3 }}</td></tr>
-      <tr><td>レイドボーナス</td><td>{{ settings.raid }}</td></tr>
-      <tr><td>レイドボーナス量</td><td>{{ settings.raid_bonus }}</td></tr>
-      <tr><td>設定公開フラグ</td><td>{{ settings.setting_acl }}</td></tr>
+    <table class="ips__table ips__show-setting">
+      <tr>
+        <th>ポイント名称</th>
+        <td>{{ settings.name }}</td>
+        <td></td>
+      </tr>
+      <tr>
+        <th>ポイント単位</th>
+        <td>{{ settings.unit }}</td>
+        <td></td>
+      </tr>
+      <tr>
+        <th>ポイント確認コマンド</th>
+        <td>!{{ settings.command }}</td>
+        <td></td>
+      </tr>
+      <tr>
+        <th>ポイント加算期間</th>
+        <td>{{ settings.period }}分</td>
+        <td></td>
+      </tr>
+      <tr>
+        <th>1分あたりのポイント加算量</th>
+        <td>{{ settings.addition }}</td>
+        <td></td>
+      </tr>
+      <tr>
+        <th>Tier1ボーナス</th>
+        <td>{{ settings.addition_t1 }}</td>
+        <td></td>
+      </tr>
+      <tr>
+        <th>Tier2ボーナス</th>
+        <td>{{ settings.addition_t2 }}</td>
+        <td></td>
+      </tr>
+      <tr>
+        <th>Tier3ボーナス</th>
+        <td>{{ settings.addition_t3 }}</td>
+        <td></td>
+      </tr>
+      <tr>
+        <th>Raidポイント</th>
+        <td>{{ settings.raid }}</td>
+        <td></td>
+      </tr>
+      <tr>
+        <th>Raiderボーナス</th>
+        <td>{{ settings.raid_bonus }}</td>
+        <td></td>
+      </tr>
+      <tr>
+        <th>Bitsポイント</th>
+        <td>{{ settings.bits100 }}</td>
+        <td></td>
+      </tr>
+      <tr>
+        <th>Tier1サブギフポイント</th>
+        <td>{{ settings.gift_t1 }}</td>
+        <td></td>
+      </tr>
+      <tr>
+        <th>Tier2サブギフポイント</th>
+        <td>{{ settings.gift_t2 }}</td>
+        <td></td>
+      </tr>
+      <tr>
+        <th>Tier3サブギフポイント</th>
+        <td>{{ settings.gift_t3 }}</td>
+        <td></td>
+      </tr>
     </table>
   {% endif %}
 
