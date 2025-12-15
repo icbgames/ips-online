@@ -117,7 +117,7 @@ return [
         );
     }),
     'www/show/setting' => DI\factory(function(DI\Container $c) {
-        return new Controller\Show(
+        return new Controller\ShowSetting(
             $c->get('ipsModelSettings')
         );
     }),

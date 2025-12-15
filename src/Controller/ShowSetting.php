@@ -4,7 +4,7 @@ namespace IPS\Controller;
 
 use IPS\Model as Model;
 
-class Show extends Base
+class ShowSetting extends Base
 {
     private $settings;
 
