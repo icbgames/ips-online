@@ -21,6 +21,10 @@ window.IPS = window.IPS || {};
     var gift_t1     = q('input[name=ips-setting-gift_t1]').value;
     var gift_t2     = q('input[name=ips-setting-gift_t2]').value;
     var gift_t3     = q('input[name=ips-setting-gift_t3]').value;
+    var setting_acl_input = document.querySelector('input[name="ips-setting-setting-acl"]:checked');
+    var setting_acl = setting_acl_input ? parseInt(setting_acl_input.value, 10) : 0;
+    var ranking_acl_input = document.querySelector('input[name="ips-setting-ranking-acl"]:checked');
+    var ranking_acl = ranking_acl_input ? parseInt(ranking_acl_input.value, 10) : 0;
 
     var values = {
       name: name,
@@ -37,6 +41,8 @@ window.IPS = window.IPS || {};
       gift_t1: gift_t1,
       gift_t2: gift_t2,
       gift_t3: gift_t3
+      , setting_acl: setting_acl
+      , ranking_acl: ranking_acl
     };
     return values;
   };
