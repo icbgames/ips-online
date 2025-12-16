@@ -13,18 +13,18 @@
     <table class="ips__table ips__show-setting">
       <tr>
         <th>ポイント名称</th>
-        <td>{{ settings.name }}</td>
+        <td class="ips__txt-center">{{ settings.name }}</td>
         <td class="ips__txt-small">{{ channel }} で貯まるポイントの名称</td>
       </tr>
       <tr>
         <th>ポイント確認コマンド</th>
-        <td>!{{ settings.command }}</td>
+        <td class="ips__txt-center">!{{ settings.command }}</td>
         <td class="ips__txt-small">チャット欄でこのコマンドを入力すると、現在所有しているポイントが確認できます。</td>
       </tr>
       <tr>
         <th>ポイント加算期間</th>
         <td class="ips__txt-right">{{ settings.period }}分</td>
-        <td class="ips__txt-small">最後にチャットしてからこの時間の間、ポイントが加算されます。</td>
+        <td class="ips__txt-small">最後にチャットしてからこの時間が経過するまでの間、ポイントが加算されます。</td>
       </tr>
       <tr>
         <th>1分あたりのポイント加算量</th>
@@ -77,6 +77,8 @@
         <td class="ips__txt-small">送ったTier3サブスクギフト1個につきこのポイントが加算されます。</td>
       </tr>
     </table>
+
+    <img src="/img/ips_introduction_3.jpg" width="480" height="270">
   {% endif %}
 
 </div>

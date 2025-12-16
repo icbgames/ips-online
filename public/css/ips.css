@@ -684,11 +684,11 @@ ul.ips__channelpoint-register-list li p {
 }
 
 .ips__txt-center {
-  text-align: center;
+  text-align: center !important;
 }
 
 .ips__txt-right {
-  text-align: right;
+  text-align: right !important;
 }
 
 .ips__txt-small {
