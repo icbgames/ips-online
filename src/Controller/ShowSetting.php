@@ -16,13 +16,15 @@ class ShowSetting extends Base
     public function action()
     {
         $this->template = 'show_setting.twig';
-        $this->assign('page_name', 'チャンネル設定の表示');
+        $this->assign('page_name', 'IPS Online Setting');
 
         $channel = $this->param('channel');
         if(empty($channel)) {
             $this->assign('error_message', '指定したチャンネルは存在しません');
             return;
         }
+
+        $this->assign('channel', $channel);
 
         $cfg = $this->settings->get($channel);
         if(empty($cfg)) {
@@ -33,11 +35,10 @@ class ShowSetting extends Base
         // check ACL: 0 = private, 1 = public
         $acl = isset($cfg['setting_acl']) ? (int)$cfg['setting_acl'] : 0;
         if($acl !== 1) {
-            $this->assign('error_message', '指定したチャンネルの設定は非公開です');
+            $this->assign('error_message', "{$channel}の設定は非公開です");
             return;
         }
 
-        $this->assign('channel', $channel);
         $this->assign('settings', $cfg);
     }
 }
