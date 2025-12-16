@@ -656,6 +656,28 @@ ul.ips__channelpoint-register-list li p {
   margin: 3rem 0 1rem;
 }
 
+
+.ips__table.ips__show-setting {
+  margin: 10px auto 20px;
+  border-collapse: collapse;
+  border: black 1px solid;
+  font-size: calc(var(--font-size) * 1);
+}
+
+.ips__table.ips__show-setting tr {
+}
+
+.ips__table.ips__show-setting th, .ips__table.ips__show-setting td {
+  padding: 4px 6px;
+  border: black 1px solid;
+}
+
+.ips__table.ips__show-setting th {
+  background-color: #ccccff;
+  text-align: center;
+}
+
+
 .ips__size-5em {
   width: 5em;
 }
