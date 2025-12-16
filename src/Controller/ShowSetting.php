@@ -17,6 +17,8 @@ class ShowSetting extends Base
     {
         $this->template = 'show_setting.twig';
         $this->assign('page_name', 'IPS Online Setting');
+        $isLoggedIn = $this->isLoggedIn();
+        $this->assign('loggedin', $isLoggedIn);
 
         $channel = $this->param('channel');
         if(empty($channel)) {
@@ -40,5 +42,34 @@ class ShowSetting extends Base
         }
 
         $this->assign('settings', $cfg);
+    }
+
+    /**
+     * ログイン状態かどうかを返す
+     *
+     * @return bool
+     */
+    private function isLoggedIn()
+    {
+        $this->assign('login', 'ゲスト');
+        if(!isset($_COOKIE['IPS'])) {
+            return false;
+        }
+        $cookie = $_COOKIE['IPS'];
+        $result = Login::verify($cookie);
+
+        if($result) {
+            $login = $this->getLogin();
+            $this->assign('login', $login);
+        }
+
+        return $result;
+    }
+
+    private function getLogin()
+    {
+        $cookie = $_COOKIE['IPS'];
+        $login = Login::get($cookie);
+        return $login;
     }
 }
