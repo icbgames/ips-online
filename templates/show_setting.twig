@@ -14,67 +14,67 @@
       <tr>
         <th>ポイント名称</th>
         <td>{{ settings.name }}</td>
-        <td>{{ channel }} で貯まるポイントの名称</td>
+        <td class="ips__txt-small">{{ channel }} で貯まるポイントの名称</td>
       </tr>
       <tr>
         <th>ポイント確認コマンド</th>
         <td>!{{ settings.command }}</td>
-        <td>チャット欄でこのコマンドを入力すると、現在所有しているポイントが確認できます。</td>
+        <td class="ips__txt-small">チャット欄でこのコマンドを入力すると、現在所有しているポイントが確認できます。</td>
       </tr>
       <tr>
         <th>ポイント加算期間</th>
         <td class="ips__txt-right">{{ settings.period }}分</td>
-        <td>最後にチャットしてからこの時間の間、ポイントが加算されます。</td>
+        <td class="ips__txt-small">最後にチャットしてからこの時間の間、ポイントが加算されます。</td>
       </tr>
       <tr>
         <th>1分あたりのポイント加算量</th>
         <td class="ips__txt-right">{{ settings.addition }} {{ settings.unit }}</td>
-        <td>チャットをすると一定時間、1分ごとにこのポイントが加算されていきます。</td>
+        <td class="ips__txt-small">チャットをすると一定時間、1分ごとにこのポイントが加算されていきます。</td>
       </tr>
       <tr>
         <th>Tier1ボーナス</th>
-        <td class="ips__txt-right">>{{ settings.addition_t1 }} {{ settings.unit }}</td>
-        <td>Tier1サブスクしていると、1分ごとの加算ポイントにこのボーナスが上乗せされます。</td>
+        <td class="ips__txt-right">{{ settings.addition_t1 }} {{ settings.unit }}</td>
+        <td class="ips__txt-small">Tier1サブスクしていると、1分ごとの加算ポイントにこのボーナスが上乗せされます。</td>
       </tr>
       <tr>
         <th>Tier2ボーナス</th>
         <td class="ips__txt-right">{{ settings.addition_t2 }} {{ settings.unit }}</td>
-        <td>Tier2サブスクしていると、1分ごとの加算ポイントにこのボーナスが上乗せされます。</td>
+        <td class="ips__txt-small">Tier2サブスクしていると、1分ごとの加算ポイントにこのボーナスが上乗せされます。</td>
       </tr>
       <tr>
         <th>Tier3ボーナス</th>
         <td class="ips__txt-right">{{ settings.addition_t3 }} {{ settings.unit }}</td>
-        <td>Tier3サブスクしていると、1分ごとの加算ポイントにこのボーナスが上乗せされます。</td>
+        <td class="ips__txt-small">Tier3サブスクしていると、1分ごとの加算ポイントにこのボーナスが上乗せされます。</td>
       </tr>
       <tr>
         <th>Raidポイント</th>
         <td class="ips__txt-right">{{ settings.raid }} {{ settings.unit }}</td>
-        <td>レイドしてくれた方にはこのポイントが加算されます。</td>
+        <td class="ips__txt-small">レイドしてくれた方にはこのポイントが加算されます。</td>
       </tr>
       <tr>
         <th>Raiderボーナス</th>
         <td class="ips__txt-right">{{ settings.raid_bonus }} {{ settings.unit }}</td>
-        <td>レイドに乗ってきた人数10人ごとにこのポイントが加算されます。</td>
+        <td class="ips__txt-small">レイドに乗ってきた人数10人ごとにこのポイントが加算されます。</td>
       </tr>
       <tr>
         <th>Bitsポイント</th>
         <td class="ips__txt-right">{{ settings.bits100 }} {{ settings.unit }}</td>
-        <td>Cheer 100bitsごとにこのポイントが加算されます。</td>
+        <td class="ips__txt-small">Cheer 100bitsごとにこのポイントが加算されます。</td>
       </tr>
       <tr>
         <th>Tier1サブギフポイント</th>
         <td class="ips__txt-right">{{ settings.gift_t1 }} {{ settings.unit }}</td>
-        <td>送ったTier1サブスクギフト1個につきこのポイントが加算されます。</td>
+        <td class="ips__txt-small">送ったTier1サブスクギフト1個につきこのポイントが加算されます。</td>
       </tr>
       <tr>
         <th>Tier2サブギフポイント</th>
         <td class="ips__txt-right">{{ settings.gift_t2 }} {{ settings.unit }}</td>
-        <td>送ったTier2サブスクギフト1個につきこのポイントが加算されます。</td>
+        <td class="ips__txt-small">送ったTier2サブスクギフト1個につきこのポイントが加算されます。</td>
       </tr>
       <tr>
         <th>Tier3サブギフポイント</th>
         <td class="ips__txt-right">{{ settings.gift_t3 }} {{ settings.unit }}</td>
-        <td>送ったTier3サブスクギフト1個につきこのポイントが加算されます。</td>
+        <td class="ips__txt-small">送ったTier3サブスクギフト1個につきこのポイントが加算されます。</td>
       </tr>
     </table>
   {% endif %}

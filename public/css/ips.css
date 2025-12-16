@@ -190,14 +190,6 @@ p {
   font-size: 1.2rem;
 }
 
-.ips__txt-center {
-  text-align: center;
-}
-
-.ips__txt-right {
-  text-align: right;
-}
-
 .ips__error {
   border: red 2px solid;
   margin: 2px 1rem 10px;
@@ -691,6 +683,14 @@ ul.ips__channelpoint-register-list li p {
   width: 30em;
 }
 
+.ips__txt-center {
+  text-align: center;
+}
 
+.ips__txt-right {
+  text-align: right;
+}
 
-
+.ips__txt-small {
+  font-size: calc(var(--font-size) * 0.8);
+}
