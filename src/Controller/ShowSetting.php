@@ -3,6 +3,8 @@
 namespace IPS\Controller;
 
 use IPS\Model as Model;
+use IPS\Model\Log as Log;
+use IPS\Model\Login as Login;
 
 class ShowSetting extends Base
 {
