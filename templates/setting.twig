@@ -100,7 +100,7 @@
     <tr>
       <th>設定値の公開</th>
       <td><input type="radio" name="ips-setting-setting-acl" value="1"{% if setting.setting_acl == 1 %} checked{% endif %}> 公開 / <input type="radio" name="ips-setting-setting-acl" value="0"{% if setting.setting_acl == 0 %} checked{% endif %}> 非公開</td>
-      <td>このページで設定している設定情報を<br>第三者向けに公開するかどうか選択</td>
+      <td>このページで設定している設定情報を<br>第三者向けに公開するかどうか選択<br>公開にした場合、<a href="/show/setting?channel={{ channel }}" target="_blank" rel="noopener noreferrer">こちら</a>で閲覧可能</td>
     </tr>
     <tr>
       <th>ポイントランキングの公開</th>
