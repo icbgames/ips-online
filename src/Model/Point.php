@@ -162,7 +162,7 @@ class Point
                . "  ( "
                . "    select "
                . "      user_id, login, disp_name, channel, points, "
-               . "      RANK() OVER (order by points desc, login asc) as rank "
+               . "      RANK() OVER (order by points desc) as rank "
                . "    from "
                . "      IPS_POINTS "
                . "    where "
@@ -209,12 +209,14 @@ class Point
                . "  ( "
                . "    select "
                . "      user_id, login, disp_name, channel, points, "
-               . "      RANK() OVER (order by points desc, login asc) as rank "
+               . "      RANK() OVER (order by points desc) as rank "
                . "    from "
                . "      IPS_POINTS "
                . "    where "
                . "      channel = :channel "
-               . "  ) ";
+               . "  ) "
+               . "order by "
+               . "  points desc, login asc ";
         
         $params = [
             ':channel' => $channel,
