@@ -89,12 +89,12 @@ class Channelpoint extends RestBase
             return;
         }
 
-        // 登録済みトリガーが既に3つ以上ある場合はエラー
+        // 登録済みトリガーが既に上限個数以上ある場合はエラー
         $registeredTmp = $this->channelpoints->getList($channel);
         $registeredIds = array_unique(array_column($registeredTmp, 'id'));
-        if(count($registeredIds) >= 3) {
+        if(count($registeredIds) >= ChannelPoints::REGISTER_CAPACITY) {
             $this->status = 400;
-            $this->response = ['message' => '登録できるトリガーは1チャンネルにつき3つまでです'];
+            $this->response = ['message' => '登録できるトリガーは1チャンネルにつき' . ChannelPoints::REGISTER_CAPACITY . 'つまでです'];
             return;
         }
 

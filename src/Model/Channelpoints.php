@@ -7,6 +7,9 @@ namespace IPS\Model;
  */
 class Channelpoints
 {
+    // 登録可能な個数上限
+    const REGISTER_CAPACITY = 5;
+
     /**
      * 対象となるチャンネルポイントIDの情報を返す
      *
