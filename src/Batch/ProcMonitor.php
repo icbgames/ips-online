@@ -35,10 +35,10 @@ class ProcMonitor
             $result = shell_exec($command);
             $result = trim($result);
 
-            if($result == 1) {
+            if($result < 2) {
                 // プロセスが落ちている
                 $message = "プロセスが停止しています: {$channel}\n";
-            } elseif($result == 2) {
+            } elseif($result == 3) {
                 // プロセスが正常に起動している
                 $message = "{$channel}: status OK\n";
             } else {
