@@ -29,25 +29,29 @@ class ProcMonitor
         // 監視対象のチャンネル
         $channels = Config::get('ips', 'channels');
 
+        $message = "----------\n";
+
         // プロセスの確認
         foreach($channels as $channel) {
+
             $command = "ps ax | grep -c \"script/chat.php {$channel}\"";
             $result = shell_exec($command);
             $result = trim($result);
 
             if($result < 2) {
                 // プロセスが落ちている
-                $message = "プロセスが停止しています: {$channel}\n";
+                $message .= "プロセスが停止しています: {$channel}\n";
             } elseif($result == 3) {
                 // プロセスが正常に起動している
-                $message = "{$channel}: status OK\n";
+                $message .= "{$channel}: status OK\n";
             } else {
                 // プロセスの多重起動等の不正
-                $message = "プロセスに異常があります: {$channel}\n";
+                $message .= "プロセスに異常があります: {$channel}\n";
             }
-
-            $this->discord->post($message);
         }
+
+        $message = "----------\n";
+        $this->discord->post($message);
 
     }
 }
