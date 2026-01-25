@@ -23,6 +23,11 @@ return [
             $c->get('ipsModelDiscord'),
         );
     }),
+    'ipsBatchProcMonitor' => DI\factory(function(DI\Container $c) {
+        return new Batch\ProcMonitor(
+            $c->get('ipsModelDiscord'),
+        );
+    }),
     'ipsBatchPointChecker' => DI\factory(function(DI\Container $c) {
         return new Batch\PointChecker(
             $c->get('ipsModelPoint'),
