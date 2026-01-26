@@ -29,6 +29,9 @@ class ProcMonitor
         // 監視対象のチャンネル
         $channels = Config::get('ips', 'channels');
 
+        // プロセス再起動コマンド
+        $startCommand = Config::get('command', 'chat_monitor');
+
         $message = "----------\n";
 
         // プロセスの確認
@@ -38,9 +41,12 @@ class ProcMonitor
             $result = shell_exec($command);
             $result = trim($result);
 
+            $channel = str_replace('_', '\\_', $channel);
+
             if($result < 2) {
                 // プロセスが落ちている
                 $message .= "プロセスが停止しています: {$channel}\n";
+                shell_exec("nohup {$startCommand} {$channel} &");
             } elseif($result == 3) {
                 // プロセスが正常に起動している
                 $message .= "{$channel}: status OK\n";
