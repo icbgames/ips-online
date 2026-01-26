@@ -50,7 +50,7 @@ class ProcMonitor
             }
         }
 
-        $message = "----------\n";
+        $message .= "----------\n";
         $this->discord->post($message);
 
     }
