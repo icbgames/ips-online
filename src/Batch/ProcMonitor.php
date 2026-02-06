@@ -7,7 +7,7 @@ use IPS\Model\Config as Config;
 use IPS\Model\Log as Log;
 
 /**
- * ログのアラート監視
+ * プロセス監視
  * 
  */
 class ProcMonitor
@@ -41,18 +41,28 @@ class ProcMonitor
             $result = shell_exec($command);
             $result = trim($result);
 
-            $channel = str_replace('_', '\\_', $channel);
+            $channelEscaped = str_replace('_', '\\_', $channel);
 
             if($result < 2) {
                 // プロセスが落ちている
-                $message .= "プロセスが停止しています: {$channel}\n";
+                $message .= "{$channelEscaped}: プロセスが停止しています。再起動します。\n";
                 shell_exec("nohup {$startCommand} {$channel} &");
             } elseif($result == 3) {
                 // プロセスが正常に起動している
-                $message .= "{$channel}: status OK\n";
+                $message .= "{$channelEscaped}: status OK\n";
             } else {
                 // プロセスの多重起動等の不正
-                $message .= "プロセスに異常があります: {$channel}\n";
+                Log::info("irregular proccess: {$result}");
+
+                // 10秒後に再チェック
+                sleep(10);
+                $result = shell_exec($command);
+                $result = trim($result);
+                if($result == 3) {
+                    $message .= "{$channelEscaped}: status OK (10 sec retry)\n";
+                } else {
+                    $message .= "{$channelEscaped}: プロセスに異常があります -> {$result}\n";
+                }
             }
         }
 
