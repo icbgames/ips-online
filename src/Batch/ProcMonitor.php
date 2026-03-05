@@ -43,7 +43,7 @@ class ProcMonitor
 
             $channelEscaped = str_replace('_', '\\_', $channel);
 
-            if($result < 2) {
+            if($result < 3) {
                 // プロセスが落ちている
                 $message .= "{$channelEscaped}: プロセスが停止しています。再起動します。\n";
                 shell_exec("nohup {$startCommand} {$channel} &");
