@@ -35,6 +35,7 @@ return [
             't_abyss_',
             'mashiroyukina',
             'miiyuetaro',
+            'mumem536',
         ],
         // 0 -> ERROR
         // 1 -> ERROR, WARN
