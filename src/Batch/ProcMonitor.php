@@ -45,9 +45,18 @@ class ProcMonitor
 
             if($result < 3) {
                 // プロセスが落ちている
-                $message .= "{$channelEscaped}: プロセスが停止しています。再起動します。\n";
-		$nohupCommand = "/usr/bin/nohup {$startCommand} {$channel} > /dev/null &";
-                shell_exec($nohupCommand);
+                $message .= "{$channelEscaped}: プロセスが停止している可能性があります。10秒後に再チェックします。\n";
+
+                // 10秒後に再チェック
+                sleep(10);
+                $result = shell_exec($command);
+                $result = trim($result);
+
+                if($result < 3) {
+                    $message .= "{$channelEscaped}: プロセスが停止しています。再起動します。\n";
+                    $nohupCommand = "/usr/bin/nohup {$startCommand} {$channel} > /dev/null &";
+                    shell_exec($nohupCommand);
+                }
             } elseif($result == 3) {
                 // プロセスが正常に起動している
                 $message .= "{$channelEscaped}: status OK\n";
